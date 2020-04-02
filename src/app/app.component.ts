@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {AgGridEvent, ColumnApi, GridOptions} from 'ag-grid-community';
 import {ColDef, ColGroupDef} from 'ag-grid-community/dist/lib/entities/colDef';
 import {NumericCellEditor} from './editors/numeric-cell-editor';
+import {MatRadioChange} from '@angular/material/radio';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,8 @@ export class AppComponent {
   defaultColumnDef: ColDef;
   components: any;
   rowData: any = [];
+  isGridEditable = true;
+
 
   constructor(private httpClient: HttpClient) {
 
@@ -34,17 +37,17 @@ export class AppComponent {
       width: 90,
       minWidth: 90,
       resizable: true,
-      editable: true,
+      editable: (params) => this.isGridEditable,
       filter: 'agTextColumnFilter',
       cellEditorSelector: (params) => {
         if (params.colDef.type === 'numberColumn') {
-          return { component: 'numericCellEditor' };
+          return {component: 'numericCellEditor'};
         }
 
         if (params.colDef.type === 'gender') {
           return {
             component: 'agRichSelect',
-            params: { values: ['Male', 'Female'] }
+            params: {values: ['Male', 'Female']}
           };
         }
 
@@ -124,5 +127,13 @@ export class AppComponent {
     this.httpClient.get('https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json')
       .subscribe((data) => this.rowData = data);
 
+  }
+
+  changeEditableProperty(event: MatRadioChange) {
+    if (event.value === '1') {
+      this.isGridEditable = true;
+    } else {
+      this.isGridEditable = false;
+    }
   }
 }

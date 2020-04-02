@@ -1,13 +1,22 @@
 Ebit AG-Grid project
+<div class="row ebit-grid__button-container">
+  <mat-radio-group (change)="changeEditableProperty($event)" aria-label="Select an option">
+    <mat-radio-button value="1" checked>Tabella Editabile</mat-radio-button>
+    <mat-radio-button value="2">Tabella NON Editabile</mat-radio-button>
+  </mat-radio-group>
+
+</div>
 <div class="ebit-grid__container">
 
-  <ag-grid-angular
-    class="ag-theme-alpine ebit-grid"
-    [gridOptions]="gridOptions"
-    [defaultColDef]="defaultColumnDef"
-    [columnDefs]="columnDefs"
-    [rowData]="rowData"
-    [components]="components"
-    (gridReady)="onGridReady($event)">
-  </ag-grid-angular>
+  <div class="row">
+    <ag-grid-angular
+      class="ag-theme-alpine ebit-grid"
+      [gridOptions]="gridOptions"
+      [defaultColDef]="defaultColumnDef"
+      [columnDefs]="columnDefs"
+      [rowData]="rowData"
+      [components]="components"
+      (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+  </div>
 </div>

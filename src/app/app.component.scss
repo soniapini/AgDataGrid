@@ -1,13 +1,30 @@
 .ebit-grid__container {
+  display: flex; /* or inline-flex */
+  flex-flow: row wrap;
   height: 100%;
   box-sizing: border-box;
+  justify-content: space-around;
 }
 
 .ebit-grid {
+
   height: 100%;
-  //width: 100%;
+  width: 100%;
 }
 
 .medal--background {
   background: cadetblue;
+}
+
+.ebit-grid__button-container {
+  height: 40px;
+  margin: auto;
+  padding: 10px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
 }
