@@ -1,9 +1,12 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {AgGridModule} from 'ag-grid-angular';
 import {HttpClientModule} from '@angular/common/http';
+import {MatRadioModule} from '@angular/material/radio';
+import {FormsModule} from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -12,9 +15,13 @@ import {HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AgGridModule.withComponents([])
+    FormsModule,
+    MatRadioModule,
+    AgGridModule.withComponents([]),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
