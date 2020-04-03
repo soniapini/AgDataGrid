@@ -32,16 +32,19 @@ export class NumericCellEditor implements ICellEditorComp {
   }
 
   afterGuiAttached(params?: IAfterGuiAttachedParams): void {
-    this.eInput.focus();
+    // lasciando il focus nell'editor di intera riga si posiziona il focus sulla cella con editor custom
+     this.eInput.focus();
   }
 
   destroy(): void {
   }
 
   focusIn(): void {
+
   }
 
   focusOut(): void {
+
   }
 
   getFrameworkComponentInstance(): any {

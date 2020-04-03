@@ -23,6 +23,8 @@ export class AppComponent {
   rowData: any = [];
   isGridEditable = true;
 
+  editType: string;
+  isCellEditorEnabled = true;
 
   constructor(private httpClient: HttpClient) {
 
@@ -32,6 +34,8 @@ export class AppComponent {
       paginationAutoPageSize: true,
       rowHeight: 40,
     };
+
+    this.editType = null;
 
     this.defaultColumnDef = {
       width: 90,
@@ -60,7 +64,8 @@ export class AppComponent {
         headerName: 'Athlete',
         field: 'athlete',
         width: 150,
-        pinned: 'left'
+        pinned: 'left',
+        editable: false,
       },
       {
         headerName: 'Sport',
@@ -71,11 +76,6 @@ export class AppComponent {
         headerName: 'Age',
         field: 'age',
         type: 'numberColumn'
-      },
-      {
-        headerName: 'Gender',
-        field: 'gender',
-        type: 'gender'
       },
       {
         headerName: 'Year',
@@ -132,8 +132,26 @@ export class AppComponent {
   changeEditableProperty(event: MatRadioChange) {
     if (event.value === '1') {
       this.isGridEditable = true;
+      this.isCellEditorEnabled = true;
     } else {
       this.isGridEditable = false;
     }
+  }
+
+  onBtStartEditing() {
+    this.gridApi.setFocusedCell(2, 'athlete');
+    this.gridApi.startEditingCell({
+      rowIndex: 2,
+      colKey: 'athlete',
+    });
+  }
+
+  onBtStopEditing() {
+    this.gridApi.stopEditing();
+  }
+
+  onBtnAbilitaFullRowEditor() {
+    this.editType = 'fullRow';
+    this.isCellEditorEnabled = false;
   }
 }

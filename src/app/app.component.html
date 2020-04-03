@@ -1,11 +1,32 @@
 Ebit AG-Grid project
+
+<!--Selezione editabile o no-->
 <div class="row ebit-grid__button-container">
   <mat-radio-group (change)="changeEditableProperty($event)" aria-label="Select an option">
-    <mat-radio-button value="1" checked>Tabella Editabile</mat-radio-button>
-    <mat-radio-button value="2">Tabella NON Editabile</mat-radio-button>
+    <mat-radio-button style="font-size: 12px; margin-right:20px" value="1" checked>Tabella Editabile</mat-radio-button>
+    <mat-radio-button style="font-size: 12px" value="2">Tabella NON Editabile</mat-radio-button>
   </mat-radio-group>
-
 </div>
+
+<ng-container *ngIf="isGridEditable">
+  <div style="margin-bottom: 5px;" *ngIf=" isCellEditorEnabled else fullRow">
+    <span style="font-size: 12px; margin-right:20px">Singole celle editabili</span>
+    <button style="font-size: 12px; margin-right:20px" (click)="onBtnAbilitaFullRowEditor()">
+      Abilita Editor: FullRow
+    </button>
+  </div>
+
+  <div style="margin-bottom: 5px;" *ngIf="!isCellEditorEnabled">
+    <button style="font-size: 12px; margin-right:20px" (click)="onBtStartEditing()">
+      Start Editing Line 2
+    </button>
+    <button style="font-size: 12px" (click)="onBtStopEditing()">
+      Stop Editing
+    </button>
+  </div>
+</ng-container>
+
+<!--Grid-->
 <div class="ebit-grid__container">
 
   <div class="row">
@@ -15,8 +36,18 @@ Ebit AG-Grid project
       [defaultColDef]="defaultColumnDef"
       [columnDefs]="columnDefs"
       [rowData]="rowData"
+      [editType]="editType"
       [components]="components"
       (gridReady)="onGridReady($event)">
     </ag-grid-angular>
   </div>
 </div>
+
+
+<ng-template #fullRow>
+  <span style="font-size: 12px; margin-right:20px">Righe intere editabili</span>
+  <button style="font-size: 12px" (click)="onBtStopEditing()">
+    Abilita Editor: Cell
+  </button>
+
+</ng-template>

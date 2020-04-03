@@ -7,10 +7,12 @@ import {HttpClientModule} from '@angular/common/http';
 import {MatRadioModule} from '@angular/material/radio';
 import {FormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NumericCellEditorComponent } from './components/numeric-cell-editor/numeric-cell-editor.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NumericCellEditorComponent
   ],
   imports: [
     BrowserModule,
