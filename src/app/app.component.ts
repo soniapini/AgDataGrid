@@ -4,6 +4,8 @@ import {AgGridEvent, ColumnApi, GridOptions} from 'ag-grid-community';
 import {ColDef, ColGroupDef} from 'ag-grid-community/dist/lib/entities/colDef';
 import {NumericCellEditor} from './editors/numeric-cell-editor';
 import {MatRadioChange} from '@angular/material/radio';
+import {NumericCellEditorComponent} from './components/numeric-cell-editor/numeric-cell-editor.component';
+import {MatInputModule} from '@angular/material/input';
 
 @Component({
   selector: 'app-root',
@@ -19,14 +21,26 @@ export class AppComponent {
   gridOptions: GridOptions;
   columnDefs: Array<(ColDef | ColGroupDef)>;
   defaultColumnDef: ColDef;
-  components: any;
-  rowData: any = [];
-  isGridEditable = true;
 
+  components: any;
+  frameworkComponents: any;
+
+  rowData: any = [];
+
+  isGridEditable = true;
   editType: string;
   isCellEditorEnabled = true;
 
   constructor(private httpClient: HttpClient) {
+
+    this.components = {
+      numericCellEditor: NumericCellEditor
+    };
+
+    this.frameworkComponents = {
+      numericCellEditor: NumericCellEditorComponent,
+      inputCellEditor: MatInputModule
+    };
 
     this.gridOptions = {
       headerHeight: 20,
@@ -43,20 +57,20 @@ export class AppComponent {
       resizable: true,
       editable: (params) => this.isGridEditable,
       filter: 'agTextColumnFilter',
-      cellEditorSelector: (params) => {
-        if (params.colDef.type === 'numberColumn') {
-          return {component: 'numericCellEditor'};
-        }
 
-        if (params.colDef.type === 'gender') {
-          return {
-            component: 'agRichSelect',
-            params: {values: ['Male', 'Female']}
-          };
-        }
-
-        return null;
-      }
+      // cellEditorSelector: (params) => {
+      //   // if (params.colDef.type === 'numberColumn') {
+      //   //   return { component: this.frameworkComponents.numericCellEditor};
+      //   // }
+      //
+      //   if (params.colDef.type === 'gender') {
+      //     return {
+      //       component: 'agRichSelect',
+      //       params: {values: ['Male', 'Female']}
+      //     };
+      //   }
+      //   return null;
+      // }
     };
 
     this.columnDefs = [
@@ -75,12 +89,14 @@ export class AppComponent {
       {
         headerName: 'Age',
         field: 'age',
-        type: 'numberColumn'
+        type: 'numberColumn',
+        cellEditorFramework: this.frameworkComponents.numericCellEditor
       },
       {
         headerName: 'Year',
         field: 'year',
         type: 'numberColumn',
+        cellEditorFramework: this.frameworkComponents.numericCellEditor,
         width: 100
       },
       {
@@ -114,9 +130,7 @@ export class AppComponent {
       },
     ];
 
-    this.components = {
-      numericCellEditor: NumericCellEditor
-    };
+
   }
 
   onGridReady(params: AgGridEvent) {
