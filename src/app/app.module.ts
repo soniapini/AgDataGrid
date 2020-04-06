@@ -8,18 +8,25 @@ import {MatRadioModule} from '@angular/material/radio';
 import {FormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NumericCellEditorComponent } from './components/numeric-cell-editor/numeric-cell-editor.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
     AppComponent,
     NumericCellEditorComponent
   ],
+  exports: [
+    NumericCellEditorComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    MatCardModule,
     MatRadioModule,
-    AgGridModule.withComponents([]),
+    MatInputModule,
+    AgGridModule.withComponents([NumericCellEditorComponent]),
     BrowserAnimationsModule
   ],
   providers: [],
