@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, Input, OnInit, ViewChild, ViewContainerRef, ViewEncapsulation} from '@angular/core';
 import {AgEditorComponent, ICellEditorAngularComp} from 'ag-grid-angular';
 import {IAfterGuiAttachedParams, ICellEditorParams} from 'ag-grid-community';
 import {MatInput} from '@angular/material/input';
@@ -6,15 +6,18 @@ import {MatInput} from '@angular/material/input';
 @Component({
   selector: 'app-numeric-cell-editor',
   templateUrl: './numeric-cell-editor.component.html',
-  styleUrls: ['./numeric-cell-editor.component.scss']
+  styleUrls: ['./numeric-cell-editor.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class NumericCellEditorComponent implements ICellEditorAngularComp {
+
+  public maxLength: number; // i parametri di input si recuperano in agInit da params es, params['maxLength']
 
   value: number;
   params: ICellEditorParams;
   cellWidth: string;
 
-  @ViewChild('container', {read: ViewContainerRef}) public container;
+  // @ViewChild('container', {read: ViewContainerRef}) public container;
   @ViewChild('numericInput', {read: ViewContainerRef}) numericInput;
 
   constructor() {
@@ -30,6 +33,8 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
   agInit(params: ICellEditorParams): void {
     this.params = params;
     this.value = params.value;
+
+    this.maxLength = this.params['maxLength'];
 
     this.cellWidth = params.column.getActualWidth() + 'px';
   }
@@ -65,8 +70,8 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
 
   isPopup(): boolean {
     // è possibile campire se siamo in edit di tutta la riga per non fare aprire il popup
-    // TODO occorre gestire 2 template differenti uno per popup e no
-    // TODO Chiedere se è una cosa che Ebit ritiene utile
+    // TODO occorre gestire 2 template differenti uno per popup e no.
+    // TODO Chiedere se è una cosa che Ebit ritiene utile.
     return (this.params.api.getEditingCells().length) === 1 ? true : false;
   }
 

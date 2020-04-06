@@ -38,8 +38,7 @@ export class AppComponent {
     };
 
     this.frameworkComponents = {
-      numericCellEditor: NumericCellEditorComponent,
-      inputCellEditor: MatInputModule
+      numericCellEditor: NumericCellEditorComponent
     };
 
     this.gridOptions = {
@@ -90,13 +89,19 @@ export class AppComponent {
         headerName: 'Age',
         field: 'age',
         type: 'numberColumn',
-        cellEditorFramework: this.frameworkComponents.numericCellEditor
+        cellEditorFramework: this.frameworkComponents.numericCellEditor,
+        cellEditorParams: {
+          maxLength: 2
+        },
       },
       {
         headerName: 'Year',
         field: 'year',
         type: 'numberColumn',
         cellEditorFramework: this.frameworkComponents.numericCellEditor,
+        cellEditorParams: {
+          maxLength: 2
+        },
         width: 100
       },
       {
