@@ -64,7 +64,10 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
   }
 
   isPopup(): boolean {
-    return true;
+    // è possibile campire se siamo in edit di tutta la riga per non fare aprire il popup
+    // TODO occorre gestire 2 template differenti uno per popup e no
+    // TODO Chiedere se è una cosa che Ebit ritiene utile
+    return (this.params.api.getEditingCells().length) === 1 ? true : false;
   }
 
   private preventDefaultAndPropagation(event) {
