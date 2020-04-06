@@ -1,0 +1,13 @@
+<mat-card [style.width]="cellWidth">
+  <form class="container"
+ß        tabindex="0">
+    <mat-form-field class="full-width-field"
+                    [style.width]="cellWidth">
+      <input #numericInput matInput
+             type="number"
+             maxlength="3"
+             [(ngModel)]="value"
+             [ngModelOptions]="{standalone: true}">
+    </mat-form-field>
+  </form>
+</mat-card>
