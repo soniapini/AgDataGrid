@@ -49,15 +49,15 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
     return this.value;
   }
 
-  isCancelAfterEnd(): boolean {
-    // return this.cancelAfterEnd;
-
-    // example - will reject the number if it contains the value 007
-    // - not very practical, but demonstrates the method.
-    const value = this.getValue();
-    return value.indexOf('007') >= 0;
-    return false;
-  }
+  // isCancelAfterEnd(): boolean {
+  //   // return this.cancelAfterEnd;
+  //
+  //   // example - will reject the number if it contains the value 007
+  //   // - not very practical, but demonstrates the method.
+  //   const value = this.getValue();
+  //   return value.indexOf('007') >= 0;
+  //   return false;
+  // }
 
   isCancelBeforeStart(): boolean {
     return false;
