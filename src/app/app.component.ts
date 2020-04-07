@@ -186,6 +186,11 @@ export class AppComponent {
     this.isCellEditorEnabled = false;
   }
 
+  onBtnAbilitaCellEditor() {
+    this.editType = null;
+    this.isCellEditorEnabled = true;
+  }
+
   onChangeDarkThemeToggle(ob: MatSlideToggleChange) {
     this.isDark = ob.checked;
   }
