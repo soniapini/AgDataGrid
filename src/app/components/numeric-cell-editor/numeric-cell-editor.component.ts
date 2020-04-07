@@ -2,6 +2,14 @@ import {Component, Input, OnInit, ViewChild, ViewContainerRef, ViewEncapsulation
 import {AgEditorComponent, ICellEditorAngularComp} from 'ag-grid-angular';
 import {IAfterGuiAttachedParams, ICellEditorParams} from 'ag-grid-community';
 import {MatInput} from '@angular/material/input';
+import {FormControl, FormGroupDirective, NgForm, ValidatorFn, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
+import {SeErrorStateMatcher} from '../../utils/error-state-matcher';
+
+// TODO
+// Definire con Ebit come vogliono visualizzare/gestire gli errori
+// Capire anche se non far aggiornare i valori quando invalidi o se evidenziare l'errore anche
+// nella cella quando non siamo in edit
 
 @Component({
   selector: 'app-numeric-cell-editor',
@@ -11,11 +19,14 @@ import {MatInput} from '@angular/material/input';
 })
 export class NumericCellEditorComponent implements ICellEditorAngularComp {
 
-  public maxLength: number; // i parametri di input si recuperano in agInit da params es, params['maxLength']
+  public max: number; // i parametri di input si recuperano in agInit da params es, params['max']
+  public min: number; // i parametri di input si recuperano in agInit da params es, params['min']
 
   value: number;
   params: ICellEditorParams;
   cellWidth: string;
+  formControl: FormControl;
+  matcher = new SeErrorStateMatcher();
 
   // @ViewChild('container', {read: ViewContainerRef}) public container;
   @ViewChild('numericInput', {read: ViewContainerRef}) numericInput;
@@ -34,14 +45,38 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
     this.params = params;
     this.value = params.value;
 
-    this.maxLength = this.params['maxLength'];
-
     this.cellWidth = params.column.getActualWidth() + 'px';
+
+    // Recupero parametri input
+    this.max = this.params['max'];
+
+    console.log('Parametro max: ', this.max);
+    this.min = this.params['min'];
+
+    console.log('Parametro min: ', this.min);
+
+    // Definizione FormControl
+    const validators: Array<ValidatorFn> = [];
+
+    this.formControl = new FormControl(this.value, []);
+
+    validators.push(Validators.required);
+
+    if (this.max) {
+      validators.push(Validators.max(this.max));
+    }
+    if (this.min !== null && this.min !== undefined) {
+      validators.push(Validators.min(this.min));
+    }
+
+    this.formControl.setValidators(validators);
+
+
   }
 
   // focusIn(): void {
   // }
-  //
+
   // focusOut(): void {
   //   this.params.stopEditing();
   // }
@@ -51,6 +86,10 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
   // }
 
   getValue(): any {
+    if (!this.formControl.invalid) {
+      // Alla chiusura dell'editor se il campo è valido aggiorniamo il valore altrimenti no
+      this.value = this.formControl.value;
+    }
     return this.value;
   }
 

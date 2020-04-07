@@ -5,9 +5,17 @@
                     [style.width]="cellWidth">
       <input #numericInput matInput
              type="number"
-             [maxlength]="maxLength"
-             [(ngModel)]="value"
-             [ngModelOptions]="{standalone: true}">
+             [formControl]="formControl"
+             [errorStateMatcher]="matcher">
+      <mat-error *ngIf="formControl.hasError('max')">
+        Please enter a number lesser than {{max}}
+      </mat-error>
+      <mat-error *ngIf="formControl.hasError('min')">
+        Please enter a number greater than {{min}}
+      </mat-error>
+      <mat-error *ngIf="formControl.hasError('required')">
+        Value is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
   </form>
 </mat-card>
