@@ -1,11 +1,13 @@
-import {Component, ViewEncapsulation} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {AgGridEvent, ColumnApi, GridOptions} from 'ag-grid-community';
-import {ColDef, ColGroupDef} from 'ag-grid-community/dist/lib/entities/colDef';
-import {NumericCellEditor} from './editors/numeric-cell-editor';
-import {MatRadioChange} from '@angular/material/radio';
-import {NumericCellEditorComponent} from './components/numeric-cell-editor/numeric-cell-editor.component';
-import {MatInputModule} from '@angular/material/input';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { AgGridEvent, ColumnApi, GridOptions } from 'ag-grid-community';
+import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef';
+import { NumericCellEditor } from './editors/numeric-cell-editor';
+import { MatRadioChange } from '@angular/material/radio';
+import { NumericCellEditorComponent } from './components/numeric-cell-editor/numeric-cell-editor.component';
+import { MatInputModule } from '@angular/material/input';
+import { CustomDateCellComponent } from './components/custom-date-cell/custom-date-cell.component';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +32,8 @@ export class AppComponent {
   isGridEditable = true;
   editType: string;
   isCellEditorEnabled = true;
+
+  isDark: boolean = false;
 
   constructor(private httpClient: HttpClient) {
 
@@ -109,6 +113,7 @@ export class AppComponent {
         field: 'date',
         type: ['dateColumn', 'nonEditableColumn'],
         width: 120,
+        cellRenderer: 'customDateCell',
       },
       {
         headerName: 'Medals',
@@ -134,6 +139,9 @@ export class AppComponent {
         ],
       },
     ];
+    this.frameworkComponents = {
+      customDateCell: CustomDateCellComponent
+    }
 
 
   }
@@ -172,5 +180,9 @@ export class AppComponent {
   onBtnAbilitaFullRowEditor() {
     this.editType = 'fullRow';
     this.isCellEditorEnabled = false;
+  }
+
+  onChangeDarkThemeToggle(ob: MatSlideToggleChange) {
+    this.isDark = ob.checked;
   }
 }

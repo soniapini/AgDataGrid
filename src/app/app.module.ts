@@ -10,11 +10,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NumericCellEditorComponent } from './components/numeric-cell-editor/numeric-cell-editor.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
+import { CustomDateCellComponent } from './components/custom-date-cell/custom-date-cell.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    NumericCellEditorComponent
+    NumericCellEditorComponent,
+    CustomDateCellComponent
   ],
   exports: [
     NumericCellEditorComponent
@@ -26,6 +30,7 @@ import {MatCardModule} from '@angular/material/card';
     MatCardModule,
     MatRadioModule,
     MatInputModule,
+    MatSlideToggleModule,
     AgGridModule.withComponents([NumericCellEditorComponent]),
     BrowserAnimationsModule
   ],
