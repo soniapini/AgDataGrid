@@ -32,7 +32,7 @@ export class AppComponent {
   editType: string;
   isCellEditorEnabled = true;
 
-  isDark: boolean = false;
+  isDark = false;
 
   constructor(private httpClient: HttpClient) {
 
@@ -158,7 +158,7 @@ export class AppComponent {
     this.httpClient.get('https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json')
       .subscribe((data) => this.rowData = data);
 
-  };
+  }
 
   changeEditableProperty(event: MatRadioChange) {
     if (event.value === '1') {
