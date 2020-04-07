@@ -1,11 +1,10 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AgGridEvent, ColumnApi, GridOptions } from 'ag-grid-community';
+import { AgGridEvent, GridOptions } from 'ag-grid-community';
 import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef';
 import { NumericCellEditor } from './editors/numeric-cell-editor';
 import { MatRadioChange } from '@angular/material/radio';
 import { NumericCellEditorComponent } from './components/numeric-cell-editor/numeric-cell-editor.component';
-import { MatInputModule } from '@angular/material/input';
 import { CustomDateCellComponent } from './components/custom-date-cell/custom-date-cell.component';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
@@ -42,7 +41,8 @@ export class AppComponent {
     };
 
     this.frameworkComponents = {
-      numericCellEditor: NumericCellEditorComponent
+      numericCellEditor: NumericCellEditorComponent,
+      customDateCell: CustomDateCellComponent
     };
 
     this.gridOptions = {
@@ -50,6 +50,8 @@ export class AppComponent {
       pagination: true,
       paginationAutoPageSize: true,
       rowHeight: 40,
+      onGridReady: this.onGridReady,
+      frameworkComponents: this.frameworkComponents
     };
 
     this.editType = null;
@@ -61,10 +63,14 @@ export class AppComponent {
       editable: (params) => this.isGridEditable,
       filter: 'agTextColumnFilter',
 
+
       // cellEditorSelector: (params) => {
-      //   // if (params.colDef.type === 'numberColumn') {
-      //   //   return { component: this.frameworkComponents.numericCellEditor};
-      //   // }
+      //   if (params.colDef.type === 'numberColumn') {
+      //     return { component: 'numericCellEditor',
+      //     params: {
+      //       maxLength: 2
+      //     }};
+      //   }
       //
       //   if (params.colDef.type === 'gender') {
       //     return {
@@ -95,7 +101,8 @@ export class AppComponent {
         type: 'numberColumn',
         cellEditorFramework: this.frameworkComponents.numericCellEditor,
         cellEditorParams: {
-          maxLength: 2
+          min: 0,
+          max: 100
         },
       },
       {
@@ -104,7 +111,8 @@ export class AppComponent {
         type: 'numberColumn',
         cellEditorFramework: this.frameworkComponents.numericCellEditor,
         cellEditorParams: {
-          maxLength: 2
+          min: 1900,
+          max: 2020
         },
         width: 100
       },
@@ -139,14 +147,10 @@ export class AppComponent {
         ],
       },
     ];
-    this.frameworkComponents = {
-      customDateCell: CustomDateCellComponent
-    }
-
 
   }
 
-  onGridReady(params: AgGridEvent) {
+  onGridReady = (params: AgGridEvent) => {
     console.log('ricevuto evento: ', params.type);
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -154,7 +158,7 @@ export class AppComponent {
     this.httpClient.get('https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json')
       .subscribe((data) => this.rowData = data);
 
-  }
+  };
 
   changeEditableProperty(event: MatRadioChange) {
     if (event.value === '1') {

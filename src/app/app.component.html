@@ -27,7 +27,8 @@ Ebit AG-Grid project
 </ng-container>
 
 <div>
-  <mat-slide-toggle [checked]="false" [disabled]="false" (change)="onChangeDarkThemeToggle($event)">Custom Dark Theme {{isDark}}</mat-slide-toggle>
+  <mat-slide-toggle [checked]="false" [disabled]="false" (change)="onChangeDarkThemeToggle($event)">Custom Dark
+    Theme {{isDark}}</mat-slide-toggle>
 </div>
 
 <!--Grid-->
@@ -36,15 +37,13 @@ Ebit AG-Grid project
   <div class="row">
     <ag-grid-angular
       class="ebit-grid"
-      [ngClass]="{'ag-theme-alpine-custom': isDark===true, 'ag-theme-alpine': isDark===false}"
+      [ngClass]="{'ag-theme-alpine-custom': isDark === true, 'ag-theme-alpine': isDark === false}"
       [gridOptions]="gridOptions"
       [defaultColDef]="defaultColumnDef"
       [columnDefs]="columnDefs"
       [rowData]="rowData"
       [editType]="editType"
-      [animateRows]="true"
-      [frameworkComponents]="frameworkComponents"
-      (gridReady)="onGridReady($event)">
+      [animateRows]="true">
     </ag-grid-angular>
   </div>
 </div>
