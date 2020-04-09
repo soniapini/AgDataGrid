@@ -1,10 +1,8 @@
-import {Component, Input, OnInit, ViewChild, ViewContainerRef, ViewEncapsulation} from '@angular/core';
-import {AgEditorComponent, ICellEditorAngularComp} from 'ag-grid-angular';
-import {IAfterGuiAttachedParams, ICellEditorParams} from 'ag-grid-community';
-import {MatInput} from '@angular/material/input';
-import {FormControl, FormGroupDirective, NgForm, ValidatorFn, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
-import {SeErrorStateMatcher} from '../../utils/error-state-matcher';
+import { Component, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { ICellEditorAngularComp } from 'ag-grid-angular';
+import { IAfterGuiAttachedParams, ICellEditorParams } from 'ag-grid-community';
+import { FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { SeErrorStateMatcher } from '../../utils/error-state-matcher';
 
 // TODO
 // Definire con Ebit come vogliono visualizzare/gestire gli errori
@@ -12,7 +10,7 @@ import {SeErrorStateMatcher} from '../../utils/error-state-matcher';
 // nella cella quando non siamo in edit
 
 @Component({
-  selector: 'app-numeric-cell-editor',
+  selector: 'lib-numeric-cell-editor',
   templateUrl: './numeric-cell-editor.component.html',
   styleUrls: ['./numeric-cell-editor.component.scss'],
   encapsulation: ViewEncapsulation.None

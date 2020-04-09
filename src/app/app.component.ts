@@ -4,8 +4,7 @@ import { AgGridEvent, GridOptions } from 'ag-grid-community';
 import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef';
 import { NumericCellEditor } from './editors/numeric-cell-editor';
 import { MatRadioChange } from '@angular/material/radio';
-import { NumericCellEditorComponent } from './components/numeric-cell-editor/numeric-cell-editor.component';
-import { CustomDateCellComponent } from './components/custom-date-cell/custom-date-cell.component';
+import { CustomDateCellComponent, NumericCellEditorComponent } from 'se-ui-datagrid';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({

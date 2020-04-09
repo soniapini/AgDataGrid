@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 
 @Component({
-  selector: 'app-custom-date-cell',
+  selector: 'lib-custom-date-cell',
   templateUrl: './custom-date-cell.component.html',
   styleUrls: ['./custom-date-cell.component.scss']
 })

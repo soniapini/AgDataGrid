@@ -1,0 +1,14 @@
+{
+  "name": "se-ui-datagrid",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^9.0.7",
+    "@angular/core": "^9.0.7",
+    "@angular/cdk": "^9.2.0",
+    "@angular/forms": "~9.0.0",
+    "@angular/material": "^9.2.0",
+    "ag-grid-angular": "^23.0.2",
+    "ag-grid-community": "^23.0.2",
+    "tslib": "^1.10.0"
+  }
+}

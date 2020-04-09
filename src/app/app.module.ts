@@ -7,21 +7,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NumericCellEditorComponent } from './components/numeric-cell-editor/numeric-cell-editor.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import { CustomDateCellComponent } from './components/custom-date-cell/custom-date-cell.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { NumericCellEditorComponent, SeUiDatagridModule } from 'se-ui-datagrid';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NumericCellEditorComponent,
-    CustomDateCellComponent
+    AppComponent
   ],
   exports: [
-    NumericCellEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +29,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatInputModule,
     MatSlideToggleModule,
     AgGridModule.withComponents([NumericCellEditorComponent]),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SeUiDatagridModule
   ],
   providers: [],
   bootstrap: [AppComponent]

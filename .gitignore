@@ -44,3 +44,5 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/projects/se-ui-datagrid/node_modules/.cache/angular-build-dl/
+/package-lock.json
