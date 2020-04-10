@@ -1,8 +1,7 @@
-import { Component, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { ICellEditorAngularComp } from 'ag-grid-angular';
-import { IAfterGuiAttachedParams, ICellEditorParams } from 'ag-grid-community';
-import { FormControl, ValidatorFn, Validators } from '@angular/forms';
-import { SeErrorStateMatcher } from '../../utils/error-state-matcher';
+import { ICellEditorParams } from 'ag-grid-community';
+import { FormControl } from '@angular/forms';
 
 // TODO
 // Definire con Ebit come vogliono visualizzare/gestire gli errori
@@ -24,52 +23,42 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
   params: ICellEditorParams;
   cellWidth: string;
   formControl: FormControl;
-  matcher = new SeErrorStateMatcher();
+  // matcher = new SeErrorStateMatcher();
+  inlineEditor: boolean;
 
   // @ViewChild('container', {read: ViewContainerRef}) public container;
-  @ViewChild('numericInput', {read: ViewContainerRef}) numericInput;
+  //  @ViewChild('numericInput', { static: false, read: ElementRef}) numericInput: ElementRef;
 
   constructor() {
   }
 
-  afterGuiAttached(params?: IAfterGuiAttachedParams): void {
-    // this.numericEditor.focus();
-    window.setTimeout(() => {
-      this.numericInput.element.nativeElement.focus();
-    }, 0);
-  }
+  // ngAfterViewInit(): void {
+  //   window.setTimeout(() => {
+  //         this.numericInput.nativeElement.focus();
+  //       }, 0);
+  // }
+
+  // afterGuiAttached(params?: IAfterGuiAttachedParams): void {
+  //   // this.numericEditor.focus();
+  //   window.setTimeout(() => {
+  //     this.numericInput.element.nativeElement.focus();
+  //   }, 0);
+  // }
 
   agInit(params: ICellEditorParams): void {
     this.params = params;
     this.value = params.value;
 
+    this.inlineEditor = (this.params.api.getEditingCells().length) > 1;
+
     this.cellWidth = params.column.getActualWidth() + 'px';
 
     // Recupero parametri input
     this.max = this.params['max'];
-
     console.log('Parametro max: ', this.max);
+
     this.min = this.params['min'];
-
     console.log('Parametro min: ', this.min);
-
-    // Definizione FormControl
-    const validators: Array<ValidatorFn> = [];
-
-    this.formControl = new FormControl(this.value, []);
-
-    validators.push(Validators.required);
-
-    if (this.max) {
-      validators.push(Validators.max(this.max));
-    }
-    if (this.min !== null && this.min !== undefined) {
-      validators.push(Validators.min(this.min));
-    }
-
-    this.formControl.setValidators(validators);
-
-
   }
 
   // focusIn(): void {
@@ -84,7 +73,7 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
   // }
 
   getValue(): any {
-    if (!this.formControl.invalid) {
+    if (this.formControl && !this.formControl.invalid) {
       // Alla chiusura dell'editor se il campo è valido aggiorniamo il valore altrimenti no
       this.value = this.formControl.value;
     }
@@ -117,5 +106,7 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
     event.stopPropagation();
   }
 
-
+  _onFormReady(editorFromControl: FormControl) {
+    this.formControl = editorFromControl;
+  }
 }
