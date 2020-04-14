@@ -4,27 +4,32 @@ body {
   box-sizing: border-box;
 }
 
-.header-toolbar {
-    justify-content: space-between;
+app-root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
-mat-radio-group{
+.header-toolbar {
+  flex: 0 auto;
+  justify-content: space-between;
+}
+
+mat-radio-group {
   display: flex;
   flex-direction: column;
   margin: 1.5rem 0;
 }
 
 mat-radio-button {
-  margin: .5rem;
+  margin: 0.5rem;
 }
 
 mat-sidenav-container {
-  position: fixed;
-  height: 100%;
-  min-height: 100%;
-  width: 100%;
-  min-width: 100%;
+  flex: 1 auto;
 }
+
 mat-sidenav {
   padding: 1rem;
   background-color: whitesmoke;

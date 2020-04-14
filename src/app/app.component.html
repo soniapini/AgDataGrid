@@ -1,6 +1,7 @@
-<mat-toolbar class="header-toolbar">
+
+<mat-toolbar class="header-toolbar" color="">
   <div>
-    <button mat-icon-button aria-label="main menu" (click)="sidenavOpened=!sidenavOpened">
+    <button mat-icon-button aria-label="main menu" (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
   </div>
@@ -10,7 +11,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" [(opened)]="sidenavOpened">
+  <mat-sidenav #sidenav mode="side" [opened]="true">
     <mat-list role="list">
 
       <mat-list-item role="listitem">
@@ -54,10 +55,12 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <!--Grid-->
-    <ag-grid-angular class="ebit-grid"
-      [ngClass]="{'ag-theme-alpine-custom': isDark === true, 'ag-theme-alpine': isDark === false}"
-      [gridOptions]="gridOptions" [defaultColDef]="defaultColumnDef" [columnDefs]="columnDefs" [rowData]="rowData"
-      [editType]="editType" [animateRows]="true">
-    </ag-grid-angular>
+    <div id="grid-wrapper" style="width:100%; height: 100%">
+      <ag-grid-angular class="ebit-grid"
+        [ngClass]="{'ag-theme-alpine-custom': isDark === true, 'ag-theme-alpine': isDark === false}"
+        [gridOptions]="gridOptions" [defaultColDef]="defaultColumnDef" [columnDefs]="columnDefs" [rowData]="rowData"
+        [editType]="editType" [animateRows]="true" (gridSizeChanged)="onGridSizeChanged($event)">
+      </ag-grid-angular>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -153,6 +153,26 @@ export class AppComponent {
 
   }
 
+  onGridSizeChanged(params) {
+    var gridWidth = document.getElementById('grid-wrapper').offsetWidth;
+    var columnsToShow = [];
+    var columnsToHide = [];
+    var totalColsWidth = 0;
+    var allColumns = params.columnApi.getAllColumns();
+    for (var i = 0; i < allColumns.length; i++) {
+      var column = allColumns[i];
+      totalColsWidth += column.getMinWidth();
+      if (totalColsWidth > gridWidth) {
+        columnsToHide.push(column.colId);
+      } else {
+        columnsToShow.push(column.colId);
+      }
+    }
+    params.columnApi.setColumnsVisible(columnsToShow, true);
+    params.columnApi.setColumnsVisible(columnsToHide, false);
+    params.api.sizeColumnsToFit();
+  }
+
   onGridReady = (params: AgGridEvent) => {
     console.log('ricevuto evento: ', params.type);
     this.gridApi = params.api;
