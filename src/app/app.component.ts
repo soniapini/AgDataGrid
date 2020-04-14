@@ -194,10 +194,10 @@ export class AppComponent {
   }
 
   onBtStartEditing() {
-    this.gridApi.setFocusedCell(2, 'athlete');
+    this.gridApi.setFocusedCell(2, 'sport');
     this.gridApi.startEditingCell({
       rowIndex: 2,
-      colKey: 'athlete',
+      colKey: 'sport',
     });
   }
 
