@@ -14,7 +14,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  title = 'ebitGrid';
+  title = 'se-ui-datagrid';
   private gridApi;
   private gridColumnApi;
 

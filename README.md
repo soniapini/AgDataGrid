@@ -26,7 +26,9 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test --project=se-ui-datagrid` to execute the library unit tests via [Karma](https://karma-runner.github.io).
+
+Run `ng test` to execute the webapp unit tests via [Karma](https://karma-runner.github.io).
 
 ## Running end-to-end tests
 
