@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { SeErrorStateMatcher } from '../../../utils/error-state-matcher';
 
@@ -10,7 +10,7 @@ import { SeErrorStateMatcher } from '../../../utils/error-state-matcher';
 @Component({
   template: ''
 })
-export class NumericCellEditorBaseComponent implements OnInit, AfterViewInit {
+export class NumericCellEditorBaseComponent implements OnInit {
 
   @Input() value: number;
 
@@ -47,10 +47,4 @@ export class NumericCellEditorBaseComponent implements OnInit, AfterViewInit {
 
   }
 
-  ngAfterViewInit(): void {
-    window.setTimeout(() => {
-      this.numericInput.nativeElement.focus();
-      this.formReady.emit(this.formControl);
-    }, 0);
-  }
 }

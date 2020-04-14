@@ -1,6 +1,7 @@
 <ng-container *ngIf="inlineEditor else popupEditor">
   <lib-numeric-cell-editor-inline
     [value]="value"
+    [startEdited]="cellStartEdited"
     [min]="min"
     [max]="max"
     (formReady)="_onFormReady($event)"></lib-numeric-cell-editor-inline>

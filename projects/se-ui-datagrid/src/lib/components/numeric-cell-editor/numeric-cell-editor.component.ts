@@ -21,9 +21,10 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
 
   value: number;
   params: ICellEditorParams;
+  cellStartEdited: boolean;
   cellWidth: string;
   formControl: FormControl;
-  inlineEditor: boolean;
+  inlineEditor: boolean; // TODO potrebbe diventare un parametro di input dalla grid
 
   constructor() {
   }
@@ -42,6 +43,8 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
 
     this.min = this.params['min'];
     console.log('Parametro min: ', this.min);
+
+    this.cellStartEdited = this.params.cellStartedEdit;
   }
 
   // focusIn(): void {
