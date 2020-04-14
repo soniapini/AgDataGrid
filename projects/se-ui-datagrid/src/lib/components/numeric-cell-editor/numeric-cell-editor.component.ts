@@ -23,27 +23,10 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
   params: ICellEditorParams;
   cellWidth: string;
   formControl: FormControl;
-  // matcher = new SeErrorStateMatcher();
   inlineEditor: boolean;
-
-  // @ViewChild('container', {read: ViewContainerRef}) public container;
-  //  @ViewChild('numericInput', { static: false, read: ElementRef}) numericInput: ElementRef;
 
   constructor() {
   }
-
-  // ngAfterViewInit(): void {
-  //   window.setTimeout(() => {
-  //         this.numericInput.nativeElement.focus();
-  //       }, 0);
-  // }
-
-  // afterGuiAttached(params?: IAfterGuiAttachedParams): void {
-  //   // this.numericEditor.focus();
-  //   window.setTimeout(() => {
-  //     this.numericInput.element.nativeElement.focus();
-  //   }, 0);
-  // }
 
   agInit(params: ICellEditorParams): void {
     this.params = params;

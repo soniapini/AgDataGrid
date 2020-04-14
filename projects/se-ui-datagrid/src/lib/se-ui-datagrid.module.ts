@@ -11,13 +11,15 @@ import { CustomDateCellComponent } from './components/custom-date-cell/custom-da
 import { NumericCellEditorPopupComponent } from './components/numeric-cell-editor/numeric-cell-editor-popup/numeric-cell-editor-popup.component';
 import { CommonModule } from '@angular/common';
 import { NumericCellEditorInlineComponent } from './components/numeric-cell-editor/numeric-cell-editor-inline/numeric-cell-editor-inline.component';
+import { NumericCellEditorBaseComponent } from './components/numeric-cell-editor/numeric-cell-editor-base/numeric-cell-editor-base.component';
 
 
 @NgModule({
   declarations: [
-    NumericCellEditorComponent,
-    CustomDateCellComponent,
     SeUiDatagridComponent,
+    CustomDateCellComponent,
+    NumericCellEditorComponent,
+    NumericCellEditorBaseComponent,
     NumericCellEditorPopupComponent,
     NumericCellEditorInlineComponent
   ],
