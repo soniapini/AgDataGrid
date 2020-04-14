@@ -222,6 +222,7 @@ export class AppComponent {
   onChangeEditorToggle(ob: MatSlideToggleChange) {
     this.editorEnabled = ob.checked;
     this.isCellEditorEnabled =  ob.checked;
+    this.gridApi.stopEditing();
   }
 
   onchangeEditorType(event: MatRadioChange) {
@@ -232,5 +233,6 @@ export class AppComponent {
       this.editType = null;
       this.isCellEditorEnabled = true;
     }
+    this.gridApi.stopEditing();
   }
 }
