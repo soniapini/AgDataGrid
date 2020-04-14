@@ -1,58 +1,63 @@
-<h1>Ebit {{title}} project</h1>
-
-<!--Selezione editabile o no-->
-<div class="row ebit-grid__button-container">
-  <mat-radio-group (change)="changeEditableProperty($event)" aria-label="Select an option">
-    <mat-radio-button style="font-size: 12px; margin-right:20px" value="1" checked>Tabella Editabile</mat-radio-button>
-    <mat-radio-button style="font-size: 12px" value="2">Tabella NON Editabile</mat-radio-button>
-  </mat-radio-group>
-</div>
-
-<ng-container *ngIf="isGridEditable">
-  <div style="margin-bottom: 5px;" *ngIf=" isCellEditorEnabled else fullRow">
-    <span style="font-size: 12px; margin-right:20px">Singole celle editabili</span>
-    <button style="font-size: 12px; margin-right:20px" (click)="onBtnAbilitaFullRowEditor()">
-      Abilita Editor: FullRow
+<mat-toolbar class="header-toolbar">
+  <div>
+    <button mat-icon-button aria-label="main menu" (click)="sidenavOpened=!sidenavOpened">
+      <mat-icon>menu</mat-icon>
     </button>
   </div>
-
-  <div style="margin-bottom: 5px;" *ngIf="!isCellEditorEnabled">
-    <button style="font-size: 12px; margin-right:20px" (click)="onBtStartEditing()">
-      Start Editing Line 2
-    </button>
-    <button style="font-size: 12px" (click)="onBtStopEditing()">
-      Stop Editing
-    </button>
+  <div>
+    {{title}}
   </div>
-</ng-container>
+</mat-toolbar>
 
-<div>
-  <mat-slide-toggle [checked]="false" [disabled]="false" (change)="onChangeDarkThemeToggle($event)">Custom Dark
-    Theme {{isDark}}</mat-slide-toggle>
-</div>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" [(opened)]="sidenavOpened">
+    <mat-list role="list">
 
-<!--Grid-->
-<div class="ebit-grid__container">
+      <mat-list-item role="listitem">
+        <mat-slide-toggle [checked]="false" [disabled]="false" color="primary"
+          (change)="onChangeDarkThemeToggle($event)">Custom Dark {{isDark? 'attivo' : 'disattivo'}}</mat-slide-toggle>
+      </mat-list-item>
+      <mat-divider></mat-divider>
 
-  <div class="row">
-    <ag-grid-angular
-      class="ebit-grid"
+      <mat-list-item role="listitem">
+        <mat-slide-toggle [checked]="true" [disabled]="false" color="primary" (change)="onChangeEditorToggle($event)">
+          Editor {{editorEnabled? 'abilitato' : 'disabilitato'}}
+        </mat-slide-toggle>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <mat-radio-group (change)="onchangeEditorType($event)" aria-label="Select an option" color="primary"
+          [disabled]="!editorEnabled">
+          <div mat-line>
+            <mat-radio-button value="fullRow">righe</mat-radio-button>
+          </div>
+          <div mat-line>
+            <mat-radio-button value="" checked>celle</mat-radio-button>
+          </div>
+        </mat-radio-group>
+      </mat-list-item>
+
+      <ng-container *ngIf="editorEnabled">
+        <div *ngIf=" isCellEditorEnabled else fullRow">
+          <p class="mat-body-1">Singole celle editabili</p>
+        </div>
+
+        <div *ngIf="!isCellEditorEnabled">
+          <button mat-stroked-button (click)="onBtStartEditing()">Start Editing Line 2</button>
+          <button mat-stroked-button (click)="onBtStopEditing()">Stop Editing</button>
+        </div>
+      </ng-container>
+
+      <ng-template #fullRow>
+        <p class="mat-body-1">Righe intere editabili</p>
+      </ng-template>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!--Grid-->
+    <ag-grid-angular class="ebit-grid"
       [ngClass]="{'ag-theme-alpine-custom': isDark === true, 'ag-theme-alpine': isDark === false}"
-      [gridOptions]="gridOptions"
-      [defaultColDef]="defaultColumnDef"
-      [columnDefs]="columnDefs"
-      [rowData]="rowData"
-      [editType]="editType"
-      [animateRows]="true">
+      [gridOptions]="gridOptions" [defaultColDef]="defaultColumnDef" [columnDefs]="columnDefs" [rowData]="rowData"
+      [editType]="editType" [animateRows]="true">
     </ag-grid-angular>
-  </div>
-</div>
-
-
-<ng-template #fullRow>
-  <span style="font-size: 12px; margin-right:20px">Righe intere editabili</span>
-  <button style="font-size: 12px" (click)="onBtnAbilitaCellEditor()">
-    Abilita Editor: Cell
-  </button>
-
-</ng-template>
+  </mat-sidenav-content>
+</mat-sidenav-container>

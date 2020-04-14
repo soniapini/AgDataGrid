@@ -4,7 +4,7 @@ import { AgGridEvent, GridOptions } from 'ag-grid-community';
 import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef';
 import { NumericCellEditor } from './editors/numeric-cell-editor';
 import { MatRadioChange } from '@angular/material/radio';
-import { CustomDateCellComponent, NumericCellEditorComponent } from 'se-ui-datagrid';
+import { CustomCellComponent, NumericCellEditorComponent } from 'se-ui-datagrid';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
@@ -14,7 +14,9 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  title = 'se-ui-datagrid';
+  title = 'Ebit AG-Grid project';
+  sidenavOpened: boolean = true;
+  editorEnabled: boolean = true;
   private gridApi;
   private gridColumnApi;
 
@@ -41,7 +43,7 @@ export class AppComponent {
 
     this.frameworkComponents = {
       numericCellEditor: NumericCellEditorComponent,
-      customDateCell: CustomDateCellComponent
+      customCell: CustomCellComponent
     };
 
     this.gridOptions = {
@@ -120,7 +122,6 @@ export class AppComponent {
         field: 'date',
         type: ['dateColumn', 'nonEditableColumn'],
         width: 120,
-        cellRenderer: 'customDateCell',
       },
       {
         headerName: 'Medals',
@@ -130,18 +131,21 @@ export class AppComponent {
           {
             headerName: 'Gold',
             field: 'gold',
-            type: 'medalColumn'
+            type: 'medalColumn',
+            cellRenderer: 'customCell',
           },
           {
             headerName: 'Silver',
             field: 'silver',
-            type: 'medalColumn'
+            type: 'medalColumn',
+            cellRenderer: 'customCell',
           },
           {
             headerName: 'Bronze',
             field: 'bronze',
             type: 'medalColumn',
-            width: 100
+            width: 100,
+            cellRenderer: 'customCell',
           },
         ],
       },
@@ -157,6 +161,7 @@ export class AppComponent {
     this.httpClient.get('https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json')
       .subscribe((data) => this.rowData = data);
 
+    this.gridApi.sizeColumnsToFit(); // auto fit column to table width
   }
 
   changeEditableProperty(event: MatRadioChange) {
@@ -192,5 +197,20 @@ export class AppComponent {
 
   onChangeDarkThemeToggle(ob: MatSlideToggleChange) {
     this.isDark = ob.checked;
+  }
+
+  onChangeEditorToggle(ob: MatSlideToggleChange) {
+    this.editorEnabled = ob.checked;
+    this.isCellEditorEnabled =  ob.checked;
+  }
+
+  onchangeEditorType(event: MatRadioChange) {
+    if (event.value === 'fullRow') {
+      this.editType = 'fullRow';
+      this.isCellEditorEnabled = false;
+    } else {
+      this.editType = null;
+      this.isCellEditorEnabled = true;
+    }
   }
 }
