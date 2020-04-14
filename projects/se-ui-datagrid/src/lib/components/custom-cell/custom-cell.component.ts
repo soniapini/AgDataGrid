@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 
 @Component({
-  selector: 'lib-custom-date-cell',
-  templateUrl: './custom-date-cell.component.html',
-  styleUrls: ['./custom-date-cell.component.scss']
+  selector: 'lib-custom-cell',
+  templateUrl: './custom-cell.component.html',
+  styleUrls: ['./custom-cell.component.scss']
 })
-export class CustomDateCellComponent implements OnInit, ICellRendererAngularComp {
+export class CustomCellComponent implements OnInit, ICellRendererAngularComp {
   cellValue: any;
   constructor() { }
 

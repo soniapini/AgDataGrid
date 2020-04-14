@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomDateCellComponent } from './custom-date-cell.component';
+import { CustomCellComponent } from './custom-cell.component';
 
-describe('CustomDateCellComponent', () => {
-  let component: CustomDateCellComponent;
-  let fixture: ComponentFixture<CustomDateCellComponent>;
+describe('CustomCellComponent', () => {
+  let component: CustomCellComponent;
+  let fixture: ComponentFixture<CustomCellComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CustomDateCellComponent ]
+      declarations: [ CustomCellComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CustomDateCellComponent);
+    fixture = TestBed.createComponent(CustomCellComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

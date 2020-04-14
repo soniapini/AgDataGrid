@@ -7,7 +7,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AgGridModule } from 'ag-grid-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NumericCellEditorComponent } from './components/numeric-cell-editor/numeric-cell-editor.component';
-import { CustomDateCellComponent } from './components/custom-date-cell/custom-date-cell.component';
+import { CustomCellComponent } from './components/custom-cell/custom-cell.component';
 import { NumericCellEditorPopupComponent } from './components/numeric-cell-editor/numeric-cell-editor-popup/numeric-cell-editor-popup.component';
 import { CommonModule } from '@angular/common';
 import { NumericCellEditorInlineComponent } from './components/numeric-cell-editor/numeric-cell-editor-inline/numeric-cell-editor-inline.component';
@@ -16,8 +16,9 @@ import { NumericCellEditorBaseComponent } from './components/numeric-cell-editor
 
 @NgModule({
   declarations: [
+    NumericCellEditorComponent,
+    CustomCellComponent,
     SeUiDatagridComponent,
-    CustomDateCellComponent,
     NumericCellEditorComponent,
     NumericCellEditorBaseComponent,
     NumericCellEditorPopupComponent,
@@ -35,7 +36,7 @@ import { NumericCellEditorBaseComponent } from './components/numeric-cell-editor
   ],
   exports: [
     NumericCellEditorComponent,
-    CustomDateCellComponent,
+    CustomCellComponent,
     SeUiDatagridComponent
   ]
 })
