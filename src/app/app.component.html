@@ -6,7 +6,8 @@
     </button>
   </div>
   <div>
-    {{title}}
+    <a routerLink="/base" routerLinkActive="active" mat-button>Base grid</a>
+    <a routerLink="/" routerLinkActive="active" mat-icon-button><mat-icon>home</mat-icon></a>
   </div>
 </mat-toolbar>
 
@@ -54,13 +55,8 @@
     </mat-list>
   </mat-sidenav>
   <mat-sidenav-content>
+    <router-outlet></router-outlet>
     <!--Grid-->
-    <div id="grid-wrapper" style="width:100%; height: 100%">
-      <ag-grid-angular class="ebit-grid"
-        [ngClass]="{'ag-theme-alpine-custom': isDark === true, 'ag-theme-alpine': isDark === false}"
-        [gridOptions]="gridOptions" [defaultColDef]="defaultColumnDef" [columnDefs]="columnDefs" [rowData]="rowData"
-        [editType]="editType" [animateRows]="true" (gridSizeChanged)="onGridSizeChanged($event)">
-      </ag-grid-angular>
-    </div>
+
   </mat-sidenav-content>
 </mat-sidenav-container>
