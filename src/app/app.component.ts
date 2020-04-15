@@ -16,7 +16,6 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 export class AppComponent {
   title = 'Ebit AG-Grid project';
   sidenavOpened: boolean = true;
-  editorEnabled: boolean = true;
   private gridApi;
   private gridColumnApi;
 
@@ -184,14 +183,14 @@ export class AppComponent {
     this.gridApi.sizeColumnsToFit(); // auto fit column to table width
   }
 
-  changeEditableProperty(event: MatRadioChange) {
-    if (event.value === '1') {
-      this.isGridEditable = true;
-      this.isCellEditorEnabled = true;
-    } else {
-      this.isGridEditable = false;
-    }
-  }
+  // changeEditableProperty(event: MatRadioChange) {
+  //   if (event.value === '1') {
+  //     this.isGridEditable = true;
+  //     this.isCellEditorEnabled = true;
+  //   } else {
+  //     this.isGridEditable = false;
+  //   }
+  // }
 
   onBtStartEditing() {
     this.gridApi.setFocusedCell(2, 'sport');
@@ -220,8 +219,8 @@ export class AppComponent {
   }
 
   onChangeEditorToggle(ob: MatSlideToggleChange) {
-    this.editorEnabled = ob.checked;
     this.isCellEditorEnabled =  ob.checked;
+    this.isGridEditable = ob.checked;
     this.gridApi.stopEditing();
   }
 
