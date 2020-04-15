@@ -14,7 +14,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
-  title = 'Ebit AG-Grid project';
+  title = 'ag-Grid test project';
   sidenavOpened: boolean = true;
   private gridApi;
   private gridColumnApi;
@@ -42,7 +42,7 @@ export class AppComponent {
 
     this.frameworkComponents = {
       numericCellEditor: NumericCellEditorComponent,
-      customCell: CustomCellComponent
+      customCell: CustomCellComponent,
     };
 
     this.gridOptions = {
@@ -153,13 +153,13 @@ export class AppComponent {
   }
 
   onGridSizeChanged(params) {
-    var gridWidth = document.getElementById('grid-wrapper').offsetWidth;
-    var columnsToShow = [];
-    var columnsToHide = [];
-    var totalColsWidth = 0;
-    var allColumns = params.columnApi.getAllColumns();
-    for (var i = 0; i < allColumns.length; i++) {
-      var column = allColumns[i];
+    const gridWidth = document.getElementById('grid-wrapper').offsetWidth;
+    const columnsToShow = [];
+    const columnsToHide = [];
+    let totalColsWidth = 0;
+    const allColumns = params.columnApi.getAllColumns();
+    for (let i = 0; i < allColumns.length; i++) {
+      const column = allColumns[i];
       totalColsWidth += column.getMinWidth();
       if (totalColsWidth > gridWidth) {
         columnsToHide.push(column.colId);
@@ -180,7 +180,7 @@ export class AppComponent {
     this.httpClient.get('https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json')
       .subscribe((data) => this.rowData = data);
 
-    this.gridApi.sizeColumnsToFit(); // auto fit column to table width
+    this.gridApi.sizeColumnsToFit();
   }
 
   // changeEditableProperty(event: MatRadioChange) {
@@ -190,6 +190,16 @@ export class AppComponent {
   //   } else {
   //     this.isGridEditable = false;
   //   }
+  // }
+
+  // onBtnAbilitaFullRowEditor() {
+  //   this.editType = 'fullRow';
+  //   this.isCellEditorEnabled = false;
+  // }
+
+  // onBtnAbilitaCellEditor() {
+  //   this.editType = null;
+  //   this.isCellEditorEnabled = true;
   // }
 
   onBtStartEditing() {
@@ -202,16 +212,6 @@ export class AppComponent {
 
   onBtStopEditing() {
     this.gridApi.stopEditing();
-  }
-
-  onBtnAbilitaFullRowEditor() {
-    this.editType = 'fullRow';
-    this.isCellEditorEnabled = false;
-  }
-
-  onBtnAbilitaCellEditor() {
-    this.editType = null;
-    this.isCellEditorEnabled = true;
   }
 
   onChangeDarkThemeToggle(ob: MatSlideToggleChange) {
