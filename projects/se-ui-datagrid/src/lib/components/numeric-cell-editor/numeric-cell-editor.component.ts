@@ -18,6 +18,7 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
 
   public max: number; // i parametri di input si recuperano in agInit da params es, params['max']
   public min: number; // i parametri di input si recuperano in agInit da params es, params['min']
+  public editInline: boolean; // i parametri di input si recuperano in agInit da params es, params['editInPopup']
 
   value: number;
   params: ICellEditorParams;
@@ -38,11 +39,7 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
     this.cellWidth = params.column.getActualWidth() + 'px';
 
     // Recupero parametri input
-    this.max = this.params['max'];
-    console.log('Parametro max: ', this.max);
-
-    this.min = this.params['min'];
-    console.log('Parametro min: ', this.min);
+    this.configCellEditor();
 
     this.cellStartEdited = this.params.cellStartedEdit;
   }
@@ -81,10 +78,7 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
   }
 
   isPopup(): boolean {
-    // è possibile campire se siamo in edit di tutta la riga per non fare aprire il popup
-    // TODO occorre gestire 2 template differenti uno per popup e no.
-    // TODO Chiedere se è una cosa che Ebit ritiene utile.
-    return (this.params.api.getEditingCells().length) === 1 ? true : false;
+    return !this.editInline;
   }
 
   private preventDefaultAndPropagation(event) {
@@ -94,5 +88,20 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
 
   _onFormReady(editorFromControl: FormControl) {
     this.formControl = editorFromControl;
+  }
+
+  private configCellEditor() {
+    this.max = this.params['max'];
+    console.log('Parametro max: ', this.max);
+
+    this.min = this.params['min'];
+    console.log('Parametro min: ', this.min);
+
+    this.editInline = this.params['editInline'];
+    this.editInline = this.editInline ? this.editInline : true;
+    console.log('Parametro editInline: ', this.editInline);
+
+
+    this.inlineEditor = (this.params.api.getEditingCells().length) === 1 ? this.editInline : true;
   }
 }
