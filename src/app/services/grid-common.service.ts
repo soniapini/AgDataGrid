@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of as observableOf, ReplaySubject, BehaviorSubject } from 'rxjs';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { CellCoordsData } from '../models/grid-models';
 
 @Injectable({
@@ -8,10 +7,13 @@ import { CellCoordsData } from '../models/grid-models';
 })
 
 export class GridCommonService {
-  private isDarkStream: ReplaySubject<boolean | undefined> = new ReplaySubject(undefined);
-  private isDark$: Observable<boolean | false> = this.isDarkStream.asObservable();
+  private isDarkStream: ReplaySubject<boolean | undefined> = new ReplaySubject(1);
+  private isDark$: Observable<boolean> = this.isDarkStream.asObservable();
 
-  private editTypeStream: ReplaySubject<string | null> = new ReplaySubject(null);
+  private isGridEditableStream: ReplaySubject<boolean | undefined> = new ReplaySubject(1);
+  private isGridEditable$: Observable<boolean> = this.isGridEditableStream.asObservable();
+
+  private editTypeStream: ReplaySubject<string> = new ReplaySubject(1);
   private editType$: Observable<string | null> = this.editTypeStream.asObservable();
 
   private stopEditingStream: BehaviorSubject<boolean | undefined> = new BehaviorSubject(false);
@@ -20,13 +22,14 @@ export class GridCommonService {
   private editCellStream: BehaviorSubject<CellCoordsData | undefined> = new BehaviorSubject(undefined);
   private editCell$: Observable<CellCoordsData | undefined> = this.editCellStream.asObservable();
 
-  constructor() { }
-
-  public setCustomDarkTheme(cheched: boolean) {
-    this.isDarkStream.next(cheched);
+  constructor() {
   }
 
-  public getCustomDarkTheme(): Observable<boolean | false> {
+  public setCustomDarkTheme(checked: boolean) {
+    this.isDarkStream.next(checked);
+  }
+
+  public getCustomDarkTheme(): Observable<boolean> {
     return this.isDark$;
   }
 
@@ -34,7 +37,7 @@ export class GridCommonService {
     this.editTypeStream.next(editType);
   }
 
-  public getEditType(): Observable<string | null> {
+  public getEditType(): Observable<string> {
     return this.editType$;
   }
 
@@ -55,4 +58,16 @@ export class GridCommonService {
     return this.editCell$;
   }
 
+  public setGridEditable(isGridEditable: boolean) {
+    this.isGridEditableStream.next(isGridEditable);
+  }
+
+  public getGridEditable(): Observable<boolean> {
+    return this.isGridEditable$;
+  }
+
+  stopCurrentEditing() {
+    this.setEditCell(undefined);
+    this.setStopEditing(true);
+  }
 }
