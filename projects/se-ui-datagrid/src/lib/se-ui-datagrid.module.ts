@@ -12,6 +12,10 @@ import { NumericCellEditorPopupComponent } from './components/numeric-cell-edito
 import { CommonModule } from '@angular/common';
 import { NumericCellEditorInlineComponent } from './components/numeric-cell-editor/numeric-cell-editor-inline/numeric-cell-editor-inline.component';
 import { NumericCellEditorBaseComponent } from './components/numeric-cell-editor/numeric-cell-editor-base/numeric-cell-editor-base.component';
+import { LetterCellEditorComponent } from './components/letter-cell-editor/letter-cell-editor.component';
+import { LetterCellEditorInlineComponent } from './components/letter-cell-editor/letter-cell-editor-inline/letter-cell-editor-inline.component';
+import { LetterCellEditorPopupComponent } from './components/letter-cell-editor/letter-cell-editor-popup/letter-cell-editor-popup.component';
+import { LetterCellEditorBaseComponent } from './components/letter-cell-editor/letter-cell-editor-base/letter-cell-editor-base.component';
 
 
 @NgModule({
@@ -22,7 +26,11 @@ import { NumericCellEditorBaseComponent } from './components/numeric-cell-editor
     NumericCellEditorComponent,
     NumericCellEditorBaseComponent,
     NumericCellEditorPopupComponent,
-    NumericCellEditorInlineComponent
+    NumericCellEditorInlineComponent,
+    LetterCellEditorComponent,
+    LetterCellEditorInlineComponent,
+    LetterCellEditorPopupComponent,
+    LetterCellEditorBaseComponent
   ],
   imports: [
     FormsModule,
@@ -36,6 +44,7 @@ import { NumericCellEditorBaseComponent } from './components/numeric-cell-editor
   ],
   exports: [
     NumericCellEditorComponent,
+    LetterCellEditorComponent,
     CustomCellComponent,
     SeUiDatagridComponent
   ]
