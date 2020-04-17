@@ -12,6 +12,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { BaseGridComponent } from './pages/base-grid/base-grid.component';
 import { GridCommonService } from './services/grid-common.service';
 import { ResponsiveGridComponent } from './pages/responsive-grid/responsive-grid.component';
+import { HideColsComponent } from './pages/hide-cols/hide-cols.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ResponsiveGridComponent } from './pages/responsive-grid/responsive-grid
     HomeComponent,
     BaseGridComponent,
     ResponsiveGridComponent,
+    HideColsComponent,
   ],
   exports: [
   ],

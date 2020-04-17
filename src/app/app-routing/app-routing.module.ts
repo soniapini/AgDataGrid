@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '../pages/home/home.component';
 import { BaseGridComponent } from '../pages/base-grid/base-grid.component';
 import { ResponsiveGridComponent } from '../pages/responsive-grid/responsive-grid.component';
+import { HideColsComponent } from '../pages/hide-cols/hide-cols.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'responsive',
     component: ResponsiveGridComponent,
+  },
+  {
+    path: 'hide',
+    component: HideColsComponent,
   },
 ];
 

@@ -10,12 +10,12 @@ import { NumericCellEditor } from '../../editors/numeric-cell-editor';
 import { CustomCellComponent, LetterCellEditorComponent, NumericCellEditorComponent } from 'se-ui-datagrid';
 
 @Component({
-  selector: 'app-responsive-grid',
-  templateUrl: './responsive-grid.component.html',
-  styleUrls: ['./responsive-grid.component.scss']
+  selector: 'app-hide-cols',
+  templateUrl: './hide-cols.component.html',
+  styleUrls: ['./hide-cols.component.scss']
 })
-export class ResponsiveGridComponent implements OnInit, OnDestroy {
-  public title: string = 'Responsive Grid';
+export class HideColsComponent implements OnInit, OnDestroy {
+  public title: string = 'Hide Cols Grid';
 
   private darkThemeEventSubscription: Subscription;
   private stopEditingEventSubscription: Subscription;
@@ -74,36 +74,36 @@ export class ResponsiveGridComponent implements OnInit, OnDestroy {
     };
 
     this.gridOptions = {
-      // headerHeight: 20,
+      headerHeight: 20,
       pagination: true,
       paginationAutoPageSize: true,
-      // rowHeight: 40,
+      rowHeight: 40,
       onGridReady: this.onGridReady,
       onGridSizeChanged: this.onGridSizeChanged,
       frameworkComponents: this.frameworkComponents,
     };
 
     this.defaultColumnDef = {
-      // width: 90,
-      // minWidth: 90,
+      width: 90,
+      minWidth: 90,
       resizable: true,
       editable: (params) => this.isGridEditable,
       filter: 'agTextColumnFilter',
-
     };
 
     this.columnDefs = [
       {
         headerName: 'Athlete',
         field: 'athlete',
-        // width: 300,
+        width: 200,
+        minWidth: 200,
         pinned: 'left',
         editable: false,
       },
       {
         headerName: 'Sport',
         field: 'sport',
-        // width: 150,
+        width: 150,
         cellEditorFramework: this.frameworkComponents.letterCellEditor,
         cellEditorParams: {},
       },
@@ -121,18 +121,18 @@ export class ResponsiveGridComponent implements OnInit, OnDestroy {
         headerName: 'Year',
         field: 'year',
         type: 'numberColumn',
+        width: 100,
         cellEditorFramework: this.frameworkComponents.numericCellEditor,
         cellEditorParams: {
           min: 1900,
           max: 2020
-        },
-        // width: 100
+        }
       },
       {
         headerName: 'Date',
         field: 'date',
         type: ['dateColumn', 'nonEditableColumn'],
-        // width: 120,
+        width: 120,
       },
       {
         headerName: 'Medals',
@@ -143,19 +143,23 @@ export class ResponsiveGridComponent implements OnInit, OnDestroy {
             headerName: 'Gold',
             field: 'gold',
             type: 'medalColumn',
+            width: 200,
+            minWidth: 200,
+            maxWidth: 200,
             cellRenderer: 'customCell',
           },
           {
             headerName: 'Silver',
             field: 'silver',
             type: 'medalColumn',
+            width: 100,
             cellRenderer: 'customCell',
           },
           {
             headerName: 'Bronze',
             field: 'bronze',
             type: 'medalColumn',
-            // width: 100,
+            width: 100,
             cellRenderer: 'customCell',
           },
         ],
@@ -187,6 +191,23 @@ export class ResponsiveGridComponent implements OnInit, OnDestroy {
   }
 
   onGridSizeChanged(params) {
+    const gridWidth = document.getElementById('base-grid').offsetWidth;
+    const columnsToShow = [];
+    const columnsToHide = [];
+    let totalColsWidth = 0;
+    const allColumns = params.columnApi.getAllColumns();
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < allColumns.length; i++) {
+      const column = allColumns[i];
+      totalColsWidth += column.getMinWidth();
+      if (totalColsWidth > gridWidth) {
+        columnsToHide.push(column.colId);
+      } else {
+        columnsToShow.push(column.colId);
+      }
+    }
+    params.columnApi.setColumnsVisible(columnsToShow, true);
+    params.columnApi.setColumnsVisible(columnsToHide, false);
     params.api.sizeColumnsToFit();
   }
 
