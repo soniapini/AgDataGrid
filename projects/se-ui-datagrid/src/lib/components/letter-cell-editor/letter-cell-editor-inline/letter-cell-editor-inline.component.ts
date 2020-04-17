@@ -18,6 +18,7 @@ export class LetterCellEditorInlineComponent extends LetterCellEditorBaseCompone
     if (this.startEdited) {
       window.setTimeout(() => {
         this.letterInput.nativeElement.focus();
+        this.letterInput.nativeElement.select();
         this.formReady.emit(this.formControl);
       }, 0);
     }
