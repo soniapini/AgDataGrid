@@ -11,12 +11,14 @@ import { LetterCellEditorComponent, NumericCellEditorComponent, SeUiDatagridModu
 import { HomeComponent } from './pages/home/home.component';
 import { BaseGridComponent } from './pages/base-grid/base-grid.component';
 import { GridCommonService } from './services/grid-common.service';
+import { ResponsiveGridComponent } from './pages/responsive-grid/responsive-grid.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     BaseGridComponent,
+    ResponsiveGridComponent,
   ],
   exports: [
   ],

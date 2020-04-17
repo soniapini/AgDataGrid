@@ -1,5 +1,5 @@
-import { CellCoordsData } from './../../models/grid-models';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CellCoordsData } from './../../models/grid-models';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { GridCommonService } from '../../services/grid-common.service';
@@ -10,12 +10,13 @@ import { NumericCellEditor } from '../../editors/numeric-cell-editor';
 import { CustomCellComponent, LetterCellEditorComponent, NumericCellEditorComponent } from 'se-ui-datagrid';
 
 @Component({
-  selector: 'app-base-grid',
-  templateUrl: './base-grid.component.html',
-  styleUrls: ['./base-grid.component.scss']
+  selector: 'app-responsive-grid',
+  templateUrl: './responsive-grid.component.html',
+  styleUrls: ['./responsive-grid.component.scss']
 })
-export class BaseGridComponent implements OnInit, OnDestroy {
-  public title: string = 'Base Grid';
+export class ResponsiveGridComponent implements OnInit, OnDestroy {
+  public title: string = 'Responsive Grid';
+
   private darkThemeEventSubscription: Subscription;
   private stopEditingEventSubscription: Subscription;
   private editTypeSubscription: Subscription;
@@ -83,8 +84,8 @@ export class BaseGridComponent implements OnInit, OnDestroy {
     };
 
     this.defaultColumnDef = {
-      width: 90,
-      minWidth: 90,
+      // width: 90,
+      // minWidth: 90,
       resizable: true,
       editable: (params) => this.isGridEditable,
       filter: 'agTextColumnFilter',
@@ -111,14 +112,14 @@ export class BaseGridComponent implements OnInit, OnDestroy {
       {
         headerName: 'Athlete',
         field: 'athlete',
-        width: 150,
+        // width: 150,
         pinned: 'left',
         editable: false,
       },
       {
         headerName: 'Sport',
         field: 'sport',
-        width: 150,
+        // width: 150,
         cellEditorFramework: this.frameworkComponents.letterCellEditor,
         cellEditorParams: {},
       },
@@ -136,18 +137,18 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         headerName: 'Year',
         field: 'year',
         type: 'numberColumn',
-        width: 100,
         cellEditorFramework: this.frameworkComponents.numericCellEditor,
         cellEditorParams: {
           min: 1900,
           max: 2020
-        }
+        },
+        // width: 100
       },
       {
         headerName: 'Date',
         field: 'date',
         type: ['dateColumn', 'nonEditableColumn'],
-        width: 120,
+        // width: 120,
       },
       {
         headerName: 'Medals',
@@ -170,7 +171,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
             headerName: 'Bronze',
             field: 'bronze',
             type: 'medalColumn',
-            width: 100,
+            // width: 100,
             cellRenderer: 'customCell',
           },
         ],
@@ -197,7 +198,28 @@ export class BaseGridComponent implements OnInit, OnDestroy {
     this.gridColumnApi = params.columnApi;
     this.httpClient.get('https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json')
       .subscribe((data) => this.rowData = data);
-    // this.gridApi.resetRowHeights();
+    this.gridApi.resetRowHeights();
+     this.gridApi.sizeColumnsToFit();
+  }
+
+  onGridSizeChanged(params) {
+    const gridWidth = document.getElementById('base-grid').offsetWidth;
+    const columnsToShow = ['Athlete', 'Sport', 'Age', 'Year', 'Date'];
+    const columnsToHide = ['Gold', 'Silver', 'Bronze'];
+    let totalColsWidth = 0;
+    const allColumns = params.columnApi.getAllColumns();
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < allColumns.length; i++) {
+      const column = allColumns[i];
+      totalColsWidth += column.getMinWidth();
+      if (totalColsWidth > gridWidth) {
+        columnsToHide.push(column.colId);
+      } else {
+        columnsToShow.push(column.colId);
+      }
+    }
+    this.gridColumnApi.setColumnsVisible(columnsToShow, true);
+    this.gridColumnApi.setColumnsVisible(columnsToHide, false);
     this.gridApi.sizeColumnsToFit();
   }
 

@@ -6,7 +6,7 @@
     <ag-grid-angular id="base-grid" class="base-grid"
       [ngClass]="{'ag-theme-alpine-custom': isDark === true, 'ag-theme-alpine': isDark === false}"
       [gridOptions]="gridOptions" [defaultColDef]="defaultColumnDef" [columnDefs]="columnDefs" [rowData]="rowData"
-      [editType]="editType" [animateRows]="true">
+      [editType]="editType" [animateRows]="true" (gridSizeChanged)="onGridSizeChanged($event)">
     </ag-grid-angular>
   </div>
 </div>
