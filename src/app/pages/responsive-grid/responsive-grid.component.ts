@@ -15,15 +15,16 @@ import { CustomCellComponent, LetterCellEditorComponent, NumericCellEditorCompon
   styleUrls: ['./responsive-grid.component.scss']
 })
 export class ResponsiveGridComponent implements OnInit, OnDestroy {
-  public title: string = 'Responsive Grid';
+  public title = 'Responsive Grid';
 
   private darkThemeEventSubscription: Subscription;
   private stopEditingEventSubscription: Subscription;
   private editTypeSubscription: Subscription;
   private startEditingSubscription: Subscription;
+  private gridEditableSubscription: Subscription;
 
-  public isDark: boolean = false;
-  public editType: string = null;
+  public isDark: boolean;
+  public editType: string;
   public cellCoords: CellCoordsData;
 
   private gridApi;
@@ -45,23 +46,33 @@ export class ResponsiveGridComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.darkThemeEventSubscription = this.gridCommonServices.getCustomDarkTheme().subscribe(isDark => this.isDark = isDark);
-    this.editTypeSubscription = this.gridCommonServices.getEditType().subscribe(editType => this.editType = editType);
-    this.stopEditingEventSubscription = this.gridCommonServices.getStopEditing().subscribe(stopEditing => {
-      if (stopEditing === true) {
-        this.gridApi.stopEditing();
-        this.gridCommonServices.setStopEditing(false);
-      }
-    });
-    this.startEditingSubscription = this.gridCommonServices.getEditCell().subscribe(cellCoords => {
-      if (cellCoords) {
-        this.gridApi.setFocusedCell(cellCoords.row, cellCoords.col);
-        this.gridApi.startEditingCell({
-          rowIndex: cellCoords.row,
-          colKey: cellCoords.col,
-        });
-      }
-    });
+    this.darkThemeEventSubscription = this.gridCommonServices.getCustomDarkTheme()
+      .subscribe(isDark => this.isDark = isDark);
+
+    this.editTypeSubscription = this.gridCommonServices.getEditType()
+      .subscribe(editType => this.editType = editType);
+
+    this.gridEditableSubscription = this.gridCommonServices.getGridEditable()
+      .subscribe(isGridEditable => this.isGridEditable = isGridEditable);
+
+    this.stopEditingEventSubscription = this.gridCommonServices.getStopEditing()
+      .subscribe(stopEditing => {
+        if (stopEditing === true) {
+          this.gridApi.stopEditing();
+          this.gridCommonServices.setStopEditing(false);
+        }
+      });
+
+    this.startEditingSubscription = this.gridCommonServices.getEditCell()
+      .subscribe(cellCoords => {
+        if (cellCoords && this.gridApi) {
+          this.gridApi.setFocusedCell(cellCoords.row, cellCoords.col);
+          this.gridApi.startEditingCell({
+            rowIndex: cellCoords.row,
+            colKey: cellCoords.col,
+          });
+        }
+      });
 
     this.components = {
       numericCellEditor: NumericCellEditor
@@ -161,7 +172,6 @@ export class ResponsiveGridComponent implements OnInit, OnDestroy {
         ],
       },
     ];
-
   }
 
   ngOnDestroy() {
@@ -171,7 +181,11 @@ export class ResponsiveGridComponent implements OnInit, OnDestroy {
     if (this.editTypeSubscription) {
       this.editTypeSubscription.unsubscribe();
     }
+    if (this.gridEditableSubscription) {
+      this.gridEditableSubscription.unsubscribe();
+    }
     if (this.stopEditingEventSubscription) {
+      this.gridCommonServices.stopCurrentEditing();
       this.stopEditingEventSubscription.unsubscribe();
     }
   }

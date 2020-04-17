@@ -1,4 +1,3 @@
-import { CellCoordsData } from './../../models/grid-models';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
@@ -15,19 +14,9 @@ import { CustomCellComponent, LetterCellEditorComponent, NumericCellEditorCompon
   styleUrls: ['./base-grid.component.scss']
 })
 export class BaseGridComponent implements OnInit, OnDestroy {
-  public title: string = 'Base Grid';
-  private darkThemeEventSubscription: Subscription;
-  private stopEditingEventSubscription: Subscription;
-  private editTypeSubscription: Subscription;
-  private startEditingSubscription: Subscription;
-
-  public isDark: boolean = false;
-  public editType: string = null;
-  public cellCoords: CellCoordsData;
-
-  private gridApi;
-  private gridColumnApi;
-
+  public title = 'Base Grid';
+  public isDark: boolean;
+  public editType: string;
   public gridOptions: GridOptions;
   public columnDefs: Array<(ColDef | ColGroupDef)>;
   public defaultColumnDef: ColDef;
@@ -35,7 +24,13 @@ export class BaseGridComponent implements OnInit, OnDestroy {
   public frameworkComponents: any;
   public rowData: any = [];
   public isGridEditable = true;
-
+  private darkThemeEventSubscription: Subscription;
+  private stopEditingEventSubscription: Subscription;
+  private editTypeSubscription: Subscription;
+  private startEditingSubscription: Subscription;
+  private gridEditableSubscription: Subscription;
+  private gridApi;
+  private gridColumnApi;
 
   constructor(
     private httpClient: HttpClient,
@@ -44,14 +39,23 @@ export class BaseGridComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.darkThemeEventSubscription = this.gridCommonServices.getCustomDarkTheme().subscribe(isDark => this.isDark = isDark);
-    this.editTypeSubscription = this.gridCommonServices.getEditType().subscribe(editType => this.editType = editType);
-    this.stopEditingEventSubscription = this.gridCommonServices.getStopEditing().subscribe(stopEditing => {
-      if (stopEditing === true) {
-        this.gridApi.stopEditing();
-        this.gridCommonServices.setStopEditing(false);
-      }
-    });
+    this.darkThemeEventSubscription = this.gridCommonServices.getCustomDarkTheme()
+      .subscribe(isDark => this.isDark = isDark);
+
+    this.editTypeSubscription = this.gridCommonServices.getEditType()
+      .subscribe(editType => this.editType = editType);
+
+    this.gridEditableSubscription = this.gridCommonServices.getGridEditable()
+      .subscribe(isGridEditable => this.isGridEditable = isGridEditable);
+
+    this.stopEditingEventSubscription = this.gridCommonServices.getStopEditing()
+      .subscribe(stopEditing => {
+        if (stopEditing === true) {
+          this.gridApi.stopEditing();
+          this.gridCommonServices.setStopEditing(false);
+        }
+      });
+
     this.startEditingSubscription = this.gridCommonServices.getEditCell().subscribe(cellCoords => {
       if (cellCoords) {
         this.gridApi.setFocusedCell(cellCoords.row, cellCoords.col);
@@ -120,7 +124,9 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         field: 'sport',
         width: 150,
         cellEditorFramework: this.frameworkComponents.letterCellEditor,
-        cellEditorParams: {},
+        cellEditorParams: {
+          notAllowedChars: 'a'
+        },
       },
       {
         headerName: 'Age',
@@ -176,7 +182,6 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         ],
       },
     ];
-
   }
 
   ngOnDestroy() {
@@ -186,7 +191,11 @@ export class BaseGridComponent implements OnInit, OnDestroy {
     if (this.editTypeSubscription) {
       this.editTypeSubscription.unsubscribe();
     }
+    if (this.gridEditableSubscription) {
+      this.gridEditableSubscription.unsubscribe();
+    }
     if (this.stopEditingEventSubscription) {
+      this.gridCommonServices.stopCurrentEditing();
       this.stopEditingEventSubscription.unsubscribe();
     }
   }
