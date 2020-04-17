@@ -74,6 +74,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
       paginationAutoPageSize: true,
       rowHeight: 40,
       onGridReady: this.onGridReady,
+      onGridSizeChanged: this.onGridSizeChanged,
       frameworkComponents: this.frameworkComponents,
     };
 
@@ -194,7 +195,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
   }
 
   onGridSizeChanged(params) {
-    const gridWidth = document.getElementById('grid-wrapper').offsetWidth;
+    const gridWidth = document.getElementById('base-grid').offsetWidth;
     const columnsToShow = [];
     const columnsToHide = [];
     let totalColsWidth = 0;
@@ -209,9 +210,9 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         columnsToShow.push(column.colId);
       }
     }
-    params.columnApi.setColumnsVisible(columnsToShow, true);
-    params.columnApi.setColumnsVisible(columnsToHide, false);
-    params.api.sizeColumnsToFit();
+    this.gridColumnApi.setColumnsVisible(columnsToShow, true);
+    this.gridColumnApi.setColumnsVisible(columnsToHide, false);
+    this.gridApi.sizeColumnsToFit();
   }
 
 }
