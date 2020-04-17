@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,6 +11,7 @@ import { LetterCellEditorComponent, NumericCellEditorComponent, SeUiDatagridModu
 import { HomeComponent } from './pages/home/home.component';
 import { BaseGridComponent } from './pages/base-grid/base-grid.component';
 import { GridCommonService } from './services/grid-common.service';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ResponsiveGridComponent } from './pages/responsive-grid/responsive-grid.component';
 import { HideColsComponent } from './pages/hide-cols/hide-cols.component';
 
@@ -20,7 +21,8 @@ import { HideColsComponent } from './pages/hide-cols/hide-cols.component';
     HomeComponent,
     BaseGridComponent,
     ResponsiveGridComponent,
-    HideColsComponent,
+    PageNotFoundComponent,
+    HideColsComponent
   ],
   exports: [
   ],
