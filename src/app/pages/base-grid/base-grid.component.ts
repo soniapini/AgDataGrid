@@ -1,20 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { CellCoordsData } from './../../models/grid-models';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 import { GridCommonService } from '../../services/grid-common.service';
-
 import { AgGridEvent, GridOptions } from 'ag-grid-community';
 import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef';
 import { NumericCellEditor } from '../../editors/numeric-cell-editor';
 import { CustomCellComponent, NumericCellEditorComponent } from 'se-ui-datagrid';
-
-
 
 @Component({
   selector: 'app-base-grid',
   templateUrl: './base-grid.component.html',
   styleUrls: ['./base-grid.component.scss']
 })
-export class BaseGridComponent implements OnInit {
+export class BaseGridComponent implements OnInit, OnDestroy {
+  private darkThemeEventSubscription: Subscription;
+  private stopEditingEventSubscription: Subscription;
+  private editTypeSubscription: Subscription;
+  private startEditingSubscription: Subscription;
+
+  public isDark: boolean = false;
+  public editType: string = null;
+  public cellCoords: CellCoordsData;
+
   private gridApi;
   private gridColumnApi;
 
@@ -30,9 +38,27 @@ export class BaseGridComponent implements OnInit {
   constructor(
     private httpClient: HttpClient,
     public gridCommonServices: GridCommonService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.darkThemeEventSubscription = this.gridCommonServices.getCustomDarkTheme().subscribe(isDark => this.isDark = isDark);
+    this.editTypeSubscription = this.gridCommonServices.getEditType().subscribe(editType => this.editType = editType);
+    this.stopEditingEventSubscription = this.gridCommonServices.getStopEditing().subscribe(stopEditing => {
+      if (stopEditing === true) {
+        this.gridApi.stopEditing();
+        this.gridCommonServices.setStopEditing(false);
+      }
+    });
+    this.startEditingSubscription = this.gridCommonServices.getEditCell().subscribe(cellCoords => {
+      if (cellCoords) {
+        this.gridApi.setFocusedCell(cellCoords.row, cellCoords.col);
+        this.gridApi.startEditingCell({
+          rowIndex: cellCoords.row,
+          colKey: cellCoords.col,
+        });
+      }
+    });
+
     this.components = {
       numericCellEditor: NumericCellEditor
     };
@@ -48,7 +74,7 @@ export class BaseGridComponent implements OnInit {
       paginationAutoPageSize: true,
       rowHeight: 40,
       onGridReady: this.onGridReady,
-      frameworkComponents: this.frameworkComponents
+      frameworkComponents: this.frameworkComponents,
     };
 
     this.defaultColumnDef = {
@@ -146,6 +172,27 @@ export class BaseGridComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    if (this.darkThemeEventSubscription) {
+      this.darkThemeEventSubscription.unsubscribe();
+    }
+    if (this.editTypeSubscription) {
+      this.editTypeSubscription.unsubscribe();
+    }
+    if (this.stopEditingEventSubscription) {
+      this.stopEditingEventSubscription.unsubscribe();
+    }
+  }
+
+  onGridReady = (params: AgGridEvent) => {
+    console.log('ricevuto evento: ', params.type);
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.httpClient.get('https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json')
+      .subscribe((data) => this.rowData = data);
+    this.gridApi.sizeColumnsToFit();
+  }
+
   onGridSizeChanged(params) {
     const gridWidth = document.getElementById('grid-wrapper').offsetWidth;
     const columnsToShow = [];
@@ -165,17 +212,6 @@ export class BaseGridComponent implements OnInit {
     params.columnApi.setColumnsVisible(columnsToShow, true);
     params.columnApi.setColumnsVisible(columnsToHide, false);
     params.api.sizeColumnsToFit();
-  }
-
-  onGridReady = (params: AgGridEvent) => {
-    console.log('ricevuto evento: ', params.type);
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-
-    this.httpClient.get('https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json')
-      .subscribe((data) => this.rowData = data);
-
-    this.gridApi.sizeColumnsToFit();
   }
 
 }

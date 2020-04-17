@@ -1,44 +1,55 @@
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-app-root {
+.main {
   display: flex;
   flex-direction: column;
-  width: 100%;
   height: 100%;
 }
 
+.header {
+  border-bottom: 1px solid rgba(0,0,0,.12);
+}
+
+.footer {
+  border-top: 1px solid rgba(0,0,0,.12);
+}
+
+.header, footer {
+  flex: 0 0 auto;
+}
+
+.content{
+  flex: 1 1 auto;
+}
+
 .header-toolbar {
-  flex: 0 auto;
   justify-content: space-between;
+}
+
+mat-sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav-content, mat-sidenav {
+  padding: 1rem;
+}
+
+mat-sidenav {
+  background-color: whitesmoke;
+  width: 25%;
 }
 
 mat-radio-group {
   display: flex;
   flex-direction: column;
-  margin: 1.5rem 0;
 }
 
 mat-radio-button {
-  margin: 0.5rem;
+  margin: 0.5rem 0;
 }
 
-mat-sidenav-container {
-  flex: 1 auto;
-}
-
-mat-sidenav {
-  padding: 1rem;
-  background-color: whitesmoke;
-  width: 25%;
-}
-
-.ebit-grid {
-  height: 100%;
+.base-grid {
   width: 100%;
+  height: 90%;
+  box-sizing: border-box;
 }
 
 .medal--background {

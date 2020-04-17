@@ -17,33 +17,6 @@
   ));
 
   .ag-header {
-      // or write CSS selectors to make customisations beyond what the parameters support
       text-shadow: deeppink;
   }
 }
-
-// .ag-theme-balham {
-//   // $ag-params contains all values for the light theme
-//   @include ag-theme-balham($ag-params);
-// }
-
-// .ag-theme-balham-dark {
-//   $background: #2d3436;
-//   $foreground: #F5F5F5;
-
-//   // override the default params with the dark values
-//   $dark-params: map-merge($ag-params, (
-//       background-color: $background,
-//       foreground-color: $foreground,
-//       secondary-foreground-color: $foreground,
-//       odd-row-background-color: darken($background, 3),
-//       header-background-color: darken(#636e72, 30),
-//       header-foreground-color: $foreground,
-//       header-cell-hover-background-color: lighten($background, 5),
-//       header-cell-moving-background-color: lighten($background, 5),
-//       border-color: #424242,
-//       hover-color: lighten($background, 7)
-//     ));
-
-//     @include ag-theme-balham($dark-params);
-// }

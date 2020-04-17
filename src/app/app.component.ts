@@ -1,9 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-
 import { MatRadioChange } from '@angular/material/radio';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-
 import { GridCommonService } from './services/grid-common.service';
+import { CellCoordsData } from './models/grid-models';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +10,7 @@ import { GridCommonService } from './services/grid-common.service';
   styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
+
 export class AppComponent {
   title = 'ag-Grid test project';
   sidenavOpened: boolean = true;
@@ -18,42 +18,40 @@ export class AppComponent {
   isCellEditorEnabled = true;
   isDark = false;
 
+
   private gridApi;
 
-
-  constructor(public gridCommonServices: GridCommonService) {
-  }
+  constructor(public gridCommonServices: GridCommonService) { }
 
   onBtStartEditing() {
-    this.gridApi.setFocusedCell(2, 'sport');
-    this.gridApi.startEditingCell({
-      rowIndex: 2,
-      colKey: 'sport',
-    });
+    const cellCoords = new CellCoordsData();
+    cellCoords.row = 2;
+    cellCoords.col = 'sport';
+    this.gridCommonServices.setEditCell(cellCoords);
   }
 
   onBtStopEditing() {
-    this.gridApi.stopEditing();
+    this.gridCommonServices.setStopEditing(true);
   }
 
-  onChangeDarkThemeToggle(ob: MatSlideToggleChange) {
-    this.gridCommonServices.isDark = ob.checked;
+  onChangeDarkThemeToggle(toggleOb: MatSlideToggleChange) {
+    this.gridCommonServices.setCustomDarkTheme(toggleOb.checked);
   }
 
   onChangeEditorToggle(ob: MatSlideToggleChange) {
     this.isCellEditorEnabled =  ob.checked;
     this.isGridEditable = ob.checked;
-    this.gridApi.stopEditing();
+    this.gridCommonServices.setStopEditing(true);
   }
 
   onchangeEditorType(event: MatRadioChange) {
     if (event.value === 'fullRow') {
-      this.gridCommonServices.editType = 'fullRow';
+      this.gridCommonServices.setEditType('fullRow');
       this.isCellEditorEnabled = false;
     } else {
-      this.gridCommonServices.editType = null;
+      this.gridCommonServices.setEditType(null);
       this.isCellEditorEnabled = true;
     }
-    this.gridApi.stopEditing();
+    this.gridCommonServices.setStopEditing(true);
   }
 }
