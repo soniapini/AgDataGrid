@@ -5,10 +5,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from '@angular/common/http';
-import { NumericCellEditorComponent, SeUiDatagridModule } from 'se-ui-datagrid';
+import { LetterCellEditorComponent, NumericCellEditorComponent, SeUiDatagridModule } from 'se-ui-datagrid';
 import { HomeComponent } from './pages/home/home.component';
 import { BaseGridComponent } from './pages/base-grid/base-grid.component';
 import { GridCommonService } from './services/grid-common.service';
@@ -25,12 +24,11 @@ import { GridCommonService } from './services/grid-common.service';
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AgGridModule.withComponents([NumericCellEditorComponent]),
+    AgGridModule.withComponents([NumericCellEditorComponent, LetterCellEditorComponent]),
     SeUiDatagridModule
   ],
   providers: [ GridCommonService ],
