@@ -1,12 +1,13 @@
 import { CellCoordsData } from './../../models/grid-models';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { GridCommonService } from '../../services/grid-common.service';
 import { AgGridEvent, GridOptions } from 'ag-grid-community';
 import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef';
 import { NumericCellEditor } from '../../editors/numeric-cell-editor';
-import { CustomCellComponent, NumericCellEditorComponent } from 'se-ui-datagrid';
+
+import { CustomCellComponent, LetterCellEditorComponent, NumericCellEditorComponent } from 'se-ui-datagrid';
 
 @Component({
   selector: 'app-base-grid',
@@ -38,7 +39,8 @@ export class BaseGridComponent implements OnInit, OnDestroy {
   constructor(
     private httpClient: HttpClient,
     public gridCommonServices: GridCommonService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.darkThemeEventSubscription = this.gridCommonServices.getCustomDarkTheme().subscribe(isDark => this.isDark = isDark);
@@ -65,7 +67,8 @@ export class BaseGridComponent implements OnInit, OnDestroy {
 
     this.frameworkComponents = {
       numericCellEditor: NumericCellEditorComponent,
-      customCell: CustomCellComponent,
+      letterCellEditor: LetterCellEditorComponent,
+      customCell: CustomCellComponent
     };
 
     this.gridOptions = {
@@ -114,7 +117,9 @@ export class BaseGridComponent implements OnInit, OnDestroy {
       {
         headerName: 'Sport',
         field: 'sport',
-        width: 150
+        width: 150,
+        cellEditorFramework: this.frameworkComponents.letterCellEditor,
+        cellEditorParams: {},
       },
       {
         headerName: 'Age',
