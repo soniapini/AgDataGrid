@@ -3,11 +3,6 @@ import { ICellEditorAngularComp } from 'ag-grid-angular';
 import { ICellEditorParams } from 'ag-grid-community';
 import { FormControl } from '@angular/forms';
 
-// TODO
-// Definire con Ebit come vogliono visualizzare/gestire gli errori
-// Capire anche se non far aggiornare i valori quando invalidi o se evidenziare l'errore anche
-// nella cella quando non siamo in edit
-
 @Component({
   selector: 'lib-numeric-cell-editor',
   templateUrl: './numeric-cell-editor.component.html',
