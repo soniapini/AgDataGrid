@@ -32,31 +32,34 @@
               Editor {{isGridEditable? 'abilitato' : 'disabilitato'}}
             </mat-slide-toggle>
           </mat-list-item>
+          <mat-radio-group (change)="onchangeEditorType($event)" aria-label="Select an option" color="primary"
+          [disabled]="!isGridEditable">
           <mat-list-item role="listitem">
-            <mat-radio-group (change)="onchangeEditorType($event)" aria-label="Select an option" color="primary"
-              [disabled]="!isGridEditable">
-              <div mat-line>
-                <mat-radio-button value="fullRow">righe</mat-radio-button>
-              </div>
-              <div mat-line>
-                <mat-radio-button value="" checked>celle</mat-radio-button>
-              </div>
-            </mat-radio-group>
+            <mat-radio-button value="fullRow">righe
+            </mat-radio-button>
           </mat-list-item>
-
+          <mat-list-item role="listitem">
+            <mat-radio-button value="" checked>celle
+            </mat-radio-button>
+          </mat-list-item>
+        </mat-radio-group>
           <ng-container *ngIf="isGridEditable">
             <div *ngIf=" isCellEditorEnabled else fullRow">
-              <p class="mat-body-1">Singole celle editabili</p>
+              <div mat-subheader>Singole celle editabili</div>
             </div>
 
             <div *ngIf="!isCellEditorEnabled">
+              <mat-list-item role="listitem">
               <button mat-stroked-button (click)="onBtStartEditing()">Start Editing Line 2</button>
+            </mat-list-item>
+            <mat-list-item role="listitem">
               <button mat-stroked-button (click)="onBtStopEditing()">Stop Editing</button>
+            </mat-list-item>
             </div>
           </ng-container>
 
           <ng-template #fullRow>
-            <p class="mat-body-1">Righe intere editabili</p>
+            <div mat-subheader>Righe intere editabili</div>
           </ng-template>
         </mat-list>
       </mat-sidenav>
