@@ -125,7 +125,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         width: 150,
         cellEditorFramework: this.frameworkComponents.letterCellEditor,
         cellEditorParams: {
-          notAllowedChars: 'a'
+          notAdmissibleChars: ['a', 'b', 'z']
         },
       },
       {

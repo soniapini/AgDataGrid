@@ -11,7 +11,8 @@ import { FormControl } from '@angular/forms';
 export class LetterCellEditorComponent implements ICellEditorAngularComp {
 
   public editInline: boolean; // i parametri di input si recuperano in agInit da params es, params['editInPopup']
-  public notAllowed: RegExp; // i parametri di input si recuperano in agInit da params es, params['notAllowedChars']
+  // public notAllowed: RegExp; // i parametri di input si recuperano in agInit da params es, params['notAllowedChars']
+  public notAdmissibleChars: Array<string>; // i parametri di input si recuperano in agInit da params es, params['notAllowedChars']
 
   value: number;
   params: ICellEditorParams;
@@ -89,8 +90,7 @@ export class LetterCellEditorComponent implements ICellEditorAngularComp {
     this.editInline = this.editInline ? this.editInline : true;
     console.log('Parametro editInline: ', this.editInline);
 
-    this.notAllowed = this.params['notAllowedChars'];
-
+    this.notAdmissibleChars = this.params['notAdmissibleChars'];
 
     this.inlineEditor = (this.params.api.getEditingCells().length) === 1 ? this.editInline : true;
   }
