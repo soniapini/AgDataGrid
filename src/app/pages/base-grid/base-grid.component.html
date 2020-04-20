@@ -2,11 +2,23 @@
   <div class="title">
     <h1>{{title}}</h1>
   </div>
+  <div *ngIf="true">
+    <span style="margin-right: 10px;">Campo Age setting valori min e max.</span>
+    <mat-form-field class="example-full-width">
+      <mat-label>Min</mat-label>
+      <input matInput type="number" placeholder="Età minima" [(ngModel)]="minAgeConstraint">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Max</mat-label>
+      <input matInput type="number" placeholder="Età massima" [(ngModel)]="maxAgeConstraint">
+    </mat-form-field>
+  </div>
   <div class="grid-wrapper">
     <ag-grid-angular id="base-grid" class="base-grid"
-      [ngClass]="{'ag-theme-alpine-custom': isDark === true, 'ag-theme-alpine': isDark === false}"
-      [gridOptions]="gridOptions" [defaultColDef]="defaultColumnDef" [columnDefs]="columnDefs" [rowData]="rowData"
-      [editType]="editType" [animateRows]="true">
+                     [ngClass]="{'ag-theme-alpine-custom': isDark === true, 'ag-theme-alpine': isDark === false}"
+                     [gridOptions]="gridOptions" [defaultColDef]="defaultColumnDef" [columnDefs]="columnDefs"
+                     [rowData]="rowData"
+                     [editType]="editType" [animateRows]="true">
     </ag-grid-angular>
   </div>
 </div>

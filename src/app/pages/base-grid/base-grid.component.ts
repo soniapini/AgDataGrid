@@ -32,6 +32,9 @@ export class BaseGridComponent implements OnInit, OnDestroy {
   private gridApi;
   private gridColumnApi;
 
+  minAgeConstraint: number = 0;
+  maxAgeConstraint: number = 99;
+
   constructor(
     private httpClient: HttpClient,
     public gridCommonServices: GridCommonService
@@ -125,7 +128,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         width: 150,
         cellEditorFramework: this.frameworkComponents.letterCellEditor,
         cellEditorParams: {
-          notAdmissibleChars: ['a', 'b', 'z']
+          notAdmissibleChars: ['a', 'b', 'w']
         },
       },
       {
@@ -133,9 +136,11 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         field: 'age',
         type: 'numberColumn',
         cellEditorFramework: this.frameworkComponents.numericCellEditor,
-        cellEditorParams: {
-          min: 0,
-          max: 100
+        cellEditorParams: () => {
+          return {
+            min: this.minAgeConstraint,
+            max: this.maxAgeConstraint
+          };
         },
       },
       {
@@ -209,5 +214,6 @@ export class BaseGridComponent implements OnInit, OnDestroy {
     // this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
   }
+
 
 }
