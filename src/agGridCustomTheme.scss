@@ -2,21 +2,20 @@
 
 .ag-theme-alpine-custom {
   @include ag-theme-alpine((
-      // use theme parameters where possible
-      alpine-active-color: deeppink,
-      background-color: #2e0931,
-      foreground-color:  #F5F5F5,
-      secondary-foreground-color:#F5F5F5,
-      odd-row-background-color: darken( #2d3436, 3),
-      header-background-color: darken(#636e72, 30),
-      header-foreground-color: #F5F5F5,
-      header-cell-hover-background-color: lighten( #2d3436, 5),
-      header-cell-moving-background-color: lighten( #2d3436, 5),
-      border-color: #424242,
-      hover-color: lighten( #2d3436, 7)
+      alpine-active-color: #ffe600,
+      background-color: #29264e,
+      foreground-color:  #ffffff,
+      secondary-foreground-color:#ffe600,
+      odd-row-background-color: darken( #29264e, 0),
+      header-background-color: darken( #29264e, 5),
+      header-foreground-color: #ffe600,
+      header-cell-hover-background-color: lighten( #29264e, 2),
+      header-cell-moving-background-color: lighten( #29264e, 5),
+      border-color: #cccccc,
+      hover-color: lighten( #cccccc, 7)
   ));
 
   .ag-header {
-      text-shadow: deeppink;
+      text-shadow: ffe600;
   }
 }
