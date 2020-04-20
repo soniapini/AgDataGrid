@@ -34,7 +34,7 @@ export class NumericCellEditorBaseComponent implements OnInit {
 
     this.formControl = new FormControl(this.value, []);
 
-    validators.push(Validators.required);
+    // validators.push(Validators.required); // TODO serve gestire il validatore required?
 
     if (this.max) {
       validators.push(Validators.max(this.max));
