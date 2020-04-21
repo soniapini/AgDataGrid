@@ -8,6 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "generateDocs": "npx compodoc -p projects/se-ui-datagrid/tsconfig.lib.json",
     "compodoc": "npx compodoc -p projects/se-ui-datagrid/tsconfig.lib.json -s"
   },
   "private": true,
