@@ -1,8 +1,8 @@
-@import "~ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin";
+@import "~ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material-mixin";
 
-.ag-theme-alpine-custom {
-  @include ag-theme-alpine((
-      alpine-active-color: #ffe600,
+.ag-theme-material-custom {
+  @include ag-theme-material((
+      // alpine-active-color: #ffe600,
       background-color: #29264e,
       foreground-color:  #ffffff,
       secondary-foreground-color:#ffe600,
