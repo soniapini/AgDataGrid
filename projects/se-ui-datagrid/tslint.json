@@ -4,14 +4,20 @@
     "directive-selector": [
       true,
       "attribute",
-      "lib",
+      "se",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "lib",
+      "se",
       "kebab-case"
-    ]
+    ],
+    "import-spacing": true,
+    "indent": [
+      true,
+      "spaces"
+    ],
+    "interface-over-type-literal": true
   }
 }
