@@ -1,19 +1,19 @@
 <ng-container *ngIf="inlineEditor else popupEditor">
-  <lib-numeric-cell-editor-inline tabindex="0"
-                                  [value]="value"
-                                  [startEdited]="cellStartEdited"
-                                  [min]="min"
-                                  [max]="max"
-                                  (formReady)="_onFormReady($event)"></lib-numeric-cell-editor-inline>
+  <se-numeric-cell-editor-inline tabindex="0"
+                                 [value]="value"
+                                 [startEdited]="cellStartEdited"
+                                 [min]="min"
+                                 [max]="max"
+                                 (formReady)="_onFormReady($event)"></se-numeric-cell-editor-inline>
 </ng-container>
 
 <ng-template #popupEditor>
-  <lib-numeric-cell-editor-popup tabindex="0"
-                                 [value]="value"
-                                 [min]="min"
-                                 [max]="max"
-                                 [width]="cellWidth"
-                                 (formReady)="_onFormReady($event)">
-  </lib-numeric-cell-editor-popup>
+  <se-numeric-cell-editor-popup tabindex="0"
+                                [value]="value"
+                                [min]="min"
+                                [max]="max"
+                                [width]="cellWidth"
+                                (formReady)="_onFormReady($event)">
+  </se-numeric-cell-editor-popup>
 </ng-template>
 

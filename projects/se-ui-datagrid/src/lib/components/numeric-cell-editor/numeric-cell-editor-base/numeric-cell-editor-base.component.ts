@@ -3,7 +3,7 @@ import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { SeErrorStateMatcher } from '../../../utils/error-state-matcher';
 
 /**
- * Base component for numeric-cell-editor.
+ * Base Editor Custom AgGrid for Numeric Input.
  * It contains common functionalities used by NumericCellEditorInlineComponent
  * and NumericCellEditorPopupComponent
  */
@@ -12,12 +12,27 @@ import { SeErrorStateMatcher } from '../../../utils/error-state-matcher';
 })
 export class NumericCellEditorBaseComponent implements OnInit {
 
+  /**
+   * Current value of the cell
+   * ngModel setted by NumericCellEditorComponent
+   */
   @Input() value: number;
 
+  /**
+   * (Optional) it allows to specify the minimum admissible value
+   * passed by NumericCellEditorComponent
+   */
   @Input() min: number;
 
+  /**
+   * (Optional) it allows to specify the maximum admissible value
+   * passed by NumericCellEditorComponent
+   */
   @Input() max: number;
 
+  /**
+   * Event emitted when the reactive form is ready
+   */
   @Output() formReady: EventEmitter<FormControl> = new EventEmitter<FormControl>();
 
   @ViewChild('numericInput', {static: false, read: ElementRef}) numericInput: ElementRef;

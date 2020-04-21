@@ -3,8 +3,16 @@ import { ICellEditorAngularComp } from 'ag-grid-angular';
 import { ICellEditorParams } from 'ag-grid-community';
 import { FormControl } from '@angular/forms';
 
+/**
+ * Editor Custom AgGrid for Numeric Input.
+ * Params:
+ * - min: (Optional) it allows to specify the minimum admissible value
+ * - max: (Optional) it allows to specify the maximum admissible value
+ * - inlineEditor (Default true) it allows to specify the preference between online or popup editor version.
+ *  NOTE: when in the AgGrid is enabled the fullRow editing this input param is ignored and the editor will be inline
+ */
 @Component({
-  selector: 'lib-numeric-cell-editor',
+  selector: 'se-numeric-cell-editor',
   templateUrl: './numeric-cell-editor.component.html',
   styleUrls: ['./numeric-cell-editor.component.scss'],
   encapsulation: ViewEncapsulation.None
