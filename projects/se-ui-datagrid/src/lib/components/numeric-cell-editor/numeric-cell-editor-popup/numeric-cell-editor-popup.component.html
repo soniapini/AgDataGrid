@@ -5,6 +5,7 @@
                     [style.width]="width">
       <input #numericInput matInput
              type="number"
+             [step]="step"
              [formControl]="formControl"
              [errorStateMatcher]="matcher">
       <mat-error *ngIf="formControl.hasError('max')">

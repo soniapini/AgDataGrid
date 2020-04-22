@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
  * Params:
  * - min: (Optional) it allows to specify the minimum admissible value
  * - max: (Optional) it allows to specify the maximum admissible value
+ * - decimal: (Optional. Default value 0) it allows to specify the number of decimals
  * - inlineEditor (Default true) it allows to specify the preference between online or popup editor version.
  *  NOTE: when in the AgGrid is enabled the fullRow editing this input param is ignored and the editor will be inline
  */
@@ -21,6 +22,7 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
 
   public max: number; // i parametri di input si recuperano in agInit da params es, params['max']
   public min: number; // i parametri di input si recuperano in agInit da params es, params['min']
+  public decimal: number; // i parametri di input si recuperano in agInit da params es, params['decimal']
   public editInline: boolean; // i parametri di input si recuperano in agInit da params es, params['editInPopup']
 
   value: number;
@@ -100,10 +102,13 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
     this.min = this.params['min'];
     console.log('Parametro min: ', this.min);
 
+    this.decimal = this.params['decimal'];
+    this.decimal = this.decimal ? this.decimal : 0;
+    console.log('Parametro decimal: ', this.decimal);
+
     this.editInline = this.params['editInline'];
     this.editInline = this.editInline ? this.editInline : true;
     console.log('Parametro editInline: ', this.editInline);
-
 
     this.inlineEditor = (this.params.api.getEditingCells().length) === 1 ? this.editInline : true;
   }

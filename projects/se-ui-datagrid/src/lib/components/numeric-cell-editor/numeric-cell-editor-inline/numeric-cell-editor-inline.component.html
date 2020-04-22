@@ -2,6 +2,7 @@
   <mat-form-field class="ag-row">
     <input #numericInput matInput tabindex="0"
            type="number"
+           [step]="step"
            [formControl]="formControl"
            [errorStateMatcher]="matcher">
   </mat-form-field>

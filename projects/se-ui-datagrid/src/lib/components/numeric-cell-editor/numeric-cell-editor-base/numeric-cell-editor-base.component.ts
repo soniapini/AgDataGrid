@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { SeErrorStateMatcher } from '../../../utils/error-state-matcher';
 
@@ -31,6 +31,12 @@ export class NumericCellEditorBaseComponent implements OnInit {
   @Input() max: number;
 
   /**
+   * (Optional) it allows to specify the number of decimals
+   * passed by NumericCellEditorComponent
+   */
+  @Input() decimal: number;
+
+  /**
    * Event emitted when the reactive form is ready
    */
   @Output() formReady: EventEmitter<FormControl> = new EventEmitter<FormControl>();
@@ -39,6 +45,10 @@ export class NumericCellEditorBaseComponent implements OnInit {
 
   formControl: FormControl;
   matcher = new SeErrorStateMatcher();
+  step: string;
+
+  numericFormatStr: string;
+  numericFormatRegExp: RegExp;
 
   constructor() {
   }
@@ -57,9 +67,30 @@ export class NumericCellEditorBaseComponent implements OnInit {
     if (this.min !== null && this.min !== undefined) {
       validators.push(Validators.min(this.min));
     }
-
     this.formControl.setValidators(validators);
 
+    this.buildNumericFormat();
   }
 
+  @HostListener('keypress', ['$event']) onKeyPress(event) {
+    console.log(this.numericInput.nativeElement.value);
+    const current: string = this.numericInput.nativeElement.value;
+    return this.numericFormatRegExp.test(current.concat(event.key));
+  }
+
+  //
+  // @HostListener('paste', ['$event']) blockPaste(event: KeyboardEvent) {
+  //   this.validateFields(event);
+  // }
+
+  private buildNumericFormat() {
+    if (!this.decimal) {
+      this.numericFormatStr = '^[-+]?[0-9]+$';
+      this.step = '1';
+    } else {
+      this.numericFormatStr = '^[-+]?[0-9]+(\.)?[0-9]{0,' + this.decimal + '}$';
+      this.step = '0.'.concat('0'.repeat(this.decimal - 1).concat('1'));
+    }
+    this.numericFormatRegExp = new RegExp(this.numericFormatStr);
+  }
 }
