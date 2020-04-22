@@ -5,7 +5,7 @@
       // alpine-active-color: #ffe600,
       background-color: #29264e,
       foreground-color:  #ffffff,
-      secondary-foreground-color:#ffe600,
+      secondary-foreground-color: ag-derived(foreground-color, $opacity: 0.54),
       odd-row-background-color: darken( #29264e, 0),
       header-background-color: darken( #29264e, 5),
       header-foreground-color: #ffe600,

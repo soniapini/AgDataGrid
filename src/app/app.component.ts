@@ -61,7 +61,7 @@ export class AppComponent {
 
   private initialiseDemoAppConfiguration() {
     // gestione navbar laterale
-    this.sidenavOpened = true;
+    this.sidenavOpened = false;
 
     // gestione griglia editabile: SI/NO
     this.isGridEditable = true;

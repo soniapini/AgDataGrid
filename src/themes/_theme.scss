@@ -1,0 +1,192 @@
+@import '~@angular/material/theming';
+
+$material-design-icons-font-directory-path: '~material-design-icons-iconfont/dist/fonts/';
+@import '~material-design-icons-iconfont/src/material-design-icons';
+
+/**
+ * Estensa Blue Palette
+ */
+$estensa-blue: (
+    50: #B4CEE4,
+    100: #A2C2DE,
+    200: #8FB6D7,
+    300: #7DAAD1,
+    400: #6A9ECA,
+    500: #4586BD,
+    600: #337ab7,
+    700: #265986,
+    800: #214E75,
+    900: #183854,
+    A100: #92bde2,
+    A200: #73addf,
+    A400: #3c99e7,
+    A700: #0987f3,
+    contrast: (
+        50: $dark-primary-text,
+        100: $dark-primary-text,
+        200: $dark-primary-text,
+        300: $dark-primary-text,
+        400: $dark-primary-text,
+        500: $dark-primary-text,
+        600: $light-primary-text,
+        700: $light-primary-text,
+        800: $light-primary-text,
+        900: $light-primary-text,
+        A100: $dark-primary-text,
+        A200: $dark-primary-text,
+        A400: $dark-primary-text,
+        A700: $dark-primary-text,
+    )
+);
+
+
+/**
+ * Estensa Green Palette
+ */
+$estensa-green: (
+    50: #E3F1E5,
+    100: #BBDDBE,
+    200: #ADD6B1,
+    300: #92C997,
+    400: #77BB7D,
+    500: #6AB570,
+    600: #61A566,
+    700: #4E8452,
+    800:#3A633E,
+    900:#274229,
+    A100: #d0efd4,
+    A200: #a1e7a8,
+    A400: #80dc88,
+    A700: #65b96b,
+    contrast: (
+        50: $light-primary-text,
+        100: $light-primary-text,
+        200: $light-primary-text,
+        300: $light-primary-text,
+        400: $light-primary-text,
+        500: $light-primary-text,
+        600: $light-primary-text,
+        700: $light-primary-text,
+        800: $dark-primary-text,
+        900: $dark-primary-text,
+        A100: $dark-primary-text,
+        A200: $dark-primary-text,
+        A400: $dark-primary-text,
+        A700: $dark-primary-text,
+    )
+);
+
+/**
+ * Estensa common Palette
+ */
+$estensa-warn: mat-palette($mat-red,600, 100, 700);
+$estensa-accent: mat-palette($estensa-blue, 600, 100, 700);
+/**
+ * Estensa Light Palette
+ */
+$estensa-light-primary: mat-palette($estensa-blue, 400, 100, 700);
+
+$estensa-light: mat-light-theme($estensa-light-primary, $estensa-accent, $estensa-warn);
+
+/**
+ * Estensa Dark Palette
+ */
+$estensa-dark-primary: mat-palette($estensa-blue, 300, 100, 700);
+$estensa-dark: mat-dark-theme($estensa-dark-primary, $estensa-accent, $estensa-warn);
+
+/**
+ * Colors (https://github.com/angular/components/blob/master/src/material/core/theming/_palette.scss)
+ */
+/*
+    1) Con map-get($estensa-dark, background) di prende tutta la mappa estensa-dark-theme-background . Cercare $mat-light-theme-background nella pagina al link sopra per vedere cosa ritorna la funzione.
+    2) Con mat-color(map-get($estensa-dark, background), hover); vado a ricavare il colore che corrisponde alla chiave 'hover' della mappa descritta al punto 1
+    3) Aprire https://github.com/angular/components/blob/master/src/material/core/theming/_theming.scss per vedere come sono dichiarate le funzioni mat-XXX
+*/
+$estensa-dark-foreground: mat-color(map-get($estensa-dark, foreground), text);
+$estensa-dark-background: mat-color(map-get($estensa-dark, background), background);
+$estensa-dark-half-background: mat-color(map-get($estensa-dark, background), background, 0.5);
+$estensa-dark-background-hover: mat-color(map-get($estensa-dark, background), hover);
+$estensa-dark-dialog-background: mat-color(map-get($estensa-dark, background), dialog);
+$estensa-dark-rollup-selected-node-background: mat-color(mat-palette($estensa-green, 300));
+$estensa-dark-panel-background: #494949;
+
+$estensa-light-foreground: mat-color(map-get($estensa-light, foreground), text);
+$estensa-light-background: mat-color(map-get($estensa-light, background), background);
+$estensa-light-half-background: mat-color(map-get($estensa-light, background), background, 0.4);
+$estensa-light-background-hover: mat-color(map-get($estensa-light, background), hover);
+$estensa-light-dialog-background: mat-color(map-get($estensa-light, background), dialog);
+$estensa-light-rollup-selected-node-background: mat-color(mat-palette($estensa-green, 50));
+$estensa-light-panel-background: $estensa-light-background;
+/**
+ * Colors (https://github.com/angular/material2/blob/master/src/lib/core/theming/_theming.scss)
+ * Tramite il map-get carica la palette, quindi seleziona il colore di base
+ */
+// Dark
+$estensa-dark-primary-color: mat-color(map-get($estensa-dark, primary));
+
+// Light
+$estensa-light-primary-color: mat-color(map-get($estensa-light, primary));
+
+// Common
+$estensa-warning-color: mat-color(mat-palette($mat-yellow, 600));
+$estensa-error-color: mat-color($estensa-warn);
+$estensa-accent-color: mat-color($estensa-accent);
+
+// Common - Toolbar
+$estensa-toolbar-accent-color: mat-color(mat-palette($mat-yellow, 800));
+$estensa-toolbar-dark-background-color: mat-color(mat-palette($estensa-blue, 600));
+$estensa-toolbar-light-background-color: mat-color(mat-palette($estensa-blue, 600));
+// Common - Toolbar Badge
+$estensa-toolbar-badge-primary-color: mat-color(mat-palette($mat-green, 400));
+$estensa-toolbar-badge-warn-color: mat-color(mat-palette($mat-yellow, 500));
+$estensa-toolbar-badge-error-color: mat-color(mat-palette($mat-red,800));
+// Common - Estensa
+$estensa-light-blue: mat-color(mat-palette($estensa-blue, 600));
+// Tooltip
+$estensa-tooltip-background: #7a9bb7;
+/**
+ * Animation
+ */
+$easing-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+$easing-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
+$easing-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
+
+/**
+ * Mixins
+ */
+@mixin themed($selector, $property, $light, $dark) {
+
+    :host-context(.estensa-dark) {
+        #{$selector} {
+            #{$property}: $dark;
+        }
+    }
+
+    :host-context(.estensa-light) {
+        #{$selector} {
+            #{$property}: $light;
+        }
+    }
+}
+
+@mixin themed-background($selector, $light, $dark) {
+    @include themed($selector, background, $light, $dark);
+}
+
+@mixin themed-color($selector, $light, $dark) {
+    @include themed($selector, color, $light, $dark);
+}
+
+@mixin themed-text-shadow($selector, $x, $y, $blur, $light, $dark) {
+    :host-context(.estensa-dark) {
+        #{$selector} {
+            text-shadow: $x $y $blur $dark;
+        }
+    }
+
+    :host-context(.estensa-light) {
+        #{$selector} {
+            text-shadow: $x $y $blur $light;
+        }
+    }
+}

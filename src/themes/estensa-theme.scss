@@ -1,0 +1,581 @@
+/**
+ * Vedi
+ *   - Variabili tema https://github.com/angular/material2/blob/master/src/lib/core/theming/_theming.scss
+ *   - Variabili palette https://github.com/angular/material2/blob/master/src/lib/core/theming/_palette.scss
+ */
+@import 'theme';
+
+//$icons-path: '~ag-grid-community/src/styles/ag-theme-material/icons/';
+$ag-icons-path: '~ag-grid-community/src/styles/icons/';
+$ag-mat-icons-path: '~ag-grid-community/src/styles/material-icons/';
+
+// @font-face {
+//     font-family: 'estensa-icons';
+//     src: url('assets/fonts/estensa-icons.ttf') format('truetype');
+//     font-weight: normal;
+//     font-style: normal;
+// }
+
+.estensa-icons {
+    font-family: estensa-icons;
+}
+
+.estensa-light {
+    @include angular-material-theme($estensa-light);
+}
+
+.estensa-dark {
+    @include angular-material-theme($estensa-dark);
+}
+
+/**
+ * Material
+ */
+
+.cdk-overlay-container {
+    z-index: 10101;
+}
+
+[matRipple] .mat-card-content {
+    margin-bottom: 0;
+}
+
+.cp-control .ag-body-viewport {
+    overflow-y: scroll !important;
+}
+
+/**
+ * AG-GRID
+ */
+/* https://github.com/ag-grid/ag-grid/blob/master/packages/ag-grid-community/src/styles/webfont/agGridMaterialFont.scss */
+@import '~ag-grid-community/src/styles/webfont/agGridMaterialFont.scss';
+
+$grid-size: 7px;
+
+ .ag-theme-material {
+     }
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+    .ag-theme-material {
+        font-size: 12px !important;
+
+        .ag-header {
+            font-size: small !important;
+            height: 45px !important;
+            min-height: 45px !important;
+
+            .ag-header-row {
+                height: 45px !important;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 801px) and (max-width: 1280px) {
+    .ag-theme-material {
+        font-size: 11px !important;
+
+        .ag-header {
+            font-size: small !important;
+            height: 40px !important;
+            min-height: 40px !important;
+
+            .ag-header-row {
+                height: 40px !important;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1441px) {
+    .ag-theme-material {
+        font-size: 13px !important;
+
+        .ag-header {
+            font-size: medium !important;
+            height: 50px !important;
+            min-height: 50px !important;
+
+            .ag-header-row {
+                height: 50px !important;
+            }
+        }
+    }
+}
+
+
+.estensa-light {
+    /**
+     * ag-grid
+     * https://github.com/ag-grid/ag-grid/blob/master/packages/ag-grid-community/src/styles/ag-theme-material/vars/_ag-theme-material-vars.scss
+     */
+    $ag-primary-color: $estensa-light-primary-color;
+    $ag-accent-color: $estensa-accent-color;
+    $ag-background-color: $estensa-light-panel-background;
+    $ag-foreground-color: $dark-primary-text;
+    $ag-secondary-foreground-color: $dark-secondary-text;
+    $ag-disabled-foreground-color: $dark-disabled-text;
+    $ag-hover-color: $estensa-light-background-hover;
+    $ag-border-color: mat-color($mat-grey, 300);
+    $ag-icon-color: $estensa-dark-foreground;
+    $ag-header-background-color: $estensa-accent-color;
+    $ag-header-cell-hover-background-color: lighten($estensa-accent-color, 10%);
+    $ag-header-foreground-color: $estensa-dark-foreground;
+
+    // @import '~ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss';
+    // @import '~ag-grid-community/src/styles/ag-grid.scss';
+
+    .ag-cell-focus, .ag-cell-no-focus {
+        border: none !important;
+    }
+
+    .ag-cell:focus {
+        border: none !important;
+        outline: none;
+    }
+
+    .ag-row-selected {
+        background: #b5b5b5 !important;
+    }
+
+    .ag-row-hover {
+        background-color: rgba(0,0,0,0.1) !important;
+    }
+
+    /**
+     * mat-dialog
+     */
+    .mat-dialog-container {
+        display: flex;
+        border-radius: 0;
+        padding: 0 !important;
+        box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12) !important;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+    }
+
+    .se-dialog-header {
+        background: $estensa-light-primary-color;
+        color: $estensa-dark-foreground;
+        display: flex;
+        justify-content: center;
+        padding: 15px 0;
+    }
+
+    .se-dialog-header-error {
+        background: $estensa-error-color !important;
+    }
+
+    .se-dialog-header-warning {
+        background: $estensa-warning-color !important;
+        color: $estensa-light-foreground !important;
+    }
+
+    /**
+     * mat-select
+     */
+    .se-mat-select-panel-class {
+        margin-top: 24px;
+        background: #f1f3f5 !important;
+    }
+
+    // Tmp per le combio che danno problemu cin il margine
+    .se-select-tmp-class {
+        background: #f1f3f5 !important;
+    }
+
+    /**
+     * v-next icon
+     */
+    .warning-icon {
+        color: $estensa-warning-color !important;
+    }
+
+    .error-icon {
+        color: $estensa-error-color !important;
+    }
+
+    /**
+     * v-next toolbar
+     */
+    .se-header-toolbar {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        background-color: $estensa-toolbar-light-background-color;
+        color: $estensa-dark-foreground;
+    }
+
+    .se-header-toolbar-item-info {
+        color: $estensa-light-foreground !important;
+        opacity: 1;
+    }
+
+    .se-header-toolbar-item-info[disabled] {
+        color: $estensa-light-foreground !important;
+        opacity: 1;
+    }
+
+    .se-header-notification-card {
+        margin: 5px;
+        background-color: $estensa-light-half-background !important;
+    }
+
+    /**
+    * v-next spinner
+    */
+    .estensa-spinner {
+        position: absolute;
+        z-index: initial;
+        align-content: center;
+        align-items: center;
+        background: $estensa-light-half-background;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+    }
+}
+
+.estensa-dark {
+    /**
+     * ag-grid
+     * https://github.com/ag-grid/ag-grid/blob/master/packages/ag-grid-community/src/styles/ag-theme-material/vars/_ag-theme-material-vars.scss
+     */
+    $ag-primary-color: $estensa-dark-primary-color;
+    $ag-accent-color: $estensa-accent-color;
+    $ag-background-color: $estensa-dark-panel-background;
+    $ag-foreground-color: $light-primary-text;
+    $ag-secondary-foreground-color: $dark-secondary-text;
+    $ag-disabled-foreground-color: $dark-disabled-text;
+    $ag-hover-color: $estensa-dark-background-hover;
+    $ag-border-color: mat-color($mat-grey, 600);
+    $ag-icon-color: $estensa-dark-foreground;
+    $ag-header-background-color: $estensa-accent-color;
+    $ag-header-cell-hover-background-color: darken($estensa-accent-color, 10%);
+    $ag-header-foreground-color: $estensa-dark-foreground;
+
+    @import '~ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss';
+    @import '~ag-grid-community/src/styles/ag-grid.scss';
+
+    .ag-cell-focus, .ag-cell-no-focus {
+        border: none !important;
+    }
+
+    .ag-cell:focus {
+        border: none !important;
+        outline: none;
+    }
+
+    .ag-row-selected {
+        background: #7692ad !important;
+    }
+
+    .ag-row-hover {
+        background-color: rgba(118,146,173,0.8) !important;
+    }
+
+    /**
+     * mat-dialog
+     */
+    .mat-dialog-container {
+        display: flex;
+        flex-direction: column;
+        border-radius: 0;
+        padding: 0 !important;
+        box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.5), 0px 24px 38px 3px rgba(0, 0, 0, 0.38), 0px 9px 46px 8px rgba(0, 0, 0, 0.34) !important;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+    }
+
+    .se-dialog-header {
+        background: $estensa-accent-color;
+        color: $estensa-dark-foreground;
+        display: flex;
+        justify-content: center;
+        padding: 15px 0;
+    }
+
+    .se-dialog-header-error {
+        background: $estensa-error-color !important;
+    }
+
+    .se-dialog-header-warning {
+        background: $estensa-warning-color !important;
+        color: $estensa-light-foreground !important;
+    }
+
+    /**
+     * mat-select
+     */
+    .se-mat-select-panel-class {
+        margin-top: 24px;
+        background: #585858 !important;
+    }
+
+    /**
+     * v-next icon
+     */
+    .warning-icon {
+        color: $estensa-warning-color !important;
+    }
+
+    .error-icon {
+        color: $estensa-error-color !important;
+    }
+
+    /**
+     * v-next toolbar
+     */
+    .se-header-toolbar {
+        display: flex;
+        flex: 0 0 auto;
+        flex-direction: column;
+        background-color: $estensa-toolbar-dark-background-color;
+        color: $estensa-dark-foreground;
+    }
+
+    .se-header-toolbar-item-info {
+        color: $estensa-dark-foreground !important;
+        opacity: 1;
+    }
+
+    .se-header-toolbar-item-info[disabled] {
+        color: $estensa-dark-foreground !important;
+        opacity: 1;
+    }
+
+    .se-header-notification-card {
+        margin: 5px;
+        background-color: $estensa-dark-half-background !important;
+    }
+
+    /**
+    * v-next spinner
+    */
+    .estensa-spinner {
+        position: absolute;
+        z-index: initial;
+        align-content: center;
+        align-items: center;
+        background: $estensa-dark-half-background;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+    }
+}
+
+/**
+* Global Styles
+*/
+.mat-tooltip-small {
+    font-size: small;
+    white-space: pre-line;
+    background-color: $estensa-tooltip-background !important;
+}
+
+.mat-tooltip-medium {
+    font-size: medium;
+    white-space: pre-line;
+    background-color: $estensa-tooltip-background !important;
+}
+
+.mat-tooltip-bigger {
+    font-size: medium;
+    white-space: pre-line;
+    background-color: $estensa-tooltip-background !important;
+}
+
+.se-external-component-container {
+    background: transparent;
+    width: 30%;
+    display: none;
+    overflow:hidden;
+}
+
+.se-external-component-container-expanded {
+    display:flex;
+}
+
+.se-header-divider {
+    margin: 5px !important;
+}
+
+.se-header-divider-last {
+    margin-right: 15px !important;
+}
+
+@media screen and (min-width: 801px) and (max-width: 1280px) {
+    .search-filter-class .mat-form-field-infix {
+        width: 90px !important;
+    }
+
+    .se-generic-font-variable,
+    .filter-sub-button,
+    .navigator-filter,
+    .fab-config-button,
+    .fab-config-menu-item,
+    .search-panel-button,
+    .se-header-toolbar-item-info,
+    .secondary-description,
+    .se-buttons-toolbar-button,
+    .se-buttons-toolbar-menu-button,
+    .se-buttons-toolbar-user-info,
+    .se-external-component-container,
+    .search-filter-class .mat-form-field-infix,
+    .se-external-component-container {
+        font-size: 12px !important;
+    }
+
+    .se-external-component-container {
+        width: 25%;
+    }
+
+    .se-header-toolbar-button {
+        height: 32px !important;
+        width: 32px !important;
+        line-height: 32px !important;
+    }
+
+    .se-header-divider-last {
+        margin-right: 5px !important;
+    }
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+    .search-filter-class .mat-form-field-infix {
+        width: 120px !important;
+    }
+
+    .se-generic-font-variable,
+    .filter-sub-button,
+    .navigator-filter,
+    .fab-config-button,
+    .fab-config-menu-item,
+    .search-panel-button,
+    .se-header-toolbar-item-info,
+    .secondary-description,
+    .se-buttons-toolbar-button,
+    .se-buttons-toolbar-menu-button,
+    .se-buttons-toolbar-user-info,
+    .se-external-component-container,
+    .search-filter-class .mat-form-field-infix,
+    .se-external-component-container {
+        font-size: 13px !important;
+    }
+
+    .se-header-toolbar-button {
+        height: 36px !important;
+        width: 36px !important;
+        line-height: 36px !important;
+    }
+
+    .se-header-divider-last {
+        margin-right: 10px !important;
+    }
+}
+
+@media screen and (min-width: 1441px) {
+    .search-filter-class .mat-form-field-infix {
+        width: 150px !important;
+    }
+}
+
+/**
+ * Button-group simile al text-editor
+ */
+.mat-button-toggle-square.mat-button-toggle-group {
+    border: 0;
+    border-radius: 0;
+
+    .mat-button-toggle-button .mat-button-toggle-label-content {
+        line-height: 36px;
+        padding: 0 6px;
+    }
+}
+
+/**
+ * Form-field più densi
+ */
+.mat-form-field.mat-form-field-dense {
+    .mat-form-field-infix {
+        border: 0;
+    }
+
+    .mat-form-field-underline {
+        bottom: 0;
+    }
+
+    .mat-form-field-wrapper {
+        padding-bottom: 0;
+    }
+}
+
+/**
+ * Placeholder degli input piu' grande che rimane colorato se c'è contenuto
+ */
+.mat-form-field.mat-form-field-should-float label {
+    font-size: 15px;
+    font-weight: bold;
+    color: $estensa-accent-color !important;
+}
+
+/**
+ * label delle checkbox
+ */
+.mat-checkbox-label {
+    margin: 0;
+    font-weight: normal;
+    text-overflow: ellipsis !important;
+    overflow: hidden;
+}
+
+.mat-select {
+}
+
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+    .mat-form-field.mat-form-field-should-float label {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .mat-checkbox-label ,
+    .mat-form-field-label-wrapper,
+    .mat-select,
+    .mat-select-value-text {
+        font-size: 13px;
+    }
+}
+
+@media screen and (min-width: 801px) and (max-width: 1280px) {
+    .mat-form-field.mat-form-field-should-float label {
+        font-size: 13px;
+        font-weight: normal;
+    }
+
+    .mat-checkbox-label,
+    .mat-form-field-label-wrapper,
+    .mat-select,
+    .mat-select-value-text {
+        font-size: 12px;
+    }
+
+}
+
+/**
+ * Altezza dei tab item al 100% (aggiungere la classe se-tab-fill-height al mat-tab-group!!)
+ */
+.mat-tab-group.se-tab-fill-height .mat-tab-body-wrapper {
+    flex: 1 !important;
+}
+
+.mat-tab-group.se-tab-fill-height .mat-tab-body-content {
+    display:flex;
+}
+
+
