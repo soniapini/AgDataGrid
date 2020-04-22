@@ -30,7 +30,7 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
   cellStartEdited: boolean;
   cellWidth: string;
   formControl: FormControl;
-  inlineEditor: boolean; // TODO potrebbe diventare un parametro di input dalla grid
+  inlineEditor: boolean;
 
   constructor() {
   }
@@ -106,8 +106,8 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
     this.decimal = this.decimal ? this.decimal : 0;
     console.log('Parametro decimal: ', this.decimal);
 
-    this.editInline = this.params['editInline'];
-    this.editInline = this.editInline ? this.editInline : true;
+    this.editInline = this.params['inlineEditor'];
+    this.editInline = (this.editInline !== null && this.editInline !== undefined) ? this.editInline : true;
     console.log('Parametro editInline: ', this.editInline);
 
     this.inlineEditor = (this.params.api.getEditingCells().length) === 1 ? this.editInline : true;

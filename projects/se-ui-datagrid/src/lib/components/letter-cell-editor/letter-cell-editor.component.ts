@@ -4,7 +4,7 @@ import { ICellEditorParams } from 'ag-grid-community';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'lib-letter-cell-editor',
+  selector: 'se-letter-cell-editor',
   templateUrl: './letter-cell-editor.component.html',
   styleUrls: ['./letter-cell-editor.component.scss']
 })
@@ -19,7 +19,7 @@ export class LetterCellEditorComponent implements ICellEditorAngularComp {
   cellStartEdited: boolean;
   cellWidth: string;
   formControl: FormControl;
-  inlineEditor: boolean; // TODO potrebbe diventare un parametro di input dalla grid
+  inlineEditor: boolean;
 
   constructor() {
   }
@@ -75,19 +75,14 @@ export class LetterCellEditorComponent implements ICellEditorAngularComp {
     return !this.editInline;
   }
 
-  private preventDefaultAndPropagation(event) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-
   _onFormReady(editorFromControl: FormControl) {
     this.formControl = editorFromControl;
   }
 
   private configCellEditor() {
 
-    this.editInline = this.params['editInline'];
-    this.editInline = this.editInline ? this.editInline : true;
+    this.editInline = this.params['inlineEditor'];
+    this.editInline = (this.editInline !== null && this.editInline !== undefined) ? this.editInline : true;
     console.log('Parametro editInline: ', this.editInline);
 
     this.notAdmissibleChars = this.params['notAdmissibleChars'];

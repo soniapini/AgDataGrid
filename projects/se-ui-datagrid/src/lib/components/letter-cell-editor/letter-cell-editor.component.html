@@ -1,18 +1,19 @@
 <ng-container *ngIf="inlineEditor else popupEditor">
-  <lib-letter-cell-editor-inline
+  <se-letter-cell-editor-inline
     tabindex="0"
     [value]="value"
     [notAdmissibleChars]="notAdmissibleChars"
     [startEdited]="cellStartEdited"
-    (formReady)="_onFormReady($event)"></lib-letter-cell-editor-inline>
+    (formReady)="_onFormReady($event)">
+  </se-letter-cell-editor-inline>
 </ng-container>
 
 <ng-template #popupEditor>
-  <lib-letter-cell-editor-popup
+  <se-letter-cell-editor-popup
     tabindex="0"
     [value]="value"
     [notAdmissibleChars]="notAdmissibleChars"
     [width]="cellWidth"
     (formReady)="_onFormReady($event)">
-  </lib-letter-cell-editor-popup>
+  </se-letter-cell-editor-popup>
 </ng-template>
