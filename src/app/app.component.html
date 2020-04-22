@@ -7,7 +7,6 @@
         </button>
       </div>
       <div>
-
         <a routerLink="/" routerLinkActive="active" mat-icon-button>
           <mat-icon>home</mat-icon>
         </a>
@@ -18,47 +17,50 @@
     <mat-sidenav-container>
       <mat-sidenav #sidenav mode="side" [opened]="sidenavOpened" align='start'>
         <mat-list role="list">
-
           <mat-list-item role="listitem">
             <mat-slide-toggle [checked]="false" [disabled]="false" color="primary"
-              (change)="onChangeDarkThemeToggle($event)">Custom Dark {{isDark? 'attivo' : 'disattivo'}}
+                              (change)="onChangeDarkThemeToggle($event)">Custom Dark {{isDark ? 'attivo' : 'disattivo'}}
             </mat-slide-toggle>
           </mat-list-item>
           <mat-divider></mat-divider>
 
           <mat-list-item role="listitem">
             <mat-slide-toggle [checked]="true" [disabled]="false" color="primary"
-              (change)="onChangeEditorToggle($event)">
-              Editor {{isGridEditable? 'abilitato' : 'disabilitato'}}
+                              (change)="onChangeEditorToggle($event)">
+              Editor {{isGridEditable ? 'abilitato' : 'disabilitato'}}
             </mat-slide-toggle>
           </mat-list-item>
           <mat-radio-group (change)="onchangeEditorType($event)" aria-label="Select an option" color="primary"
-          [disabled]="!isGridEditable">
-          <mat-list-item role="listitem">
-            <mat-radio-button value="fullRow">righe
-            </mat-radio-button>
-          </mat-list-item>
-          <mat-list-item role="listitem">
-            <mat-radio-button value="" checked>celle
-            </mat-radio-button>
-          </mat-list-item>
-        </mat-radio-group>
+                           [disabled]="!isGridEditable">
+            <mat-list-item role="listitem">
+              <mat-radio-button value="fullRow">righe
+              </mat-radio-button>
+            </mat-list-item>
+            <mat-list-item role="listitem">
+              <mat-radio-button value="" checked>celle
+              </mat-radio-button>
+            </mat-list-item>
+          </mat-radio-group>
           <ng-container *ngIf="isGridEditable">
             <div *ngIf=" isCellEditorEnabled else fullRow">
               <div mat-subheader>Singole celle editabili</div>
-            </div>
-
-            <div *ngIf="!isCellEditorEnabled">
               <mat-list-item role="listitem">
-              <button mat-stroked-button (click)="onBtStartEditing()">Start Editing Line 2</button>
-            </mat-list-item>
-            <mat-list-item role="listitem">
-              <button mat-stroked-button (click)="onBtStopEditing()">Stop Editing</button>
-            </mat-list-item>
+                <mat-slide-toggle [checked]="false" [disabled]="false" color="primary"
+                                  (change)="enablePopupEditing($event)">popup Editor
+                </mat-slide-toggle>
+              </mat-list-item>
             </div>
           </ng-container>
 
           <ng-template #fullRow>
+            <div>
+              <mat-list-item role="listitem">
+                <button mat-stroked-button (click)="onBtStartEditing()">Start Editing Line 2</button>
+              </mat-list-item>
+              <mat-list-item role="listitem">
+                <button mat-stroked-button (click)="onBtStopEditing()">Stop Editing</button>
+              </mat-list-item>
+            </div>
             <div mat-subheader>Righe intere editabili</div>
           </ng-template>
         </mat-list>

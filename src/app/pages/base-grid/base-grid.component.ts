@@ -17,6 +17,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
   public title = 'Base Grid';
   public isDark: boolean;
   public editType: string;
+  public isPopupEditor: boolean;
   public gridOptions: GridOptions;
   public columnDefs: Array<(ColDef | ColGroupDef)>;
   public defaultColumnDef: ColDef;
@@ -29,6 +30,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
   private editTypeSubscription: Subscription;
   private startEditingSubscription: Subscription;
   private gridEditableSubscription: Subscription;
+  private popupEditorSubscription: Subscription;
   private gridApi;
   private gridColumnApi;
 
@@ -47,6 +49,10 @@ export class BaseGridComponent implements OnInit, OnDestroy {
 
     this.editTypeSubscription = this.gridCommonServices.getEditType()
       .subscribe(editType => this.editType = editType);
+
+    this.popupEditorSubscription = this.gridCommonServices.getPopupEditor()
+      .subscribe(isPopup => this.isPopupEditor = isPopup);
+
 
     this.gridEditableSubscription = this.gridCommonServices.getGridEditable()
       .subscribe(isGridEditable => this.isGridEditable = isGridEditable);
@@ -94,7 +100,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
       minWidth: 90,
       resizable: true,
       editable: (params) => this.isGridEditable,
-      filter: 'agTextColumnFilter',
+      filter: 'agTextColumnFilter'
 
       // cellEditorSelector: (params) => {
       //   if (params.colDef.type === 'numberColumn') {
@@ -127,9 +133,12 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         field: 'sport',
         width: 150,
         cellEditorFramework: this.frameworkComponents.letterCellEditor,
-        cellEditorParams: {
-          notAdmissibleChars: ['a', 'b', 'w']
-        },
+        cellEditorParams: () => {
+          return {
+            notAdmissibleChars: ['a', 'b', 'w'],
+            inlineEditor: !this.isPopupEditor
+          };
+        }
       },
       {
         headerName: 'Age',
@@ -138,8 +147,10 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         cellEditorFramework: this.frameworkComponents.numericCellEditor,
         cellEditorParams: () => {
           return {
+            inlineEditor: !this.isPopupEditor,
             min: this.minAgeConstraint,
-            max: this.maxAgeConstraint
+            max: this.maxAgeConstraint,
+            decimal: 2
           };
         },
       },
@@ -149,9 +160,12 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         type: 'numberColumn',
         width: 100,
         cellEditorFramework: this.frameworkComponents.numericCellEditor,
-        cellEditorParams: {
-          min: 1900,
-          max: 2020
+        cellEditorParams: () => {
+          return {
+            inlineEditor: !this.isPopupEditor,
+            min: 1900,
+            max: 2020
+          };
         }
       },
       {
@@ -214,6 +228,4 @@ export class BaseGridComponent implements OnInit, OnDestroy {
     // this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
   }
-
-
 }

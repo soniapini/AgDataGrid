@@ -21,6 +21,7 @@ export class AppComponent {
 
 
   private gridApi;
+  isPopUp: boolean;
 
   constructor(private gridCommonServices: GridCommonService) {
     this.initialiseDemoAppConfiguration();
@@ -52,6 +53,8 @@ export class AppComponent {
     if (event.value === DemoConstants.GRID_EDITOR_TYPE) {
       this.gridCommonServices.setEditType(DemoConstants.GRID_EDITOR_TYPE);
       this.isCellEditorEnabled = false;
+      this.isPopUp = false;
+      this.gridCommonServices.setPopupEditor(this.isPopUp);
     } else {
       this.gridCommonServices.setEditType(null);
       this.isCellEditorEnabled = true;
@@ -74,5 +77,13 @@ export class AppComponent {
     // gestione tema light/dark
     this.isDark = false;
     this.gridCommonServices.setCustomDarkTheme(this.isDark);
+
+    this.isPopUp = false;
+    this.gridCommonServices.setPopupEditor(this.isPopUp);
+  }
+
+  enablePopupEditing(toggleOb: MatSlideToggleChange) {
+    this.isPopUp = toggleOb.checked;
+    this.gridCommonServices.setPopupEditor(this.isPopUp);
   }
 }

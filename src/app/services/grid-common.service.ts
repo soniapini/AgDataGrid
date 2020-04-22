@@ -13,6 +13,9 @@ export class GridCommonService {
   private isGridEditableStream: ReplaySubject<boolean | undefined> = new ReplaySubject(1);
   private isGridEditable$: Observable<boolean> = this.isGridEditableStream.asObservable();
 
+  private popupEditorStream: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private popupEditor$: Observable<boolean> = this.popupEditorStream.asObservable();
+
   private editTypeStream: ReplaySubject<string> = new ReplaySubject(1);
   private editType$: Observable<string | null> = this.editTypeStream.asObservable();
 
@@ -39,6 +42,14 @@ export class GridCommonService {
 
   public getEditType(): Observable<string> {
     return this.editType$;
+  }
+
+  public setPopupEditor(isPopup: boolean) {
+    this.popupEditorStream.next(isPopup);
+  }
+
+  public getPopupEditor(): Observable<boolean> {
+    return this.popupEditor$;
   }
 
   public setStopEditing(stopEditing: boolean) {
