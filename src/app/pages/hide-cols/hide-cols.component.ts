@@ -8,6 +8,7 @@ import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef'
 import { NumericCellEditor } from '../../editors/numeric-cell-editor';
 
 import { CustomCellComponent, LetterCellEditorComponent, NumericCellEditorComponent } from 'se-ui-datagrid';
+import { DataRestClientService } from '../../services/data-rest-client.service';
 
 @Component({
   selector: 'app-hide-cols',
@@ -16,19 +17,9 @@ import { CustomCellComponent, LetterCellEditorComponent, NumericCellEditorCompon
 })
 export class HideColsComponent implements OnInit, OnDestroy {
   public title: string = 'Hide Cols Grid';
-
-  private darkThemeEventSubscription: Subscription;
-  private stopEditingEventSubscription: Subscription;
-  private editTypeSubscription: Subscription;
-  private startEditingSubscription: Subscription;
-
-  public isDark: boolean = false;
-  public editType: string = null;
-  public cellCoords: CellCoordsData;
-
-  private gridApi;
-  private gridColumnApi;
-
+  public isDark: boolean;
+  public editType: string;
+  public isPopupEditor: boolean;
   public gridOptions: GridOptions;
   public columnDefs: Array<(ColDef | ColGroupDef)>;
   public defaultColumnDef: ColDef;
@@ -36,10 +27,19 @@ export class HideColsComponent implements OnInit, OnDestroy {
   public frameworkComponents: any;
   public rowData: any = [];
   public isGridEditable = true;
+  private darkThemeEventSubscription: Subscription;
+  private stopEditingEventSubscription: Subscription;
+  private editTypeSubscription: Subscription;
+  private startEditingSubscription: Subscription;
+  private gridEditableSubscription: Subscription;
+  private popupEditorSubscription: Subscription;
+  private gridApi;
+  private gridColumnApi;
 
-
+  minAgeConstraint: number = 0;
+  maxAgeConstraint: number = 99;
   constructor(
-    private httpClient: HttpClient,
+    private restClient: DataRestClientService,
     public gridCommonServices: GridCommonService
   ) {
   }
@@ -95,8 +95,7 @@ export class HideColsComponent implements OnInit, OnDestroy {
       {
         headerName: 'Athlete',
         field: 'athlete',
-        width: 200,
-        minWidth: 200,
+        width: 120,
         pinned: 'left',
         editable: false,
       },
@@ -105,58 +104,70 @@ export class HideColsComponent implements OnInit, OnDestroy {
         field: 'sport',
         width: 150,
         cellEditorFramework: this.frameworkComponents.letterCellEditor,
-        cellEditorParams: {},
+        cellEditorParams: () => {
+          return {
+            notAdmissibleChars: ['a', 'b', 'w'],
+            inlineEditor: !this.isPopupEditor
+          };
+        }
       },
       {
         headerName: 'Age',
         field: 'age',
         type: 'numberColumn',
+        width: 90,
         cellEditorFramework: this.frameworkComponents.numericCellEditor,
-        cellEditorParams: {
-          min: 0,
-          max: 100
+        cellEditorParams: () => {
+          return {
+            inlineEditor: !this.isPopupEditor,
+            min: this.minAgeConstraint,
+            max: this.maxAgeConstraint,
+          };
         },
       },
       {
         headerName: 'Year',
         field: 'year',
         type: 'numberColumn',
-        width: 100,
+        width: 90,
         cellEditorFramework: this.frameworkComponents.numericCellEditor,
-        cellEditorParams: {
-          min: 1900,
-          max: 2020
+        cellEditorParams: () => {
+          return {
+            inlineEditor: !this.isPopupEditor,
+            min: 1900,
+            max: 2020
+          };
         }
       },
       {
-        headerName: 'Date',
-        field: 'date',
-        type: ['dateColumn', 'nonEditableColumn'],
+        headerName: 'Score',
+        field: 'points',
+        type: 'numberColumn',
+        width: 90,
+        cellEditorFramework: this.frameworkComponents.numericCellEditor,
+        cellEditorParams: () => {
+          return {
+            inlineEditor: !this.isPopupEditor,
+            min: 0,
+            max: 100,
+            decimal: 2
+          };
+        }
+      },
+      {
+        headerName: 'Note',
+        field: 'note',
         width: 120,
-      },
-      {
-        headerName: 'Gold',
-        field: 'gold',
-        type: 'medalColumn',
-        width: 200,
-        minWidth: 200,
-        maxWidth: 200,
-        cellRenderer: 'customCell',
-      },
-      {
-        headerName: 'Silver',
-        field: 'silver',
-        type: 'medalColumn',
-        width: 100,
-        cellRenderer: 'customCell',
-      },
-      {
-        headerName: 'Bronze',
-        field: 'bronze',
-        type: 'medalColumn',
-        width: 100,
-        cellRenderer: 'customCell',
-      },
+        cellEditorFramework: this.frameworkComponents.alphanumericCellEditor,
+        cellEditorParams: () => {
+          return {
+            inlineEditor: !this.isPopupEditor,
+            min: 0,
+            max: 100,
+            decimal: 2
+          };
+        }
+      }
     ];
 
   }
@@ -177,7 +188,7 @@ export class HideColsComponent implements OnInit, OnDestroy {
     console.log('ricevuto evento: ', params.type);
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    this.httpClient.get('https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json')
+    this.restClient.getBaseGridData()
       .subscribe((data) => this.rowData = data);
     this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
