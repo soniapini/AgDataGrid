@@ -8,17 +8,11 @@ export class DemoAppMockConfigService implements DemoAppConfig {
   }
 
   getDataRestBaseUrl(): string {
-    // Per usare il server del pacchetto json-server
-    // return 'http://localhost:3000'
-
     // Per usare i file mock presenti nella cartella assets
     return 'assets/mocks';
   }
 
   getDataRestMockExtension(): string {
-    // Per usare il server del pacchetto json-server
-    // return null
-
     // Per usare i file mock presenti nella cartella assets
     return '.json';
   }
