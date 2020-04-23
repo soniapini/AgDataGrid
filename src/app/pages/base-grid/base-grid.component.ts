@@ -20,7 +20,6 @@ import { DataRestClientService } from '../../services/data-rest-client.service';
 })
 export class BaseGridComponent implements OnInit, OnDestroy {
   public title = 'Base Grid';
-  public isDark: boolean;
   public editType: string;
   public isPopupEditor: boolean;
   public gridOptions: GridOptions;
@@ -178,9 +177,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         cellEditorParams: () => {
           return {
             inlineEditor: !this.isPopupEditor,
-            min: 0,
-            max: 100,
-            decimal: 2
+            notAdmissibleChars: ['%', '&'],
           };
         }
       }
