@@ -21,9 +21,9 @@ import { FormControl } from '@angular/forms';
 export class NumericCellEditorComponent implements ICellEditorAngularComp {
 
   public max: number; // i parametri di input si recuperano in agInit da params es, params['max']
-  public min: number; // i parametri di input si recuperano in agInit da params es, params['min']
-  public decimal: number; // i parametri di input si recuperano in agInit da params es, params['decimal']
-  public editInline: boolean; // i parametri di input si recuperano in agInit da params es, params['editInPopup']
+  public min: number;
+  public decimal: number;
+  public editInline: boolean;
 
   value: number;
   params: ICellEditorParams;
@@ -49,17 +49,6 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
     this.cellStartEdited = this.params.cellStartedEdit;
   }
 
-  // focusIn(): void {
-  // }
-
-  // focusOut(): void {
-  //   this.params.stopEditing();
-  // }
-
-  //
-  // getFrameworkComponentInstance(): any {
-  // }
-
   getValue(): any {
     if (this.formControl && !this.formControl.invalid) {
       // Alla chiusura dell'editor se il campo è valido aggiorniamo il valore altrimenti no
@@ -67,16 +56,6 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
     }
     return this.value;
   }
-
-  // isCancelAfterEnd(): boolean {
-  //   // return this.cancelAfterEnd;
-  //
-  //   // example - will reject the number if it contains the value 007
-  //   // - not very practical, but demonstrates the method.
-  //   const value = this.getValue();
-  //   return value.indexOf('007') >= 0;
-  //   return false;
-  // }
 
   isCancelBeforeStart(): boolean {
     return false;

@@ -54,12 +54,9 @@ export class NumericCellEditorBaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Definizione FormControl
     const validators: Array<ValidatorFn> = [];
 
     this.formControl = new FormControl(this.value, []);
-
-    // validators.push(Validators.required); // TODO serve gestire il validatore required?
 
     if (this.max) {
       validators.push(Validators.max(this.max));
@@ -78,11 +75,6 @@ export class NumericCellEditorBaseComponent implements OnInit {
     return this.numericFormatRegExp.test(current.concat(event.key));
   }
 
-  //
-  // @HostListener('paste', ['$event']) blockPaste(event: KeyboardEvent) {
-  //   this.validateFields(event);
-  // }
-
   private buildNumericFormat() {
     if (!this.decimal) {
       this.numericFormatStr = '^[-+]?[0-9]+$';
@@ -93,4 +85,5 @@ export class NumericCellEditorBaseComponent implements OnInit {
     }
     this.numericFormatRegExp = new RegExp(this.numericFormatStr);
   }
+
 }

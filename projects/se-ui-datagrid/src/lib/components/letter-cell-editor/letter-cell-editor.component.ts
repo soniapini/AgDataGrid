@@ -14,7 +14,7 @@ export class LetterCellEditorComponent implements ICellEditorAngularComp {
   // public notAllowed: RegExp; // i parametri di input si recuperano in agInit da params es, params['notAllowedChars']
   public notAdmissibleChars: Array<string>; // i parametri di input si recuperano in agInit da params es, params['notAllowedChars']
 
-  value: number;
+  value: string;
   params: ICellEditorParams;
   cellStartEdited: boolean;
   cellWidth: string;
@@ -80,7 +80,6 @@ export class LetterCellEditorComponent implements ICellEditorAngularComp {
   }
 
   private configCellEditor() {
-
     this.editInline = this.params['inlineEditor'];
     this.editInline = (this.editInline !== null && this.editInline !== undefined) ? this.editInline : true;
     console.log('Parametro editInline: ', this.editInline);
@@ -89,5 +88,4 @@ export class LetterCellEditorComponent implements ICellEditorAngularComp {
 
     this.inlineEditor = (this.params.api.getEditingCells().length) === 1 ? this.editInline : true;
   }
-
 }
