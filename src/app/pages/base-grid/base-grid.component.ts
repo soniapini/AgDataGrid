@@ -1,12 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { GridCommonService } from '../../services/grid-common.service';
 import { AgGridEvent, GridOptions } from 'ag-grid-community';
 import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef';
 import { NumericCellEditor } from '../../editors/numeric-cell-editor';
 
-import { CustomCellComponent, LetterCellEditorComponent, NumericCellEditorComponent } from 'se-ui-datagrid';
+import {
+  AlphanumericCellEditorComponent,
+  CustomCellComponent,
+  LetterCellEditorComponent,
+  NumericCellEditorComponent
+} from 'se-ui-datagrid';
+import { DataRestClientService } from '../../services/data-rest-client.service';
 
 @Component({
   selector: 'app-base-grid',
@@ -38,7 +43,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
   maxAgeConstraint: number = 99;
 
   constructor(
-    private httpClient: HttpClient,
+    private restClient: DataRestClientService,
     public gridCommonServices: GridCommonService
   ) {
   }
@@ -80,6 +85,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
     this.frameworkComponents = {
       numericCellEditor: NumericCellEditorComponent,
       letterCellEditor: LetterCellEditorComponent,
+      alphanumericCellEditor: AlphanumericCellEditorComponent,
       customCell: CustomCellComponent
     };
 
@@ -105,7 +111,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
       {
         headerName: 'Athlete',
         field: 'athlete',
-        width: 150,
+        width: 120,
         pinned: 'left',
         editable: false,
       },
@@ -125,13 +131,13 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         headerName: 'Age',
         field: 'age',
         type: 'numberColumn',
+        width: 90,
         cellEditorFramework: this.frameworkComponents.numericCellEditor,
         cellEditorParams: () => {
           return {
             inlineEditor: !this.isPopupEditor,
             min: this.minAgeConstraint,
             max: this.maxAgeConstraint,
-            decimal: 2
           };
         },
       },
@@ -139,7 +145,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         headerName: 'Year',
         field: 'year',
         type: 'numberColumn',
-        width: 100,
+        width: 90,
         cellEditorFramework: this.frameworkComponents.numericCellEditor,
         cellEditorParams: () => {
           return {
@@ -150,30 +156,34 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         }
       },
       {
-        headerName: 'Date',
-        field: 'date',
-        type: ['dateColumn', 'nonEditableColumn'],
+        headerName: 'Score',
+        field: 'points',
+        type: 'numberColumn',
+        width: 90,
+        cellEditorFramework: this.frameworkComponents.numericCellEditor,
+        cellEditorParams: () => {
+          return {
+            inlineEditor: !this.isPopupEditor,
+            min: 0,
+            max: 100,
+            decimal: 2
+          };
+        }
+      },
+      {
+        headerName: 'Note',
+        field: 'note',
         width: 120,
-      },
-      {
-        headerName: 'Gold',
-        field: 'gold',
-        type: 'medalColumn',
-        cellRenderer: 'customCell',
-      },
-      {
-        headerName: 'Silver',
-        field: 'silver',
-        type: 'medalColumn',
-        cellRenderer: 'customCell',
-      },
-      {
-        headerName: 'Bronze',
-        field: 'bronze',
-        type: 'medalColumn',
-        width: 100,
-        cellRenderer: 'customCell',
-      },
+        cellEditorFramework: this.frameworkComponents.alphanumericCellEditor,
+        cellEditorParams: () => {
+          return {
+            inlineEditor: !this.isPopupEditor,
+            min: 0,
+            max: 100,
+            decimal: 2
+          };
+        }
+      }
     ];
   }
 
@@ -191,13 +201,16 @@ export class BaseGridComponent implements OnInit, OnDestroy {
       this.gridCommonServices.stopCurrentEditing();
       this.stopEditingEventSubscription.unsubscribe();
     }
+    if (this.popupEditorSubscription) {
+      this.popupEditorSubscription.unsubscribe();
+    }
   }
 
   onGridReady = (params: AgGridEvent) => {
     console.log('ricevuto evento: ', params.type);
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    this.httpClient.get('https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json')
+    this.restClient.getBaseGridData()
       .subscribe((data) => this.rowData = data);
     // this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
