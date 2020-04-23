@@ -7,13 +7,16 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from '@angular/common/http';
-import { LetterCellEditorComponent, NumericCellEditorComponent, SeUiDatagridModule } from 'se-ui-datagrid';
+import { AlphanumericCellEditorComponent, LetterCellEditorComponent, NumericCellEditorComponent, SeUiDatagridModule } from 'se-ui-datagrid';
 import { HomeComponent } from './pages/home/home.component';
 import { BaseGridComponent } from './pages/base-grid/base-grid.component';
 import { GridCommonService } from './services/grid-common.service';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ResponsiveGridComponent } from './pages/responsive-grid/responsive-grid.component';
 import { HideColsComponent } from './pages/hide-cols/hide-cols.component';
+import { APP_CONFIG } from './app.module.config';
+import { DemoAppConfigService } from './services/demo-app-config.service';
+import { DataRestClientService } from './services/data-rest-client.service';
 
 @NgModule({
   declarations: [
@@ -24,8 +27,7 @@ import { HideColsComponent } from './pages/hide-cols/hide-cols.component';
     PageNotFoundComponent,
     HideColsComponent
   ],
-  exports: [
-  ],
+  exports: [],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -34,12 +36,20 @@ import { HideColsComponent } from './pages/hide-cols/hide-cols.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AgGridModule.withComponents([NumericCellEditorComponent, LetterCellEditorComponent]),
+    AgGridModule.withComponents([
+      NumericCellEditorComponent,
+      LetterCellEditorComponent,
+      AlphanumericCellEditorComponent]),
     SeUiDatagridModule
   ],
-  providers: [ GridCommonService ],
+  providers: [
+    GridCommonService,
+    DataRestClientService,
+    {provide: APP_CONFIG, useClass: DemoAppConfigService},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor() {  }
+  constructor() {
+  }
 }
