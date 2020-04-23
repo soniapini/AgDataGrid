@@ -16,6 +16,10 @@ import { LetterCellEditorComponent } from './components/letter-cell-editor/lette
 import { LetterCellEditorInlineComponent } from './components/letter-cell-editor/letter-cell-editor-inline/letter-cell-editor-inline.component';
 import { LetterCellEditorPopupComponent } from './components/letter-cell-editor/letter-cell-editor-popup/letter-cell-editor-popup.component';
 import { LetterCellEditorBaseComponent } from './components/letter-cell-editor/letter-cell-editor-base/letter-cell-editor-base.component';
+import { AlphanumericCellEditorComponent } from './components/alphanumeric-cell-editor/alphanumeric-cell-editor.component';
+import { AlphanumericCellEditorBaseComponent } from './components/alphanumeric-cell-editor/alphanumeric-cell-editor-base/alphanumeric-cell-editor-base.component';
+import { AlphanumericCellEditorInlineComponent } from './components/alphanumeric-cell-editor/alphanumeric-cell-editor-inline/alphanumeric-cell-editor-inline.component';
+import { AlphanumericCellEditorPopupComponent } from './components/alphanumeric-cell-editor/alphanumeric-cell-editor-popup/alphanumeric-cell-editor-popup.component';
 
 
 @NgModule({
@@ -30,7 +34,11 @@ import { LetterCellEditorBaseComponent } from './components/letter-cell-editor/l
     LetterCellEditorComponent,
     LetterCellEditorInlineComponent,
     LetterCellEditorPopupComponent,
-    LetterCellEditorBaseComponent
+    LetterCellEditorBaseComponent,
+    AlphanumericCellEditorComponent,
+    AlphanumericCellEditorBaseComponent,
+    AlphanumericCellEditorInlineComponent,
+    AlphanumericCellEditorPopupComponent
   ],
   imports: [
     FormsModule,
@@ -45,6 +53,7 @@ import { LetterCellEditorBaseComponent } from './components/letter-cell-editor/l
   exports: [
     NumericCellEditorComponent,
     LetterCellEditorComponent,
+    AlphanumericCellEditorComponent,
     CustomCellComponent,
     SeUiDatagridComponent
   ]
