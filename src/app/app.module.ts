@@ -15,8 +15,8 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { ResponsiveGridComponent } from './pages/responsive-grid/responsive-grid.component';
 import { HideColsComponent } from './pages/hide-cols/hide-cols.component';
 import { APP_CONFIG } from './app.module.config';
-import { DemoAppConfigService } from './services/demo-app-config.service';
 import { DataRestClientService } from './services/data-rest-client.service';
+import { DemoAppMockConfigService } from './services/demo-app-config.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import { DataRestClientService } from './services/data-rest-client.service';
   providers: [
     GridCommonService,
     DataRestClientService,
-    {provide: APP_CONFIG, useClass: DemoAppConfigService},
+    {provide: APP_CONFIG, useClass: DemoAppMockConfigService},
   ],
   bootstrap: [AppComponent]
 })

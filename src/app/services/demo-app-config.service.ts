@@ -2,7 +2,7 @@ import { DemoAppConfig } from '../app.module.config';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class DemoAppConfigService implements DemoAppConfig {
+export class DemoAppMockConfigService implements DemoAppConfig {
 
   constructor() {
   }
@@ -21,5 +21,22 @@ export class DemoAppConfigService implements DemoAppConfig {
 
     // Per usare i file mock presenti nella cartella assets
     return '.json';
+  }
+}
+
+@Injectable()
+export class DemoAppHTTPServerConfigService implements DemoAppConfig {
+
+  constructor() {
+  }
+
+  getDataRestBaseUrl(): string {
+    // Per usare il server del pacchetto json-server
+    return 'http://localhost:3000';
+  }
+
+  getDataRestMockExtension(): string {
+    // Per usare il server del pacchetto json-server
+    return '';
   }
 }
