@@ -146,30 +146,23 @@ export class ResponsiveGridComponent implements OnInit, OnDestroy {
         // width: 120,
       },
       {
-        headerName: 'Medals',
-        headerClass: 'medal--background',
-        groupId: 'medalsGroup',
-        children: [
-          {
-            headerName: 'Gold',
-            field: 'gold',
-            type: 'medalColumn',
-            cellRenderer: 'customCell',
-          },
-          {
-            headerName: 'Silver',
-            field: 'silver',
-            type: 'medalColumn',
-            cellRenderer: 'customCell',
-          },
-          {
-            headerName: 'Bronze',
-            field: 'bronze',
-            type: 'medalColumn',
-            // width: 100,
-            cellRenderer: 'customCell',
-          },
-        ],
+        headerName: 'Gold',
+        field: 'gold',
+        type: 'medalColumn',
+        cellRenderer: 'customCell',
+      },
+      {
+        headerName: 'Silver',
+        field: 'silver',
+        type: 'medalColumn',
+        cellRenderer: 'customCell',
+      },
+      {
+        headerName: 'Bronze',
+        field: 'bronze',
+        type: 'medalColumn',
+        // width: 100,
+        cellRenderer: 'customCell',
       },
     ];
   }

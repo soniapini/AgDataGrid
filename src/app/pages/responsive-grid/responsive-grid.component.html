@@ -3,8 +3,7 @@
     <h1>{{title}}</h1>
   </div>
   <div class="grid-wrapper">
-    <ag-grid-angular id="base-grid" class="base-grid"
-      [ngClass]="{'ag-theme-material-custom': isDark === true, 'ag-theme-material': isDark === false}"
+    <ag-grid-angular id="base-grid" class="base-grid ag-theme-material"
       [gridOptions]="gridOptions" [defaultColDef]="defaultColumnDef" [columnDefs]="columnDefs" [rowData]="rowData"
       [editType]="editType" [animateRows]="true" (gridSizeChanged)="onGridSizeChanged($event)">
     </ag-grid-angular>

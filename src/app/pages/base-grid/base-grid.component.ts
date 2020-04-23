@@ -44,8 +44,6 @@ export class BaseGridComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.darkThemeEventSubscription = this.gridCommonServices.getCustomDarkTheme()
-      .subscribe(isDark => this.isDark = isDark);
 
     this.editTypeSubscription = this.gridCommonServices.getEditType()
       .subscribe(editType => this.editType = editType);
@@ -101,23 +99,6 @@ export class BaseGridComponent implements OnInit, OnDestroy {
       resizable: true,
       editable: (params) => this.isGridEditable,
       filter: 'agTextColumnFilter'
-
-      // cellEditorSelector: (params) => {
-      //   if (params.colDef.type === 'numberColumn') {
-      //     return { component: 'numericCellEditor',
-      //     params: {
-      //       maxLength: 2
-      //     }};
-      //   }
-      //
-      //   if (params.colDef.type === 'gender') {
-      //     return {
-      //       component: 'agRichSelect',
-      //       params: {values: ['Male', 'Female']}
-      //     };
-      //   }
-      //   return null;
-      // }
     };
 
     this.columnDefs = [
@@ -175,30 +156,23 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         width: 120,
       },
       {
-        headerName: 'Medals',
-        headerClass: 'medal--background',
-        groupId: 'medalsGroup',
-        children: [
-          {
-            headerName: 'Gold',
-            field: 'gold',
-            type: 'medalColumn',
-            cellRenderer: 'customCell',
-          },
-          {
-            headerName: 'Silver',
-            field: 'silver',
-            type: 'medalColumn',
-            cellRenderer: 'customCell',
-          },
-          {
-            headerName: 'Bronze',
-            field: 'bronze',
-            type: 'medalColumn',
-            width: 100,
-            cellRenderer: 'customCell',
-          },
-        ],
+        headerName: 'Gold',
+        field: 'gold',
+        type: 'medalColumn',
+        cellRenderer: 'customCell',
+      },
+      {
+        headerName: 'Silver',
+        field: 'silver',
+        type: 'medalColumn',
+        cellRenderer: 'customCell',
+      },
+      {
+        headerName: 'Bronze',
+        field: 'bronze',
+        type: 'medalColumn',
+        width: 100,
+        cellRenderer: 'customCell',
       },
     ];
   }

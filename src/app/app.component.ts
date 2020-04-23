@@ -39,7 +39,10 @@ export class AppComponent {
   }
 
   onChangeDarkThemeToggle(toggleOb: MatSlideToggleChange) {
-    this.gridCommonServices.setCustomDarkTheme(toggleOb.checked);
+    // this.gridCommonServices.setCustomDarkTheme(toggleOb.checked);
+    document.getElementById('body').classList.add(toggleOb.checked ? 'estensa-dark' : 'estensa-light');
+    document.getElementById('body').classList.remove(toggleOb.checked ? 'estensa-light' :  'estensa-dark');
+    this.isDark = toggleOb.checked;
   }
 
   onChangeEditorToggle(ob: MatSlideToggleChange) {
@@ -64,7 +67,7 @@ export class AppComponent {
 
   private initialiseDemoAppConfiguration() {
     // gestione navbar laterale
-    this.sidenavOpened = false;
+    this.sidenavOpened = true;
 
     // gestione griglia editabile: SI/NO
     this.isGridEditable = true;
@@ -75,8 +78,9 @@ export class AppComponent {
     this.gridCommonServices.setEditType(this.isCellEditorEnabled ? null : DemoConstants.GRID_EDITOR_TYPE);
 
     // gestione tema light/dark
-    this.isDark = false;
-    this.gridCommonServices.setCustomDarkTheme(this.isDark);
+    this.isDark = true;
+    document.getElementById('body').classList.add('estensa-dark');
+    // this.gridCommonServices.setCustomDarkTheme(this.isDark);
 
     this.isPopUp = false;
     this.gridCommonServices.setPopupEditor(this.isPopUp);

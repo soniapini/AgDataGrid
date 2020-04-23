@@ -103,7 +103,6 @@ $grid-size: 7px;
     }
 }
 
-
 .estensa-light {
     /**
      * ag-grid
@@ -122,8 +121,8 @@ $grid-size: 7px;
     $ag-header-cell-hover-background-color: lighten($estensa-accent-color, 10%);
     $ag-header-foreground-color: $estensa-dark-foreground;
 
-    // @import '~ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss';
-    // @import '~ag-grid-community/src/styles/ag-grid.scss';
+    @import '~ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss';
+    @import '~ag-grid-community/src/styles/ag-grid.scss';
 
     .ag-cell-focus, .ag-cell-no-focus {
         border: none !important;
