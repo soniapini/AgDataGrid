@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { SeErrorStateMatcher } from '../../../utils/error-state-matcher';
 
 @Component({
@@ -15,15 +15,16 @@ export class AlphanumericCellEditorBaseComponent implements OnInit {
   @ViewChild('alphanumericInput', {static: false, read: ElementRef}) alphanumericInput: ElementRef;
 
   notAdmissibleCharsString: string;
-
-  allAdmissibleCharsString: string;
-  allAdmissibleCharsRegexp: RegExp;
+  notAdmissibleCharsRegexp: RegExp;
 
   formControl: FormControl;
   matcher = new SeErrorStateMatcher();
 
   @HostListener('keypress', ['$event']) onKeyPress(event) {
-    return this.allAdmissibleCharsRegexp.test(event.key);
+    if (this.notAdmissibleCharsRegexp) {
+      return !this.notAdmissibleCharsRegexp.test(event.key);
+    }
+    return true;
   }
 
   @HostListener('paste', ['$event']) blockPaste(event: KeyboardEvent) {
@@ -35,21 +36,14 @@ export class AlphanumericCellEditorBaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.configPatternForAvailableChars();
-
-    const validators: Array<ValidatorFn> = [];
-
     this.formControl = new FormControl(this.value, []);
-
-    validators.push(Validators.pattern(this.allAdmissibleCharsRegexp));
-
-    this.formControl.setValidators(validators);
   }
 
   private configPatternForAvailableChars() {
     // regExp for not admissible chars
     if (this.notAdmissibleChars) {
-      this.notAdmissibleCharsString = '(?![' + this.notAdmissibleChars.join('') + '])';
-      this.allAdmissibleCharsRegexp = new RegExp(this.allAdmissibleCharsString);
+      this.notAdmissibleCharsString = '[' + this.notAdmissibleChars.join('') + ']';
+      this.notAdmissibleCharsRegexp = new RegExp(this.notAdmissibleCharsString);
     }
   }
 
