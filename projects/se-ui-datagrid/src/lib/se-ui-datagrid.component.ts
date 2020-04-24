@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lib-se-ui-datagrid',
@@ -7,8 +7,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
       se-ui-datagrid works!
     </p>
   `,
-  styleUrls: ['./se-ui-datagrid.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styles: []
 })
 export class SeUiDatagridComponent implements OnInit {
 

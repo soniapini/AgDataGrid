@@ -1,0 +1,17 @@
+.fix-editor {
+  line-height: initial !important;
+}
+
+.fix-mat-form {
+  border-top-style: none !important;
+}
+
+.estensa-dark .ag-theme-material .ag-cell-inline-editing,
+.estensa-light .ag-theme-material .ag-cell-inline-editing  {
+  padding: 0 7px !important;
+  height: auto  !important;
+}
+
+.estensa-dark .ag-theme-material .ag-cell-inline-editing {
+  background-color: #494949 !important;
+}
