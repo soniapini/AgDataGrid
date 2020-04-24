@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GridCommonService } from '../../services/grid-common.service';
 import { AgGridEvent, GridOptions } from 'ag-grid-community';
@@ -203,6 +203,13 @@ export class BaseGridComponent implements OnInit, OnDestroy {
     }
   }
 
+  @HostListener('window:resize')
+  onResize() {
+    if (this.gridApi) {
+      setTimeout(() => this.gridApi.sizeColumnsToFit());
+    }
+  }
+
   onGridReady = (params: AgGridEvent) => {
     console.log('ricevuto evento: ', params.type);
     this.gridApi = params.api;
@@ -211,5 +218,5 @@ export class BaseGridComponent implements OnInit, OnDestroy {
       .subscribe((data) => this.rowData = data);
     // this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
-  }
+  };
 }
