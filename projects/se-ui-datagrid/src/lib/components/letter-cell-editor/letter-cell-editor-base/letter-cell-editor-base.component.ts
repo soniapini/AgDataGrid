@@ -33,6 +33,26 @@ export class LetterCellEditorBaseComponent implements OnInit {
     return this.allAdmissibleCharsRegexp.test(event.key);
   }
 
+  // @HostListener('keydown', ['$event']) preventKeybordNavigation(event) {
+  //   const KEY_LEFT = 'ArrowLeft';
+  //   const KEY_UP = 'ArrowUp';
+  //   const KEY_RIGHT = 'ArrowRight';
+  //   const KEY_DOWN = 'ArrowDown';
+  //   const KEY_PAGE_UP = 'PageUp';
+  //   const KEY_PAGE_DOWN = 'PageDown';
+  //   const KEY_PAGE_HOME = 'Home';
+  //   const KEY_PAGE_END = 'End';
+  //
+  //   const pressedKey = event.key;
+  //   const isNavigationKey = pressedKey === KEY_LEFT || pressedKey === KEY_RIGHT || pressedKey === KEY_UP
+  //     || pressedKey === KEY_DOWN || pressedKey === KEY_PAGE_DOWN || pressedKey === KEY_PAGE_UP
+  //     || pressedKey === KEY_PAGE_HOME || pressedKey === KEY_PAGE_END;
+  //
+  //   if (isNavigationKey) {
+  //     event.stopPropagation();
+  //   }
+  // }
+
   @HostListener('paste', ['$event']) blockPaste(event: KeyboardEvent) {
     this.validateFields(event);
   }

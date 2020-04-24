@@ -1,8 +1,6 @@
 <mat-card [style.width]="width">
-  <form class="letter-cell-editor__container"
-        tabindex="0">
-    <mat-form-field class="full-width-field"
-                    [style.width]="width">
+  <form tabindex="0">
+    <mat-form-field [style.width]="width">
       <input #letterInput matInput tabindex="0"
              [formControl]="formControl"
              [errorStateMatcher]="matcher">

@@ -65,11 +65,6 @@ export class NumericCellEditorComponent implements ICellEditorAngularComp {
     return !this.editInline;
   }
 
-  private preventDefaultAndPropagation(event) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-
   _onFormReady(editorFromControl: FormControl) {
     this.formControl = editorFromControl;
   }
