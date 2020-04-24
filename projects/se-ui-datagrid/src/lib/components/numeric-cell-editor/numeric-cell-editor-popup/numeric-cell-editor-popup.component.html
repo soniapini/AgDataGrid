@@ -1,6 +1,7 @@
 <mat-card [style.width]="width">
-  <form tabindex="0">
-    <mat-form-field [style.width]="width">
+  <form tabindex="0" class="fix-editor">
+    <mat-form-field class="ag-row fix-mat-form"
+                    [style.width]="width">
       <input #numericInput matInput
              type="number"
              [step]="step"
