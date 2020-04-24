@@ -1,11 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CellCoordsData } from './../../models/grid-models';
-import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { GridCommonService } from '../../services/grid-common.service';
 import { AgGridEvent, GridOptions } from 'ag-grid-community';
 import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef';
-import { NumericCellEditor } from '../../editors/numeric-cell-editor';
 
 import { CustomCellComponent, LetterCellEditorComponent, NumericCellEditorComponent } from 'se-ui-datagrid';
 import { DataRestClientService } from '../../services/data-rest-client.service';
@@ -38,6 +35,7 @@ export class HideColsComponent implements OnInit, OnDestroy {
 
   minAgeConstraint: number = 0;
   maxAgeConstraint: number = 99;
+
   constructor(
     private restClient: DataRestClientService,
     public gridCommonServices: GridCommonService
@@ -62,10 +60,6 @@ export class HideColsComponent implements OnInit, OnDestroy {
         });
       }
     });
-
-    this.components = {
-      numericCellEditor: NumericCellEditor
-    };
 
     this.frameworkComponents = {
       numericCellEditor: NumericCellEditorComponent,
@@ -192,7 +186,7 @@ export class HideColsComponent implements OnInit, OnDestroy {
       .subscribe((data) => this.rowData = data);
     this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
-  }
+  };
 
   onGridSizeChanged(params) {
     const gridWidth = document.getElementById('base-grid').offsetWidth;

@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import { GridCommonService } from '../../services/grid-common.service';
 import { AgGridEvent, GridOptions } from 'ag-grid-community';
 import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef';
-import { NumericCellEditor } from '../../editors/numeric-cell-editor';
 
 import {
   AlphanumericCellEditorComponent,
@@ -76,10 +75,6 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         });
       }
     });
-
-    this.components = {
-      numericCellEditor: NumericCellEditor
-    };
 
     this.frameworkComponents = {
       numericCellEditor: NumericCellEditorComponent,
@@ -218,5 +213,5 @@ export class BaseGridComponent implements OnInit, OnDestroy {
       .subscribe((data) => this.rowData = data);
     // this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
-  };
+  }
 }
