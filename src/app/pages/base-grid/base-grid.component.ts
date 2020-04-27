@@ -8,6 +8,7 @@ import {
   AlphanumericCellEditorComponent,
   CustomCellComponent,
   LetterCellEditorComponent,
+  NotAdmissibleCharsTooltipComponent,
   NumericCellEditorComponent
 } from 'se-ui-datagrid';
 import { DataRestClientService } from '../../services/data-rest-client.service';
@@ -80,6 +81,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
       numericCellEditor: NumericCellEditorComponent,
       letterCellEditor: LetterCellEditorComponent,
       alphanumericCellEditor: AlphanumericCellEditorComponent,
+      notAdmissibleCharsTooltip: NotAdmissibleCharsTooltipComponent,
       customCell: CustomCellComponent
     };
 
@@ -119,7 +121,10 @@ export class BaseGridComponent implements OnInit, OnDestroy {
             notAdmissibleChars: ['a', 'b', 'w'],
             inlineEditor: !this.isPopupEditor
           };
-        }
+        },
+        headerTooltip: 'Column constraint',
+        tooltipComponent: 'notAdmissibleCharsTooltip',
+        tooltipComponentParams: {notAdmissibleChars: 'a, b, w'}
       },
       {
         headerName: 'Age',
@@ -134,6 +139,8 @@ export class BaseGridComponent implements OnInit, OnDestroy {
             max: this.maxAgeConstraint,
           };
         },
+        headerTooltip: 'Column constraint',
+        tooltipComponent: 'notAdmissibleCharsTooltip',
       },
       {
         headerName: 'Year',
@@ -174,7 +181,11 @@ export class BaseGridComponent implements OnInit, OnDestroy {
             inlineEditor: !this.isPopupEditor,
             notAdmissibleChars: ['%', '&'],
           };
-        }
+        },
+        headerTooltip: 'Column constraint',
+        tooltipComponent: 'notAdmissibleCharsTooltip',
+        tooltipComponentParams: {notAdmissibleChars: '% &'}
+
       }
     ];
   }

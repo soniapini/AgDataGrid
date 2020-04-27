@@ -7,7 +7,13 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from '@angular/common/http';
-import { AlphanumericCellEditorComponent, LetterCellEditorComponent, NumericCellEditorComponent, SeUiDatagridModule } from 'se-ui-datagrid';
+import {
+  AlphanumericCellEditorComponent,
+  LetterCellEditorComponent,
+  NotAdmissibleCharsTooltipComponent,
+  NumericCellEditorComponent,
+  SeUiDatagridModule
+} from 'se-ui-datagrid';
 import { HomeComponent } from './pages/home/home.component';
 import { BaseGridComponent } from './pages/base-grid/base-grid.component';
 import { GridCommonService } from './services/grid-common.service';
@@ -39,7 +45,8 @@ import { DemoAppMockConfigService } from './services/demo-app-config.service';
     AgGridModule.withComponents([
       NumericCellEditorComponent,
       LetterCellEditorComponent,
-      AlphanumericCellEditorComponent]),
+      AlphanumericCellEditorComponent,
+      NotAdmissibleCharsTooltipComponent]),
     SeUiDatagridModule
   ],
   providers: [
