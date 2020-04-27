@@ -1,0 +1,14 @@
+<ng-container *ngIf="inlineEditor else popupEditor">
+  <se-date-cell-editor-inline tabindex="0"
+                              [value]="value"
+                              [inputType]="inputType"
+                              [startEdited]="cellStartEdited"
+                              (formReady)="_onFormReady($event)">
+  </se-date-cell-editor-inline>
+</ng-container>
+
+<ng-template #popupEditor>
+  <p>Coming soon...</p>
+</ng-template>
+
+

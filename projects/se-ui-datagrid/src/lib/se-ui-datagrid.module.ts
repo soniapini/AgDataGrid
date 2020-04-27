@@ -20,7 +20,11 @@ import { AlphanumericCellEditorComponent } from './components/alphanumeric-cell-
 import { AlphanumericCellEditorBaseComponent } from './components/alphanumeric-cell-editor/alphanumeric-cell-editor-base/alphanumeric-cell-editor-base.component';
 import { AlphanumericCellEditorInlineComponent } from './components/alphanumeric-cell-editor/alphanumeric-cell-editor-inline/alphanumeric-cell-editor-inline.component';
 import { AlphanumericCellEditorPopupComponent } from './components/alphanumeric-cell-editor/alphanumeric-cell-editor-popup/alphanumeric-cell-editor-popup.component';
+// import { NgxMaskModule } from 'ngx-mask';
 import { ColumnConstraintTooltipComponent } from './components/column-constraint-tooltip/column-constraint-tooltip.component';
+import { DateCellEditorComponent } from './components/date-cell-editor/date-cell-editor.component';
+import { DateCellEditorBaseComponent } from './components/date-cell-editor/date-cell-editor-base/date-cell-editor-base.component';
+import { DateCellEditorInlineComponent } from './components/date-cell-editor/date-cell-editor-inline/date-cell-editor-inline.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,10 @@ import { ColumnConstraintTooltipComponent } from './components/column-constraint
     AlphanumericCellEditorBaseComponent,
     AlphanumericCellEditorInlineComponent,
     AlphanumericCellEditorPopupComponent,
-    ColumnConstraintTooltipComponent
+    ColumnConstraintTooltipComponent,
+    DateCellEditorComponent,
+    DateCellEditorBaseComponent,
+    DateCellEditorInlineComponent
   ],
   imports: [
     FormsModule,
@@ -49,6 +56,7 @@ import { ColumnConstraintTooltipComponent } from './components/column-constraint
     MatInputModule,
     MatSlideToggleModule,
     AgGridModule.withComponents([]),
+    // NgxMaskModule.forRoot(),
     CommonModule
   ],
   exports: [
@@ -57,7 +65,8 @@ import { ColumnConstraintTooltipComponent } from './components/column-constraint
     AlphanumericCellEditorComponent,
     CustomCellComponent,
     SeUiDatagridComponent,
-    ColumnConstraintTooltipComponent
+    ColumnConstraintTooltipComponent,
+    DateCellEditorComponent
   ]
 })
 export class SeUiDatagridModule {
