@@ -2,14 +2,31 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Outpu
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { SeErrorStateMatcher } from '../../../utils/error-state-matcher';
 
+/**
+ * Base Editor Custom AgGrid for Letter Input.
+ * It contains common functionalities used by LetterCellEditorInlineComponent
+ * and LetterCellEditorPopupComponent
+ */
 @Component({
   template: '',
 })
 export class LetterCellEditorBaseComponent implements OnInit {
+
+  /**
+   * Current value of the cell
+   * ngModel setted by LetterCellEditorComponent
+   */
   @Input() value: string;
 
+  /**
+   *  (Optional) it allows to specify a set of not admissible chars
+   * passed by LetterCellEditorComponent
+   */
   @Input() notAdmissibleChars: Array<string>;
 
+  /**
+   * Event emitted when the reactive form is ready
+   */
   @Output() formReady: EventEmitter<FormControl> = new EventEmitter<FormControl>();
 
   @ViewChild('letterInput', {static: false, read: ElementRef}) letterInput: ElementRef;
