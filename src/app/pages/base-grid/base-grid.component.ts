@@ -141,7 +141,9 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         },
         headerTooltip: 'Column constraint',
         tooltipComponent: 'notAdmissibleCharsTooltip',
-        tooltipComponentParams: {cellType: 'numeric', min: this.minAgeConstraint, max: this.maxAgeConstraint}
+        tooltipComponentParams: () => {
+          return {cellType: 'numeric', min: this.minAgeConstraint, max: this.maxAgeConstraint};
+        }
       },
       {
         headerName: 'Year',
@@ -155,7 +157,10 @@ export class BaseGridComponent implements OnInit, OnDestroy {
             min: 1900,
             max: 2020
           };
-        }
+        },
+        headerTooltip: 'Column constraint',
+        tooltipComponent: 'notAdmissibleCharsTooltip',
+        tooltipComponentParams: {cellType: 'numeric', min: 1900, max: 2020}
       },
       {
         headerName: 'Score',
