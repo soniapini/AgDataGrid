@@ -8,7 +8,6 @@ import { NumericCellEditorBaseComponent } from '../numeric-cell-editor-base/nume
   selector: 'se-numeric-cell-editor-inline',
   templateUrl: './numeric-cell-editor-inline.component.html',
   styleUrls: ['./numeric-cell-editor-inline.component.scss'],
-  encapsulation: ViewEncapsulation.None
 })
 export class NumericCellEditorInlineComponent extends NumericCellEditorBaseComponent implements AfterViewInit {
   /**

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { ICellEditorParams } from 'ag-grid-community';
 import { FormControl } from '@angular/forms';
 import { ICellEditorAngularComp } from 'ag-grid-angular';
@@ -6,7 +6,8 @@ import { ICellEditorAngularComp } from 'ag-grid-angular';
 @Component({
   selector: 'se-alphanumeric-cell-editor',
   templateUrl: './alphanumeric-cell-editor.component.html',
-  styleUrls: ['./alphanumeric-cell-editor.component.scss']
+  styleUrls: ['./alphanumeric-cell-editor.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AlphanumericCellEditorComponent implements ICellEditorAngularComp {
 

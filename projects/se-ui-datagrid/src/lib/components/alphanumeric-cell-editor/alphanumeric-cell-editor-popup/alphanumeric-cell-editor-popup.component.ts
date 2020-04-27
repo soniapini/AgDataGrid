@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewEncapsulation } from '@angular/core';
 import { AlphanumericCellEditorBaseComponent } from '../alphanumeric-cell-editor-base/alphanumeric-cell-editor-base.component';
 
 @Component({

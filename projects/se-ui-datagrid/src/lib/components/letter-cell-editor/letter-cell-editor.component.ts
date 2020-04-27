@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { ICellEditorAngularComp } from 'ag-grid-angular';
 import { ICellEditorParams } from 'ag-grid-community';
 import { FormControl } from '@angular/forms';
@@ -6,7 +6,8 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'se-letter-cell-editor',
   templateUrl: './letter-cell-editor.component.html',
-  styleUrls: ['./letter-cell-editor.component.scss']
+  styleUrls: ['./letter-cell-editor.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LetterCellEditorComponent implements ICellEditorAngularComp {
 
