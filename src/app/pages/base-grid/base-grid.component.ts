@@ -233,5 +233,5 @@ export class BaseGridComponent implements OnInit, OnDestroy {
       .subscribe((data) => this.rowData = data);
     // this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
-  };
+  }
 }
