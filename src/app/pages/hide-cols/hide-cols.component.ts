@@ -1,10 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GridCommonService } from '../../services/grid-common.service';
 import { AgGridEvent, GridOptions } from 'ag-grid-community';
 import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef';
 
-import { CustomCellComponent, LetterCellEditorComponent, NumericCellEditorComponent } from 'se-ui-datagrid';
+import {
+  AlphanumericCellEditorComponent,
+  CustomCellComponent,
+  LetterCellEditorComponent,
+  NumericCellEditorComponent
+} from 'se-ui-datagrid';
 import { DataRestClientService } from '../../services/data-rest-client.service';
 
 @Component({
@@ -14,7 +19,6 @@ import { DataRestClientService } from '../../services/data-rest-client.service';
 })
 export class HideColsComponent implements OnInit, OnDestroy {
   public title: string = 'Hide Cols Grid';
-  public isDark: boolean;
   public editType: string;
   public isPopupEditor: boolean;
   public gridOptions: GridOptions;
@@ -43,14 +47,25 @@ export class HideColsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.darkThemeEventSubscription = this.gridCommonServices.getCustomDarkTheme().subscribe(isDark => this.isDark = isDark);
-    this.editTypeSubscription = this.gridCommonServices.getEditType().subscribe(editType => this.editType = editType);
-    this.stopEditingEventSubscription = this.gridCommonServices.getStopEditing().subscribe(stopEditing => {
-      if (stopEditing === true) {
-        this.gridApi.stopEditing();
-        this.gridCommonServices.setStopEditing(false);
-      }
-    });
+
+    this.editTypeSubscription = this.gridCommonServices.getEditType()
+      .subscribe(editType => this.editType = editType);
+
+    this.popupEditorSubscription = this.gridCommonServices.getPopupEditor()
+      .subscribe(isPopup => this.isPopupEditor = isPopup);
+
+
+    this.gridEditableSubscription = this.gridCommonServices.getGridEditable()
+      .subscribe(isGridEditable => this.isGridEditable = isGridEditable);
+
+    this.stopEditingEventSubscription = this.gridCommonServices.getStopEditing()
+      .subscribe(stopEditing => {
+        if (stopEditing === true) {
+          this.gridApi.stopEditing();
+          this.gridCommonServices.setStopEditing(false);
+        }
+      });
+
     this.startEditingSubscription = this.gridCommonServices.getEditCell().subscribe(cellCoords => {
       if (cellCoords) {
         this.gridApi.setFocusedCell(cellCoords.row, cellCoords.col);
@@ -64,16 +79,17 @@ export class HideColsComponent implements OnInit, OnDestroy {
     this.frameworkComponents = {
       numericCellEditor: NumericCellEditorComponent,
       letterCellEditor: LetterCellEditorComponent,
+      alphanumericCellEditor: AlphanumericCellEditorComponent,
       customCell: CustomCellComponent
     };
 
     this.gridOptions = {
-      headerHeight: 20,
+      // headerHeight: 20,
       pagination: true,
       paginationAutoPageSize: true,
-      rowHeight: 40,
+      // rowHeight: 40,
       onGridReady: this.onGridReady,
-      onGridSizeChanged: this.onGridSizeChanged,
+      // onGridSizeChanged: this.onGridSizeChanged,
       frameworkComponents: this.frameworkComponents,
     };
 
@@ -82,7 +98,7 @@ export class HideColsComponent implements OnInit, OnDestroy {
       minWidth: 90,
       resizable: true,
       editable: (params) => this.isGridEditable,
-      filter: 'agTextColumnFilter',
+      filter: 'agTextColumnFilter'
     };
 
     this.columnDefs = [
@@ -156,14 +172,11 @@ export class HideColsComponent implements OnInit, OnDestroy {
         cellEditorParams: () => {
           return {
             inlineEditor: !this.isPopupEditor,
-            min: 0,
-            max: 100,
-            decimal: 2
+            notAdmissibleChars: ['%', '&'],
           };
         }
       }
     ];
-
   }
 
   ngOnDestroy() {
@@ -173,8 +186,15 @@ export class HideColsComponent implements OnInit, OnDestroy {
     if (this.editTypeSubscription) {
       this.editTypeSubscription.unsubscribe();
     }
+    if (this.gridEditableSubscription) {
+      this.gridEditableSubscription.unsubscribe();
+    }
     if (this.stopEditingEventSubscription) {
+      this.gridCommonServices.stopCurrentEditing();
       this.stopEditingEventSubscription.unsubscribe();
+    }
+    if (this.popupEditorSubscription) {
+      this.popupEditorSubscription.unsubscribe();
     }
   }
 
@@ -184,9 +204,10 @@ export class HideColsComponent implements OnInit, OnDestroy {
     this.gridColumnApi = params.columnApi;
     this.restClient.getBaseGridData()
       .subscribe((data) => this.rowData = data);
-    this.gridApi.resetRowHeights();
+    // this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
-  };
+  }
+
 
   onGridSizeChanged(params) {
     const gridWidth = document.getElementById('base-grid').offsetWidth;
@@ -194,7 +215,6 @@ export class HideColsComponent implements OnInit, OnDestroy {
     const columnsToHide = [];
     let totalColsWidth = 0;
     const allColumns = params.columnApi.getAllColumns();
-    // tslint:disable-next-line: prefer-for-of
     for (let i = 0; i < allColumns.length; i++) {
       const column = allColumns[i];
       totalColsWidth += column.getMinWidth();
@@ -208,5 +228,4 @@ export class HideColsComponent implements OnInit, OnDestroy {
     params.columnApi.setColumnsVisible(columnsToHide, false);
     params.api.sizeColumnsToFit();
   }
-
 }

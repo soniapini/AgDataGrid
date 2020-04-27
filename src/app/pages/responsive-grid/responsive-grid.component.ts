@@ -3,7 +3,13 @@ import { Subscription } from 'rxjs';
 import { GridCommonService } from '../../services/grid-common.service';
 import { AgGridEvent, GridOptions } from 'ag-grid-community';
 import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef';
-import { CustomCellComponent, LetterCellEditorComponent, NumericCellEditorComponent } from 'se-ui-datagrid';
+
+import {
+  AlphanumericCellEditorComponent,
+  CustomCellComponent,
+  LetterCellEditorComponent,
+  NumericCellEditorComponent
+} from 'se-ui-datagrid';
 import { DataRestClientService } from '../../services/data-rest-client.service';
 
 @Component({
@@ -11,9 +17,8 @@ import { DataRestClientService } from '../../services/data-rest-client.service';
   templateUrl: './responsive-grid.component.html',
   styleUrls: ['./responsive-grid.component.scss']
 })
-export class ResponsiveGridComponent implements OnInit, OnDestroy {
+export class ResponsiveGridComponent implements OnInit, OnDestroy{
   public title = 'Responsive Grid';
-  public isDark: boolean;
   public editType: string;
   public isPopupEditor: boolean;
   public gridOptions: GridOptions;
@@ -35,7 +40,6 @@ export class ResponsiveGridComponent implements OnInit, OnDestroy {
   minAgeConstraint: number = 0;
   maxAgeConstraint: number = 99;
 
-
   constructor(
     private restClient: DataRestClientService,
     public gridCommonServices: GridCommonService
@@ -43,11 +47,13 @@ export class ResponsiveGridComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.darkThemeEventSubscription = this.gridCommonServices.getCustomDarkTheme()
-      .subscribe(isDark => this.isDark = isDark);
 
     this.editTypeSubscription = this.gridCommonServices.getEditType()
       .subscribe(editType => this.editType = editType);
+
+    this.popupEditorSubscription = this.gridCommonServices.getPopupEditor()
+      .subscribe(isPopup => this.isPopupEditor = isPopup);
+
 
     this.gridEditableSubscription = this.gridCommonServices.getGridEditable()
       .subscribe(isGridEditable => this.isGridEditable = isGridEditable);
@@ -60,20 +66,20 @@ export class ResponsiveGridComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.startEditingSubscription = this.gridCommonServices.getEditCell()
-      .subscribe(cellCoords => {
-        if (cellCoords && this.gridApi) {
-          this.gridApi.setFocusedCell(cellCoords.row, cellCoords.col);
-          this.gridApi.startEditingCell({
-            rowIndex: cellCoords.row,
-            colKey: cellCoords.col,
-          });
-        }
-      });
+    this.startEditingSubscription = this.gridCommonServices.getEditCell().subscribe(cellCoords => {
+      if (cellCoords) {
+        this.gridApi.setFocusedCell(cellCoords.row, cellCoords.col);
+        this.gridApi.startEditingCell({
+          rowIndex: cellCoords.row,
+          colKey: cellCoords.col,
+        });
+      }
+    });
 
     this.frameworkComponents = {
       numericCellEditor: NumericCellEditorComponent,
       letterCellEditor: LetterCellEditorComponent,
+      alphanumericCellEditor: AlphanumericCellEditorComponent,
       customCell: CustomCellComponent
     };
 
@@ -83,17 +89,16 @@ export class ResponsiveGridComponent implements OnInit, OnDestroy {
       paginationAutoPageSize: true,
       // rowHeight: 40,
       onGridReady: this.onGridReady,
-      onGridSizeChanged: this.onGridSizeChanged,
+      // onGridSizeChanged: this.onGridSizeChanged,
       frameworkComponents: this.frameworkComponents,
     };
 
     this.defaultColumnDef = {
-      // width: 90,
-      // minWidth: 90,
+      width: 90,
+      minWidth: 90,
       resizable: true,
       editable: (params) => this.isGridEditable,
-      filter: 'agTextColumnFilter',
-
+      filter: 'agTextColumnFilter'
     };
 
     this.columnDefs = [
@@ -167,9 +172,7 @@ export class ResponsiveGridComponent implements OnInit, OnDestroy {
         cellEditorParams: () => {
           return {
             inlineEditor: !this.isPopupEditor,
-            min: 0,
-            max: 100,
-            decimal: 2
+            notAdmissibleChars: ['%', '&'],
           };
         }
       }
@@ -190,6 +193,9 @@ export class ResponsiveGridComponent implements OnInit, OnDestroy {
       this.gridCommonServices.stopCurrentEditing();
       this.stopEditingEventSubscription.unsubscribe();
     }
+    if (this.popupEditorSubscription) {
+      this.popupEditorSubscription.unsubscribe();
+    }
   }
 
   onGridReady = (params: AgGridEvent) => {
@@ -198,13 +204,13 @@ export class ResponsiveGridComponent implements OnInit, OnDestroy {
     this.gridColumnApi = params.columnApi;
     this.restClient.getBaseGridData()
       .subscribe((data) => this.rowData = data);
-    this.gridApi.resetRowHeights();
+    // this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
   }
 
   onGridSizeChanged(params) {
     params.api.resetRowHeights();
     params.api.sizeColumnsToFit();
+    params.api.resetRowHeights();
   }
-
 }
