@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import { DateCellEditorBaseComponent } from '../date-cell-editor-base/date-cell-editor-base.component';
 
 /**
@@ -7,8 +7,7 @@ import { DateCellEditorBaseComponent } from '../date-cell-editor-base/date-cell-
 @Component({
   selector: 'se-date-cell-editor-inline',
   templateUrl: './date-cell-editor-inline.component.html',
-  styleUrls: ['./date-cell-editor-inline.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./date-cell-editor-inline.component.scss']
 })
 export class DateCellEditorInlineComponent extends DateCellEditorBaseComponent implements AfterViewInit {
 
