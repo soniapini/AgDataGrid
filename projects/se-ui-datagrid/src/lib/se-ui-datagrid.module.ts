@@ -20,6 +20,7 @@ import { AlphanumericCellEditorComponent } from './components/alphanumeric-cell-
 import { AlphanumericCellEditorBaseComponent } from './components/alphanumeric-cell-editor/alphanumeric-cell-editor-base/alphanumeric-cell-editor-base.component';
 import { AlphanumericCellEditorInlineComponent } from './components/alphanumeric-cell-editor/alphanumeric-cell-editor-inline/alphanumeric-cell-editor-inline.component';
 import { AlphanumericCellEditorPopupComponent } from './components/alphanumeric-cell-editor/alphanumeric-cell-editor-popup/alphanumeric-cell-editor-popup.component';
+import { NotAdmissibleCharsTooltipComponent } from './components/not-admissible-chars-tooltip/not-admissible-chars-tooltip.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { AlphanumericCellEditorPopupComponent } from './components/alphanumeric-
     AlphanumericCellEditorComponent,
     AlphanumericCellEditorBaseComponent,
     AlphanumericCellEditorInlineComponent,
-    AlphanumericCellEditorPopupComponent
+    AlphanumericCellEditorPopupComponent,
+    NotAdmissibleCharsTooltipComponent
   ],
   imports: [
     FormsModule,
@@ -55,7 +57,8 @@ import { AlphanumericCellEditorPopupComponent } from './components/alphanumeric-
     LetterCellEditorComponent,
     AlphanumericCellEditorComponent,
     CustomCellComponent,
-    SeUiDatagridComponent
+    SeUiDatagridComponent,
+    NotAdmissibleCharsTooltipComponent
   ]
 })
 export class SeUiDatagridModule {
