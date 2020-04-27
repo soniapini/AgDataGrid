@@ -9,8 +9,8 @@ import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from '@angular/common/http';
 import {
   AlphanumericCellEditorComponent,
+  ColumnConstraintTooltipComponent,
   LetterCellEditorComponent,
-  NotAdmissibleCharsTooltipComponent,
   NumericCellEditorComponent,
   SeUiDatagridModule
 } from 'se-ui-datagrid';
@@ -46,7 +46,7 @@ import { DemoAppMockConfigService } from './services/demo-app-config.service';
       NumericCellEditorComponent,
       LetterCellEditorComponent,
       AlphanumericCellEditorComponent,
-      NotAdmissibleCharsTooltipComponent]),
+      ColumnConstraintTooltipComponent]),
     SeUiDatagridModule
   ],
   providers: [

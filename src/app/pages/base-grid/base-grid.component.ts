@@ -6,9 +6,9 @@ import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef'
 
 import {
   AlphanumericCellEditorComponent,
+  ColumnConstraintTooltipComponent,
   CustomCellComponent,
   LetterCellEditorComponent,
-  NotAdmissibleCharsTooltipComponent,
   NumericCellEditorComponent
 } from 'se-ui-datagrid';
 import { DataRestClientService } from '../../services/data-rest-client.service';
@@ -81,7 +81,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
       numericCellEditor: NumericCellEditorComponent,
       letterCellEditor: LetterCellEditorComponent,
       alphanumericCellEditor: AlphanumericCellEditorComponent,
-      notAdmissibleCharsTooltip: NotAdmissibleCharsTooltipComponent,
+      notAdmissibleCharsTooltip: ColumnConstraintTooltipComponent,
       customCell: CustomCellComponent
     };
 
@@ -124,7 +124,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         },
         headerTooltip: 'Column constraint',
         tooltipComponent: 'notAdmissibleCharsTooltip',
-        tooltipComponentParams: {notAdmissibleChars: 'a, b, w'}
+        tooltipComponentParams: {cellType: 'not_numeric', notAdmissibleChars: 'a, b, w'}
       },
       {
         headerName: 'Age',
@@ -141,6 +141,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
         },
         headerTooltip: 'Column constraint',
         tooltipComponent: 'notAdmissibleCharsTooltip',
+        tooltipComponentParams: {cellType: 'numeric', min: this.minAgeConstraint, max: this.maxAgeConstraint}
       },
       {
         headerName: 'Year',
@@ -169,7 +170,10 @@ export class BaseGridComponent implements OnInit, OnDestroy {
             max: 100,
             decimal: 2
           };
-        }
+        },
+        headerTooltip: 'Column constraint',
+        tooltipComponent: 'notAdmissibleCharsTooltip',
+        tooltipComponentParams: {cellType: 'numeric', min: 0, max: 100, decimal: 2}
       },
       {
         headerName: 'Note',
@@ -224,5 +228,5 @@ export class BaseGridComponent implements OnInit, OnDestroy {
       .subscribe((data) => this.rowData = data);
     // this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
-  }
+  };
 }
