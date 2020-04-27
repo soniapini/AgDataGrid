@@ -1,0 +1,11 @@
+<div class="page-container">
+  <h1>{{title}}</h1>
+  <p>Riducendo la larghezza del monitor sotto 800px, l'altezza delle righe scende a 20px.<br>Il parametro: paginationAutoPageSize è serttato a false  perchè non è ancora gestito il ricalcolo delle pagine</p>
+  <div class="grid-wrapper">
+    <ag-grid-angular id="base-grid" class="base-grid ag-theme-material" [gridOptions]="gridOptions"
+      [defaultColDef]="defaultColumnDef" [columnDefs]="columnDefs" [rowData]="rowData" [editType]="editType"
+      [animateRows]="true" [getRowHeight]="getRowHeight" (gridReady)="onGridReady($event)"
+      (gridSizeChanged)="onGridSizeChanged($event)">
+    </ag-grid-angular>
+  </div>
+</div>

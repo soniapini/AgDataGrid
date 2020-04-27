@@ -1,25 +1,20 @@
 @media only screen and (max-width: 800px) {
   .ag-header {
-    height: 40px !important;
-    min-height: 40px !important;
+    height: 20px !important;
+    min-height: 20px !important;
   }
 
   .ag-header-row-column {
-    top:20px !important;
+    text-outline: 0 !important;
   }
 
   .ag-header-row {
     height: 20px !important;
-  }
-
-  .ag-row {
-    // height: 30px !important;
     font-size: 10px !important;
   }
 
   .ag-cell {
-    // line-height: 30px !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
+    line-height: 20px !important;
+    font-size: 10px !important;
   }
 }
