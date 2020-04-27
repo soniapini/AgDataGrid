@@ -20,4 +20,8 @@ export class DataRestClientService {
   getBaseGridData(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/baseGrid${this.mockExtension}`);
   }
+
+  getDateTimeGridData() {
+    return this.httpClient.get(`${this.baseUrl}/dateTimeGrid${this.mockExtension}`);
+  }
 }

@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {
   AlphanumericCellEditorComponent,
   ColumnConstraintTooltipComponent,
+  DateCellEditorComponent,
   LetterCellEditorComponent,
   NumericCellEditorComponent,
   SeUiDatagridModule
@@ -24,6 +25,7 @@ import { APP_CONFIG } from './app.module.config';
 import { DataRestClientService } from './services/data-rest-client.service';
 import { DemoAppMockConfigService } from './services/demo-app-config.service';
 import { RowResizeComponent } from './pages/row-resize/row-resize.component';
+import { DateTimeGridComponent } from './pages/date-time-grid/date-time-grid.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { RowResizeComponent } from './pages/row-resize/row-resize.component';
     ResponsiveGridComponent,
     PageNotFoundComponent,
     HideColsComponent,
-    RowResizeComponent
+    RowResizeComponent,
+    DateTimeGridComponent
   ],
   exports: [],
   imports: [
@@ -48,7 +51,8 @@ import { RowResizeComponent } from './pages/row-resize/row-resize.component';
       NumericCellEditorComponent,
       LetterCellEditorComponent,
       AlphanumericCellEditorComponent,
-      ColumnConstraintTooltipComponent]),
+      ColumnConstraintTooltipComponent,
+      DateCellEditorComponent]),
     SeUiDatagridModule
   ],
   providers: [

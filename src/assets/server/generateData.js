@@ -1,7 +1,8 @@
 var faker = require('faker');
 
 var database = {
-  baseGrid: []
+  baseGrid: [],
+  dateTimeGrid: []
 };
 
 // POPOLA BASE_GRID
@@ -13,6 +14,18 @@ for (var i = 0; i < 15; i++) {
     year: faker.random.number({min: 2000, max: 2020}),
     points: faker.finance.amount(0, 100, 2),
     note: faker.random.alphaNumeric(20),
+    id: i + 1
+  });
+}
+
+// POPOLA DATE_TIME_GRID
+for (var i = 0; i < 15; i++) {
+  let fakeDate = faker.date.past(1);
+  database.dateTimeGrid.push({
+    patient: faker.name.firstName(1) + ' ' + faker.name.lastName(0),
+    admission: fakeDate,
+    date: fakeDate,
+    time: fakeDate,
     id: i + 1
   });
 }

@@ -6,6 +6,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { ResponsiveGridComponent } from './pages/responsive-grid/responsive-grid.component';
 import { HideColsComponent } from './pages/hide-cols/hide-cols.component';
 import { RowResizeComponent } from './pages/row-resize/row-resize.component';
+import { DateTimeGridComponent } from './pages/date-time-grid/date-time-grid.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: 'resize',
     component: RowResizeComponent,
+  },
+  {
+    path: 'date-time',
+    component: DateTimeGridComponent,
   },
   {path: '**', component: PageNotFoundComponent}
 ];
