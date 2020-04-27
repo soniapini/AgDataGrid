@@ -4,14 +4,15 @@ import { ITooltipParams } from 'ag-grid-community';
 
 @Component({
   selector: 'se-not-admissible-chars-tooltip',
-  templateUrl: './not-admissible-chars-tooltip.component.html',
-  styleUrls: ['./not-admissible-chars-tooltip.component.scss']
+  templateUrl: './column-constraint-tooltip.component.html',
+  styleUrls: ['./column-constraint-tooltip.component.scss']
 })
-export class NotAdmissibleCharsTooltipComponent implements ITooltipAngularComp {
+export class ColumnConstraintTooltipComponent implements ITooltipAngularComp {
 
   params: ITooltipParams;
   data: any;
   isHeader: boolean;
+  isNumericCell: boolean;
 
   constructor() {
     this.data = {};
@@ -23,7 +24,13 @@ export class NotAdmissibleCharsTooltipComponent implements ITooltipAngularComp {
     if (!this.isHeader) {
       this.data = params.api.getDisplayedRowAtIndex(params.rowIndex).data;
     }
+    this.isNumericCell = this.params['cellType'] === 'numeric';
+
     this.data.notAdmissibleChars = this.params['notAdmissibleChars'] || '--';
+
+    this.data.min = this.params['min'];
+    this.data.max = this.params['max'];
+    this.data.decimal = this.params['decimal'];
   }
 
 }

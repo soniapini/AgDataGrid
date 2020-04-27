@@ -1,0 +1,12 @@
+<div class="custom-tooltip" *ngIf="isHeader">
+  <ng-container *ngIf="isNumericCell else notNumeric">
+    <p><span>Min: {{ data.min }}</span></p>
+    <p><span>Max: {{ data.max }}</span></p>
+    <p><span>Decimal: {{ data.decimal }}</span></p>
+  </ng-container>
+</div>
+
+<ng-template #notNumeric>
+  <p><span>Not admissible chars: </span></p>
+  <p><span>{{ data.notAdmissibleChars }}</span></p>
+</ng-template>
