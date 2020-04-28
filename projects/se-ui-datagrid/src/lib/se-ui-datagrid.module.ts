@@ -25,6 +25,7 @@ import { ColumnConstraintTooltipComponent } from './components/column-constraint
 import { DateCellEditorComponent } from './components/date-cell-editor/date-cell-editor.component';
 import { DateCellEditorBaseComponent } from './components/date-cell-editor/date-cell-editor-base/date-cell-editor-base.component';
 import { DateCellEditorInlineComponent } from './components/date-cell-editor/date-cell-editor-inline/date-cell-editor-inline.component';
+import { BooleanCellRendererComponent } from './components/boolean-cell-renderer/boolean-cell-renderer.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { DateCellEditorInlineComponent } from './components/date-cell-editor/dat
     ColumnConstraintTooltipComponent,
     DateCellEditorComponent,
     DateCellEditorBaseComponent,
-    DateCellEditorInlineComponent
+    DateCellEditorInlineComponent,
+    BooleanCellRendererComponent
   ],
   imports: [
     FormsModule,
