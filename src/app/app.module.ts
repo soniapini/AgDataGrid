@@ -26,6 +26,7 @@ import { DataRestClientService } from './services/data-rest-client.service';
 import { DemoAppMockConfigService } from './services/demo-app-config.service';
 import { RowResizeComponent } from './pages/row-resize/row-resize.component';
 import { DateTimeGridComponent } from './pages/date-time-grid/date-time-grid.component';
+import { BooleansComponent } from './pages/booleans/booleans.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { DateTimeGridComponent } from './pages/date-time-grid/date-time-grid.com
     PageNotFoundComponent,
     HideColsComponent,
     RowResizeComponent,
-    DateTimeGridComponent
+    DateTimeGridComponent,
+    BooleansComponent
   ],
   exports: [],
   imports: [
