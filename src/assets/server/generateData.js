@@ -20,12 +20,12 @@ for (var i = 0; i < 15; i++) {
 
 // POPOLA DATE_TIME_GRID
 for (var i = 0; i < 15; i++) {
-  let fakeDate = faker.date.past(1);
+  let fakeDate = JSON.stringify(faker.date.past(1)).slice(1, -2);
   database.dateTimeGrid.push({
     patient: faker.name.firstName(1) + ' ' + faker.name.lastName(0),
     admission: fakeDate,
-    date: fakeDate,
-    time: fakeDate,
+    date: fakeDate.slice(0, 10),
+    time: fakeDate.slice(-12),
     id: i + 1
   });
 }
