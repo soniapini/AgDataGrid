@@ -33,7 +33,6 @@ export class DateCellEditorBaseComponent implements OnInit {
 
   @ViewChild('dateInput', {static: false, read: ElementRef}) dateInput: ElementRef;
 
-
   formControl: FormControl;
   matcher = new SeErrorStateMatcher();
 

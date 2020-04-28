@@ -11,4 +11,5 @@ export * from './lib/components/date-cell-editor/date-cell-editor.component';
 export * from './lib/components/column-constraint-tooltip/column-constraint-tooltip.component';
 export * from './lib/components/custom-cell/custom-cell.component';
 export * from './lib/models/date-input.enum';
+export * from './lib/models/date-format.enum';
 export * from './lib/se-ui-datagrid.module';
