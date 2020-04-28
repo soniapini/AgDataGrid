@@ -19,15 +19,18 @@ for (var i = 0; i < 15; i++) {
 }
 
 // POPOLA DATE_TIME_GRID
+// POPOLA DATE_TIME_GRID
 for (var i = 0; i < 15; i++) {
-  let fakeDate = JSON.stringify(faker.date.past(1)).slice(1, -2);
+  let fakeDate = faker.date.past(1);
+  const fakeDateString = (JSON.stringify(fakeDate)).slice(1, -2);
   database.dateTimeGrid.push({
     patient: faker.name.firstName(1) + ' ' + faker.name.lastName(0),
     admission: fakeDate,
-    date: fakeDate.slice(0, 10),
-    time: fakeDate.slice(-12),
+    date: fakeDate,
+    time: fakeDateString.slice(-12),
     id: i + 1
   });
 }
+database.dateTimeGrid[0].admission = Date.now();
 
 console.log(JSON.stringify(database));
