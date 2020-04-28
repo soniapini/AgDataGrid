@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { DataRestClientService } from '../../services/data-rest-client.service';
 import { GridCommonService } from '../../services/grid-common.service';
 import { DateCellEditorComponent, DateInputEnum } from 'se-ui-datagrid';
+import { DateTimeGridDataModel } from '../../models/date-time.grid-data-model';
 
 @Component({
   selector: 'app-date-time-grid',
@@ -21,7 +22,7 @@ export class DateTimeGridComponent implements OnInit, OnDestroy {
   public defaultColumnDef: ColDef;
   public components: any;
   public frameworkComponents: any;
-  public rowData: any = [];
+  public rowData: Array<DateTimeGridDataModel> = [];
   public isGridEditable = true;
   private darkThemeEventSubscription: Subscription;
   private stopEditingEventSubscription: Subscription;
@@ -170,6 +171,6 @@ export class DateTimeGridComponent implements OnInit, OnDestroy {
       .subscribe((data) => this.rowData = data);
     // this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
-  };
+  }
 
 }
