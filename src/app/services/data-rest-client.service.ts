@@ -25,4 +25,8 @@ export class DataRestClientService {
   getDateTimeGridData(): Observable<Array<DateTimeGridDataModel>> {
     return this.httpClient.get<Array<DateTimeGridDataModel>>(`${this.baseUrl}/dateTimeGrid${this.mockExtension}`);
   }
+
+  getBooleansGridData() {
+    return this.httpClient.get(`${this.baseUrl}/boolGrid${this.mockExtension}`);
+  }
 }

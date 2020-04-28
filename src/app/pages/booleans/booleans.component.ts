@@ -6,7 +6,7 @@ import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef'
 
 import {
   BooleanCellRendererComponent,
-  
+  BooleanCellEditorComponent
 } from 'se-ui-datagrid';
 import { DataRestClientService } from '../../services/data-rest-client.service';
 
@@ -49,7 +49,6 @@ export class BooleansComponent implements OnInit, OnDestroy {
     this.popupEditorSubscription = this.gridCommonServices.getPopupEditor()
       .subscribe(isPopup => this.isPopupEditor = isPopup);
 
-
     this.gridEditableSubscription = this.gridCommonServices.getGridEditable()
       .subscribe(isGridEditable => this.isGridEditable = isGridEditable);
 
@@ -72,11 +71,8 @@ export class BooleansComponent implements OnInit, OnDestroy {
     });
 
     this.frameworkComponents = {
-      numericCellEditor: NumericCellEditorComponent,
-      letterCellEditor: LetterCellEditorComponent,
-      alphanumericCellEditor: AlphanumericCellEditorComponent,
-      notAdmissibleCharsTooltip: ColumnConstraintTooltipComponent,
-      customCell: CustomCellComponent
+      booleanCellRenderer: BooleanCellRendererComponent,
+      booleanCellEditor: BooleanCellEditorComponent
     };
 
     this.gridOptions = {
@@ -99,96 +95,30 @@ export class BooleansComponent implements OnInit, OnDestroy {
 
     this.columnDefs = [
       {
-        headerName: 'Athlete',
-        field: 'athlete',
-        width: 120,
-        pinned: 'left',
-        editable: false,
+        headerName: 'patient',
+        field: 'patient',
+        editable: false
       },
       {
-        headerName: 'Sport',
-        field: 'sport',
-        width: 150,
-        cellEditorFramework: this.frameworkComponents.letterCellEditor,
-        cellEditorParams: () => {
+        headerName: 'checkbox',
+        field: 'checkbox',
+        cellRendererFramework: this.frameworkComponents.booleanCellRenderer,
+        cellRendererParams: () => {
           return {
-            notAdmissibleChars: ['a', 'b', 'w'],
-            inlineEditor: !this.isPopupEditor
+              disabled: true
           };
-        },
-        headerTooltip: 'Column constraint',
-        tooltipComponent: 'notAdmissibleCharsTooltip',
-        tooltipComponentParams: {cellType: 'not_numeric', notAdmissibleChars: 'a, b, w'}
-      },
-      {
-        headerName: 'Age',
-        field: 'age',
-        type: 'numberColumn',
-        width: 90,
-        cellEditorFramework: this.frameworkComponents.numericCellEditor,
-        cellEditorParams: () => {
-          return {
-            inlineEditor: !this.isPopupEditor,
-            min: this.minAgeConstraint,
-            max: this.maxAgeConstraint,
-          };
-        },
-        headerTooltip: 'Column constraint',
-        tooltipComponent: 'notAdmissibleCharsTooltip',
-        tooltipComponentParams: () => {
-          return {cellType: 'numeric', min: this.minAgeConstraint, max: this.maxAgeConstraint};
         }
       },
       {
-        headerName: 'Year',
-        field: 'year',
-        type: 'numberColumn',
-        width: 90,
-        cellEditorFramework: this.frameworkComponents.numericCellEditor,
-        cellEditorParams: () => {
+        headerName: 'slider',
+        field: 'slider',
+        cellEditorFramework: this.frameworkComponents.,
+        cellRendererParams: () => {
           return {
-            inlineEditor: !this.isPopupEditor,
-            min: 1900,
-            max: 2020
+              disabled: true
           };
         },
-        headerTooltip: 'Column constraint',
-        tooltipComponent: 'notAdmissibleCharsTooltip',
-        tooltipComponentParams: {cellType: 'numeric', min: 1900, max: 2020}
-      },
-      {
-        headerName: 'Score',
-        field: 'points',
-        type: 'numberColumn',
-        width: 90,
-        cellEditorFramework: this.frameworkComponents.numericCellEditor,
-        cellEditorParams: () => {
-          return {
-            inlineEditor: !this.isPopupEditor,
-            min: 0,
-            max: 100,
-            decimal: 2
-          };
-        },
-        headerTooltip: 'Column constraint',
-        tooltipComponent: 'notAdmissibleCharsTooltip',
-        tooltipComponentParams: {cellType: 'numeric', min: 0, max: 100, decimal: 2}
-      },
-      {
-        headerName: 'Note',
-        field: 'note',
-        width: 120,
-        cellEditorFramework: this.frameworkComponents.alphanumericCellEditor,
-        cellEditorParams: () => {
-          return {
-            inlineEditor: !this.isPopupEditor,
-            notAdmissibleChars: ['%', '&'],
-          };
-        },
-        headerTooltip: 'Column constraint',
-        tooltipComponent: 'notAdmissibleCharsTooltip',
-        tooltipComponentParams: {notAdmissibleChars: '% &'}
-
+        editable: true
       }
     ];
   }
@@ -212,18 +142,11 @@ export class BooleansComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('window:resize')
-  onResize() {
-    if (this.gridApi) {
-      setTimeout(() => this.gridApi.sizeColumnsToFit());
-    }
-  }
-
   onGridReady = (params: AgGridEvent) => {
     console.log('ricevuto evento: ', params.type);
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    this.restClient.getBaseGridData()
+    this.restClient.getBooleansGridData()
       .subscribe((data) => this.rowData = data);
     // this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
