@@ -26,6 +26,10 @@ import { DateCellEditorComponent } from './components/date-cell-editor/date-cell
 import { DateCellEditorBaseComponent } from './components/date-cell-editor/date-cell-editor-base/date-cell-editor-base.component';
 import { DateCellEditorInlineComponent } from './components/date-cell-editor/date-cell-editor-inline/date-cell-editor-inline.component';
 import { BooleanCellRendererComponent } from './components/boolean-cell-renderer/boolean-cell-renderer.component';
+import { BooleanCellEditorComponent } from './components/boolean-cell-editor/boolean-cell-editor.component';
+import { BooleanCellEditorBaseComponent } from './components/boolean-cell-editor/boolean-cell-editor-base/boolean-cell-editor-base.component';
+import { BooleanCellEditorInlineComponent } from './components/boolean-cell-editor/boolean-cell-editor-inline/boolean-cell-editor-inline.component';
+import { BooleanCellEditorPopupComponent } from './components/boolean-cell-editor/boolean-cell-editor-popup/boolean-cell-editor-popup.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,11 @@ import { BooleanCellRendererComponent } from './components/boolean-cell-renderer
     DateCellEditorComponent,
     DateCellEditorBaseComponent,
     DateCellEditorInlineComponent,
-    BooleanCellRendererComponent
+    BooleanCellRendererComponent,
+    BooleanCellEditorComponent,
+    BooleanCellEditorBaseComponent,
+    BooleanCellEditorInlineComponent,
+    BooleanCellEditorPopupComponent
   ],
   imports: [
     FormsModule,
