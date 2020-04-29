@@ -26,6 +26,7 @@ export class DateCellEditorComponent implements ICellEditorAngularComp {
   public editInline: boolean;
 
   value: string;
+  originalValue: Date;
   params: ICellEditorParams;
   cellWidth: string;
   cellStartEdited: boolean;
@@ -56,8 +57,10 @@ export class DateCellEditorComponent implements ICellEditorAngularComp {
     if (this.formControl && !this.formControl.invalid) {
       // Alla chiusura dell'editor se il campo è valido aggiorniamo il valore altrimenti no
       this.value = this.formControl.value;
+      // TODO aggiornare la data originale con le modifiche apportate
+      this.updateOriginalValue();
     }
-    return this.value;
+    return this.originalValue;
   }
 
   isPopup(): boolean {
@@ -106,18 +109,18 @@ export class DateCellEditorComponent implements ICellEditorAngularComp {
   }
 
   private formatDate(value: string) {
-    const currentDate: Date = new Date(value);
+    this.originalValue = new Date(value);
     switch (this.inputFormat) {
       case DateFormatEnum.SHORT:
       case DateFormatEnum.LONG: // TODO capire che cosa è un formato lungo in input di una data
-        if (this.isValidDate(currentDate)) {
-          this.value = this.convertDateToString(currentDate);
+        if (this.isValidDate(this.originalValue)) {
+          this.value = this.convertDateToString();
         }
         break;
       default:
         console.log('parametro inputFormat non corretto: ', this.inputFormat);
         if (new Date(value) instanceof Date) {
-          this.convertDateToString(currentDate);
+          this.convertDateToString();
         }
     }
   }
@@ -125,21 +128,21 @@ export class DateCellEditorComponent implements ICellEditorAngularComp {
   private formatDateTime(value: string) {
     // 'SHORT': equivalent to 'yyyy-MM-ddThh:mm'
     // 'LONG': equivalent to 'yyyy-MM-ddThh:mm:ss'
-    const currentDate: Date = new Date(value);
+    this.originalValue = new Date(value);
     this.value = '';
 
-    if (this.isValidDate(currentDate)) {
-      this.value = this.convertDateToString(currentDate);
-      this.value += 'T' + this.convertTimeToString(currentDate);
+    if (this.isValidDate(this.originalValue)) {
+      this.value = this.convertDateToString();
+      this.value += 'T' + this.convertTimeToString();
     }
   }
 
   private formatTime(value: string) {
     // 'SHORT': equivalent to 'hh:mm'
     // 'LONG': equivalent to 'hh:mm:ss'
-    const currentDate: Date = new Date(value);
-    if (this.isValidDate(currentDate)) {
-      this.value = this.convertTimeToString(currentDate);
+    this.originalValue = new Date(value);
+    if (this.isValidDate(this.originalValue)) {
+      this.value = this.convertTimeToString();
     } else {
       this.value = value;
     }
@@ -152,18 +155,21 @@ export class DateCellEditorComponent implements ICellEditorAngularComp {
     return '' + n;
   }
 
-  private convertDateToString(currentDate: Date): string {
-    const year = currentDate.getFullYear();
-    const month = this.prependZero(currentDate.getMonth() + 1);
-    const day = this.prependZero(currentDate.getDate());
+  private convertDateToString(): string {
+    const year = this.originalValue.getFullYear();
+    const month = this.prependZero(this.originalValue.getMonth() + 1);
+    const day = this.prependZero(this.originalValue.getDate());
     const formattedDate = year + '-' + month + '-' + day;
     return formattedDate;
   }
 
-  private convertTimeToString(currentDate: Date): string {
-    const hours = this.prependZero(currentDate.getUTCHours());
-    const minutes = this.prependZero(currentDate.getUTCMinutes());
-    const seconds = this.prependZero(currentDate.getUTCSeconds());
+  private convertTimeToString(): string {
+    // const hours = this.prependZero(this.originalValue.getUTCHours());
+    // const minutes = this.prependZero(this.originalValue.getUTCMinutes());
+    // const seconds = this.prependZero(this.originalValue.getUTCSeconds());
+    const hours = this.prependZero(this.originalValue.getHours());
+    const minutes = this.prependZero(this.originalValue.getMinutes());
+    const seconds = this.prependZero(this.originalValue.getSeconds());
     let formattedString = '';
     formattedString += hours + ':' + minutes;
 
@@ -173,5 +179,29 @@ export class DateCellEditorComponent implements ICellEditorAngularComp {
     return formattedString;
   }
 
-
+  private updateOriginalValue() {
+    switch (this.inputType) {
+      case DateInputEnum.DATE_TIME:
+        this.originalValue = new Date(this.value);
+        break;
+      case DateInputEnum.DATE:
+        // prendiamo la data aggioranta da this.value ma il time lasciamo quello originale
+        const generatedDate = new Date(this.value);
+        // generatedDate.setHours(this.originalValue.getUTCHours(), this.originalValue.getUTCMinutes(), this.originalValue.getUTCSeconds());
+        generatedDate.setHours(this.originalValue.getHours(), this.originalValue.getMinutes(), this.originalValue.getSeconds());
+        this.originalValue = generatedDate;
+        break;
+      case DateInputEnum.TIME:
+        // prendiamo il time da this.value ma la data lasciamo quella originale
+        const hours = this.value.split(':');
+        if (hours.length === 3) {
+          this.originalValue.setHours(parseInt(hours[0], 10), parseInt(hours[1], 10), parseInt(hours[2], 10));
+        } else if (hours.length === 2) {
+          this.originalValue.setHours(parseInt(hours[0], 10), parseInt(hours[1], 10));
+        } else {
+          this.originalValue.setHours(0);
+        }
+        break;
+    }
+  }
 }
