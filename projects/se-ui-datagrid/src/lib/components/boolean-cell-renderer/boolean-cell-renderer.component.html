@@ -1,3 +1,12 @@
-<mat-checkbox [ngModel]="checked" (ngModelChange)="onChange($event)" [disabled]="disabled"></mat-checkbox>
-
-
+<mat-checkbox *ngIf="editor ==='checkbox'"
+  [ngModel]="checked"
+  [disabled]="disabled"
+  color="color"
+  (ngModelChange)="onChange($event)">
+</mat-checkbox>
+<mat-slide-toggle  *ngIf="editor ==='slideToggle'"
+  [ngModel]="checked"
+  [disabled]="disabled"
+  color="color"
+  (ngModelChange)="onChange($event)">
+</mat-slide-toggle>
