@@ -1,3 +1,4 @@
+/* tslint:disable:no-string-literal */
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ICellEditorParams } from 'ag-grid-community';
 import { FormControl } from '@angular/forms';

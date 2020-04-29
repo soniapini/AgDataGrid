@@ -1,6 +1,7 @@
+/* tslint:disable:no-string-literal */
 import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { MatColor, BoolEditor } from '../../models/commons.enum';
+import { BoolEditor, MatColor } from '../../models/commons.enum';
 
 /**
  * Editor Custom AgGrid for Booleans Input.
