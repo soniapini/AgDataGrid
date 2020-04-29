@@ -104,7 +104,8 @@ export class BooleansComponent implements OnInit, OnDestroy {
               color: MatColor.WARN,
               editor: BoolEditor.CHECKBOX
           };
-        }
+        },
+        editable: false
       },
       {
         headerName: 'slider',
@@ -116,7 +117,8 @@ export class BooleansComponent implements OnInit, OnDestroy {
               color: MatColor.ACCENT,
               editor: BoolEditor.SLIDETOGGLE
           };
-        }
+        },
+        editable: false
       }
     ];
   }
