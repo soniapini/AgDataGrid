@@ -7,7 +7,9 @@ import { ResponsiveGridComponent } from './pages/responsive-grid/responsive-grid
 import { HideColsComponent } from './pages/hide-cols/hide-cols.component';
 import { RowResizeComponent } from './pages/row-resize/row-resize.component';
 import { DateTimeGridComponent } from './pages/date-time-grid/date-time-grid.component';
-import { BooleansComponent } from "./pages/booleans/booleans.component";
+import { BooleansComponent } from './pages/booleans/booleans.component';
+import { ComboGridComponent } from './pages/combo-grid/combo-grid.component';
+import { from } from 'rxjs';
 
 
 const routes: Routes = [
@@ -43,6 +45,10 @@ const routes: Routes = [
   {
     path: 'booleans',
     component: BooleansComponent,
+  },
+  {
+    path: 'combo',
+    component: ComboGridComponent,
   },
   {path: '**', component: PageNotFoundComponent}
 ];

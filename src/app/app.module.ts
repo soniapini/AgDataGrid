@@ -30,6 +30,7 @@ import { RowResizeComponent } from './pages/row-resize/row-resize.component';
 import { DateTimeGridComponent } from './pages/date-time-grid/date-time-grid.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { BooleansComponent } from './pages/booleans/booleans.component';
+import { ComboGridComponent } from './pages/combo-grid/combo-grid.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { BooleansComponent } from './pages/booleans/booleans.component';
     HideColsComponent,
     RowResizeComponent,
     DateTimeGridComponent,
-    BooleansComponent
+    BooleansComponent,
+    ComboGridComponent
   ],
   exports: [],
   imports: [
