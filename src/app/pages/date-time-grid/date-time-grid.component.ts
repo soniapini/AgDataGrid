@@ -4,7 +4,7 @@ import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef'
 import { Subscription } from 'rxjs';
 import { DataRestClientService } from '../../services/data-rest-client.service';
 import { GridCommonService } from '../../services/grid-common.service';
-import { DateCellEditorComponent, DateInputEnum } from 'se-ui-datagrid';
+import { DateCellEditorComponent, DateCellRendererComponent, DateFormatEnum, DateInputEnum } from 'se-ui-datagrid';
 import { DateTimeGridDataModel } from '../../models/date-time.grid-data-model';
 
 @Component({
@@ -33,10 +33,8 @@ export class DateTimeGridComponent implements OnInit, OnDestroy {
   private gridApi;
   private gridColumnApi;
 
-  constructor(
-    private restClient: DataRestClientService,
-    public gridCommonServices: GridCommonService
-  ) {
+  constructor(private restClient: DataRestClientService,
+              public gridCommonServices: GridCommonService) {
   }
 
   ngOnInit(): void {
@@ -69,7 +67,8 @@ export class DateTimeGridComponent implements OnInit, OnDestroy {
     });
 
     this.frameworkComponents = {
-      dateTimeCellEditor: DateCellEditorComponent
+      dateTimeCellEditor: DateCellEditorComponent,
+      dateTimeCellRender: DateCellRendererComponent
     };
 
     this.gridOptions = {
@@ -100,11 +99,22 @@ export class DateTimeGridComponent implements OnInit, OnDestroy {
         field: 'admission',
         type: 'dateTimeColumn',
         width: 150,
+        // valueFormatter: (params) => {
+        //   return DatePipe.transform(params.value, 'dd/MM/YYYY');
+        // },
         cellEditorFramework: this.frameworkComponents.dateTimeCellEditor,
         cellEditorParams: () => {
           return {
             inputType: DateInputEnum.DATE_TIME,
+            inputFormat: DateFormatEnum.SHORT,
             inlineEditor: !this.isPopupEditor
+          };
+        },
+        cellRendererFramework: this.frameworkComponents.dateTimeCellRender,
+        cellRendererParams: () => {
+          return {
+            inputType: DateInputEnum.DATE_TIME,
+            inputFormat: DateFormatEnum.SHORT,
           };
         }
       },
@@ -117,9 +127,17 @@ export class DateTimeGridComponent implements OnInit, OnDestroy {
         cellEditorParams: () => {
           return {
             inlineEditor: !this.isPopupEditor,
-            inputType: DateInputEnum.DATE
+            inputType: DateInputEnum.DATE,
+            inputFormat: DateFormatEnum.LONG
           };
         },
+        cellRendererFramework: this.frameworkComponents.dateTimeCellRender,
+        cellRendererParams: () => {
+          return {
+            inputType: DateInputEnum.DATE,
+            inputFormat: DateFormatEnum.LONG
+          };
+        }
       },
       {
         headerName: 'Time',
@@ -130,7 +148,15 @@ export class DateTimeGridComponent implements OnInit, OnDestroy {
         cellEditorParams: () => {
           return {
             inlineEditor: !this.isPopupEditor,
-            inputType: DateInputEnum.TIME
+            inputType: DateInputEnum.TIME,
+            inputFormat: DateFormatEnum.LONG
+          };
+        },
+        cellRendererFramework: this.frameworkComponents.dateTimeCellRender,
+        cellRendererParams: () => {
+          return {
+            inputType: DateInputEnum.TIME,
+            inputFormat: DateFormatEnum.LONG
           };
         }
       }
@@ -171,6 +197,6 @@ export class DateTimeGridComponent implements OnInit, OnDestroy {
       .subscribe((data) => this.rowData = data);
     // this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
-  }
+  };
 
 }

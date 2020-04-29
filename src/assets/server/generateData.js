@@ -19,7 +19,6 @@ for (var i = 0; i < 15; i++) {
 }
 
 // POPOLA DATE_TIME_GRID
-// POPOLA DATE_TIME_GRID
 for (var i = 0; i < 15; i++) {
   let fakeDate = faker.date.past(1);
   const fakeDateString = (JSON.stringify(fakeDate)).slice(1, -2);
@@ -27,10 +26,9 @@ for (var i = 0; i < 15; i++) {
     patient: faker.name.firstName(1) + ' ' + faker.name.lastName(0),
     admission: fakeDate,
     date: fakeDate,
-    time: fakeDateString.slice(-12),
+    time: fakeDate,
     id: i + 1
   });
 }
-database.dateTimeGrid[0].admission = Date.now();
 
 console.log(JSON.stringify(database));

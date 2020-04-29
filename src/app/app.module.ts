@@ -9,12 +9,13 @@ import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from '@angular/common/http';
 import {
   AlphanumericCellEditorComponent,
+  BooleanCellRendererComponent,
   ColumnConstraintTooltipComponent,
   DateCellEditorComponent,
+  DateCellRendererComponent,
   LetterCellEditorComponent,
   NumericCellEditorComponent,
-  SeUiDatagridModule,
-  BooleanCellRendererComponent
+  SeUiDatagridModule
 } from 'se-ui-datagrid';
 import { HomeComponent } from './pages/home/home.component';
 import { BaseGridComponent } from './pages/base-grid/base-grid.component';
@@ -27,6 +28,7 @@ import { DataRestClientService } from './services/data-rest-client.service';
 import { DemoAppMockConfigService } from './services/demo-app-config.service';
 import { RowResizeComponent } from './pages/row-resize/row-resize.component';
 import { DateTimeGridComponent } from './pages/date-time-grid/date-time-grid.component';
+import { CommonModule, DatePipe } from '@angular/common';
 import { BooleansComponent } from './pages/booleans/booleans.component';
 
 @NgModule({
@@ -43,6 +45,7 @@ import { BooleansComponent } from './pages/booleans/booleans.component';
   ],
   exports: [],
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
@@ -56,12 +59,15 @@ import { BooleansComponent } from './pages/booleans/booleans.component';
       AlphanumericCellEditorComponent,
       ColumnConstraintTooltipComponent,
       DateCellEditorComponent,
+      DateCellRendererComponent,
+      DateCellEditorComponent,
       BooleanCellRendererComponent]),
     SeUiDatagridModule
   ],
   providers: [
     GridCommonService,
     DataRestClientService,
+    DatePipe,
     {provide: APP_CONFIG, useClass: DemoAppMockConfigService},
   ],
   bootstrap: [AppComponent]
