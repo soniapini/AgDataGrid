@@ -6,7 +6,6 @@ import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef'
 
 import {
   AlphanumericCellEditorComponent,
-  CustomCellComponent,
   LetterCellEditorComponent,
   NumericCellEditorComponent
 } from 'se-ui-datagrid';
@@ -79,8 +78,7 @@ export class HideColsComponent implements OnInit, OnDestroy {
     this.frameworkComponents = {
       numericCellEditor: NumericCellEditorComponent,
       letterCellEditor: LetterCellEditorComponent,
-      alphanumericCellEditor: AlphanumericCellEditorComponent,
-      customCell: CustomCellComponent
+      alphanumericCellEditor: AlphanumericCellEditorComponent
     };
 
     this.gridOptions = {
