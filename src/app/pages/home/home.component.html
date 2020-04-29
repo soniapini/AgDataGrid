@@ -29,9 +29,13 @@
 <mat-card>
   <mat-card-title>Booleans Table</mat-card-title>
   <mat-card-subtitle>ag-grid con renderer e editor custom</mat-card-subtitle>
-  <mat-card-content>Demo Base Table che implementa i seguenti componenti della libreria: <br/>
-    Campo checkbox: utilizza un renderer che implementa un componente checkbox di material. <br/>
-    Campi SlideToogle: utilizzano editor custom per soli booleani che implementa un slide-toogle di material
+  <mat-card-content>Demo Base Table che implementa un componente renderer della libreria che permette l'editing in-line di campi booleani.<br>
+    Il componente accetta in input i seguenti parametri:
+    <ul>
+      <li><b>disable</b>:boolean, per disabilitare l'editing</li>
+      <li><b>color</b>: matColor, per definire il colore secondo material, i valori accettati sono ['primary', 'accent', 'warn']</li>
+      <li><b>editor</b>: boolEditor, per definire quale tipo di componente material si desidera utilizzare, i valori accettati sono ['checkbox', 'slideToogle']</li>
+    </ul>
   </mat-card-content>
   <mat-card-actions align="end"><a routerLink="/booleans" routerLinkActive="active" mat-raised-button>Apri</a>
   </mat-card-actions>

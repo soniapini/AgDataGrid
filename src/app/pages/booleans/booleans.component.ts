@@ -3,12 +3,8 @@ import { Subscription } from 'rxjs';
 import { GridCommonService } from '../../services/grid-common.service';
 import { AgGridEvent, GridOptions } from 'ag-grid-community';
 import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef';
-
-import {
-  BooleanCellRendererComponent
-} from 'se-ui-datagrid';
+import { BooleanCellRendererComponent, MatColor, BoolEditor } from 'se-ui-datagrid';
 import { DataRestClientService } from '../../services/data-rest-client.service';
-
 @Component({
   selector: 'app-booleans',
   templateUrl: './booleans.component.html',
@@ -105,8 +101,8 @@ export class BooleansComponent implements OnInit, OnDestroy {
         cellRendererParams: () => {
           return {
               disabled: false,
-              color: 'warn',
-              editor: 'checkbox'
+              color: MatColor.WARN,
+              editor: BoolEditor.CHECKBOX
           };
         }
       },
@@ -117,8 +113,8 @@ export class BooleansComponent implements OnInit, OnDestroy {
         cellRendererParams: () => {
           return {
               disabled: false,
-              color: 'accent',
-              editor: 'slideToggle'
+              color: MatColor.ACCENT,
+              editor: BoolEditor.SLIDETOGGLE
           };
         }
       }

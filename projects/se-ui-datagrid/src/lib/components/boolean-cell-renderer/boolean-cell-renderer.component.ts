@@ -1,5 +1,14 @@
 import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
+import { MatColor, BoolEditor } from '../../models/commons.enum';
+
+/**
+ * Editor Custom AgGrid for Booleans Input.
+ * Params:
+ * - disabled: (Optional) it define if in-line editing is allowed or not.
+ * - color: (Optional) it allows to specify witch standard material color  to apply  'PRIMARY' 'ACCENT', 'WARN'.
+ * - editor (Default true) it allows to specify witch material component to show, 'CHECKBOX' or 'SLIDETOGGLE.
+ */
 
 @Component({
   selector: 'se-boolean-cell-renderer',
@@ -11,8 +20,8 @@ export class BooleanCellRendererComponent implements ICellRendererAngularComp {
 
   public checked: boolean = false;
   public disabled: boolean = false;
-  public color: string;
-  public editor: string;
+  public color: MatColor = MatColor.PRIMARY;
+  public editor: BoolEditor = BoolEditor.CHECKBOX;
 
   agInit(params: any): void {
     this.params = params;
@@ -20,7 +29,6 @@ export class BooleanCellRendererComponent implements ICellRendererAngularComp {
     this.disabled = this.params.disabled;
     this.color = this.params.color;
     this.editor = this.params.editor;
-    console.log('color: ', this.color);
   }
 
   onChange(checked: boolean) {

@@ -12,4 +12,5 @@ export * from './lib/components/column-constraint-tooltip/column-constraint-tool
 export * from './lib/components/boolean-cell-renderer/boolean-cell-renderer.component';
 export * from './lib/models/date-input.enum';
 export * from './lib/models/date-format.enum';
+export * from './lib/models/commons.enum';
 export * from './lib/se-ui-datagrid.module';
