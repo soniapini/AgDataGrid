@@ -7,7 +7,6 @@ import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef'
 import {
   AlphanumericCellEditorComponent,
   ColumnConstraintTooltipComponent,
-  CustomCellComponent,
   LetterCellEditorComponent,
   NumericCellEditorComponent
 } from 'se-ui-datagrid';
@@ -81,8 +80,7 @@ export class BaseGridComponent implements OnInit, OnDestroy {
       numericCellEditor: NumericCellEditorComponent,
       letterCellEditor: LetterCellEditorComponent,
       alphanumericCellEditor: AlphanumericCellEditorComponent,
-      notAdmissibleCharsTooltip: ColumnConstraintTooltipComponent,
-      customCell: CustomCellComponent
+      notAdmissibleCharsTooltip: ColumnConstraintTooltipComponent
     };
 
     this.gridOptions = {

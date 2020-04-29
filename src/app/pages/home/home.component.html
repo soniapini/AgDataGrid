@@ -1,13 +1,14 @@
 <h1>Examples</h1>
 <!-- BASE -->
 <mat-card>
-  <mat-card-title>Booleans Table</mat-card-title>
-  <mat-card-subtitle>ag-grid con renderer e editor custom</mat-card-subtitle>
-  <mat-card-content>Demo Base Table che implementa i seguenti componenti della libreria: <br/>
-    Campo checkbox: utilizza un renderer che implementa un componente checkbox di material. <br/>
-    Campi SlideToogle: utilizzano editor custom per soli booleani che implementa un slide-toogle di material
+  <mat-card-title>Base Table</mat-card-title>
+  <mat-card-subtitle>ag-grid con editor custom: lettere e numeri</mat-card-subtitle>
+  <mat-card-content>Demo Base Table con primi editor custom. <br/>
+    Campo Sport: utilizza editor custom per soli caratteri alfabetici (letterCellEditorComponent). <br/>
+    Campi Age e Year: utilizzano editor custom per soli caratteri numerici No decimali (numericCellEditorComponent)<br/>
+    Campo Score: utilizza editor custom per soli caratteri numerici con max 2 decimali ((numericCellEditorComponent)
   </mat-card-content>
-  <mat-card-actions align="end"><a routerLink="/booleans" routerLinkActive="active" mat-raised-button>Apri</a>
+  <mat-card-actions align="end"><a routerLink="/base" routerLinkActive="active" mat-raised-button>Apri</a>
   </mat-card-actions>
 </mat-card>
 
@@ -26,14 +27,13 @@
 
 <!-- BOOLEANS -->
 <mat-card>
-  <mat-card-title>DateTime Table</mat-card-title>
-  <mat-card-subtitle>ag-grid con editor custom: dateTime, Date e Time</mat-card-subtitle>
-  <mat-card-content>Demo Base Table contenente i seguenti editor custom. <br/>
-    Campo admission: utilizza editor custom DateTime. <br/>
-    Campi xxx: utilizza editor custom Date<br/>
-    Campo yyy: utilizza editor custom per Time
+  <mat-card-title>Booleans Table</mat-card-title>
+  <mat-card-subtitle>ag-grid con renderer e editor custom</mat-card-subtitle>
+  <mat-card-content>Demo Base Table che implementa i seguenti componenti della libreria: <br/>
+    Campo checkbox: utilizza un renderer che implementa un componente checkbox di material. <br/>
+    Campi SlideToogle: utilizzano editor custom per soli booleani che implementa un slide-toogle di material
   </mat-card-content>
-  <mat-card-actions align="end"><a routerLink="/date-time" routerLinkActive="active" mat-raised-button>Apri</a>
+  <mat-card-actions align="end"><a routerLink="/booleans" routerLinkActive="active" mat-raised-button>Apri</a>
   </mat-card-actions>
 </mat-card>
 

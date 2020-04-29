@@ -5,8 +5,7 @@ import { AgGridEvent, GridOptions } from 'ag-grid-community';
 import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef';
 
 import {
-  BooleanCellRendererComponent,
-  BooleanCellEditorComponent
+  BooleanCellRendererComponent
 } from 'se-ui-datagrid';
 import { DataRestClientService } from '../../services/data-rest-client.service';
 
@@ -71,8 +70,7 @@ export class BooleansComponent implements OnInit, OnDestroy {
     });
 
     this.frameworkComponents = {
-      booleanCellRenderer: BooleanCellRendererComponent,
-      booleanCellEditor: BooleanCellEditorComponent
+      booleanCellRenderer: BooleanCellRendererComponent
     };
 
     this.gridOptions = {
@@ -81,7 +79,7 @@ export class BooleansComponent implements OnInit, OnDestroy {
       paginationAutoPageSize: true,
       // rowHeight: 40,
       onGridReady: this.onGridReady,
-      // onGridSizeChanged: this.onGridSizeChanged,
+      onGridSizeChanged: this.onGridSizeChanged,
       frameworkComponents: this.frameworkComponents,
     };
 
@@ -102,23 +100,27 @@ export class BooleansComponent implements OnInit, OnDestroy {
       {
         headerName: 'checkbox',
         field: 'checkbox',
+        width: 50,
         cellRendererFramework: this.frameworkComponents.booleanCellRenderer,
         cellRendererParams: () => {
           return {
-              disabled: true
+              disabled: false,
+              color: 'warn',
+              editor: 'checkbox'
           };
         }
       },
       {
         headerName: 'slider',
         field: 'slider',
-        cellEditorFramework: this.frameworkComponents.,
+        cellRendererFramework: this.frameworkComponents.booleanCellRenderer,
         cellRendererParams: () => {
           return {
-              disabled: true
+              disabled: false,
+              color: 'accent',
+              editor: 'slideToggle'
           };
-        },
-        editable: true
+        }
       }
     ];
   }
@@ -150,5 +152,11 @@ export class BooleansComponent implements OnInit, OnDestroy {
       .subscribe((data) => this.rowData = data);
     // this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
+  }
+
+  onGridSizeChanged(params) {
+    params.api.resetRowHeights();
+    params.api.sizeColumnsToFit();
+    params.api.resetRowHeights();
   }
 }
