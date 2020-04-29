@@ -9,8 +9,7 @@ import { RowResizeComponent } from './pages/row-resize/row-resize.component';
 import { DateTimeGridComponent } from './pages/date-time-grid/date-time-grid.component';
 import { BooleansComponent } from './pages/booleans/booleans.component';
 import { ComboGridComponent } from './pages/combo-grid/combo-grid.component';
-import { from } from 'rxjs';
-
+import { MasterDetailGridComponent } from './pages/master-detail-grid/master-detail-grid.component';
 
 const routes: Routes = [
   {
@@ -49,6 +48,10 @@ const routes: Routes = [
   {
     path: 'combo',
     component: ComboGridComponent,
+  },
+  {
+    path: 'master-detail',
+    component: MasterDetailGridComponent,
   },
   {path: '**', component: PageNotFoundComponent}
 ];

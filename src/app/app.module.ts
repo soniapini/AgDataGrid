@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { AgGridModule } from 'ag-grid-angular';
+import 'ag-grid-enterprise';
 import { HttpClientModule } from '@angular/common/http';
 import {
   AlphanumericCellEditorComponent,
@@ -31,6 +32,7 @@ import { DateTimeGridComponent } from './pages/date-time-grid/date-time-grid.com
 import { CommonModule, DatePipe } from '@angular/common';
 import { BooleansComponent } from './pages/booleans/booleans.component';
 import { ComboGridComponent } from './pages/combo-grid/combo-grid.component';
+import { MasterDetailGridComponent } from './pages/master-detail-grid/master-detail-grid.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { ComboGridComponent } from './pages/combo-grid/combo-grid.component';
     RowResizeComponent,
     DateTimeGridComponent,
     BooleansComponent,
-    ComboGridComponent
+    ComboGridComponent,
+    MasterDetailGridComponent
   ],
   exports: [],
   imports: [

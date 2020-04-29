@@ -29,4 +29,8 @@ export class DataRestClientService {
   getBooleansGridData() {
     return this.httpClient.get(`${this.baseUrl}/boolGrid${this.mockExtension}`);
   }
+
+  getUsersGridData() {
+    return this.httpClient.get(`${this.baseUrl}/usersGrid${this.mockExtension}`);
+  }
 }

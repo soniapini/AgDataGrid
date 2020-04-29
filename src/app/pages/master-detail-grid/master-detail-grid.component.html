@@ -1,0 +1,21 @@
+<div class="page-container">
+  <div class="title">
+    <h1>{{title}}</h1>
+  </div>
+  <div class="grid-wrapper">
+    <ag-grid-angular
+      id="base-grid"
+      class="base-grid ag-theme-material"
+      [gridOptions]="gridOptions"
+      [defaultColDef]="defaultColumnDef"
+      [columnDefs]="columnDefs"
+      [masterDetail]="true"
+      [detailCellRendererParams]="detailCellRendererParams"
+      [rowData]="rowData"
+      [editType]="editType"
+      [animateRows]="true"
+      (firstDataRendered)="onFirstDataRendered($event)"
+      (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+  </div>
+</div>
