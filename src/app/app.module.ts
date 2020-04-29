@@ -13,7 +13,8 @@ import {
   DateCellEditorComponent,
   LetterCellEditorComponent,
   NumericCellEditorComponent,
-  SeUiDatagridModule
+  SeUiDatagridModule,
+  BooleanCellRendererComponent
 } from 'se-ui-datagrid';
 import { HomeComponent } from './pages/home/home.component';
 import { BaseGridComponent } from './pages/base-grid/base-grid.component';
@@ -54,7 +55,8 @@ import { BooleansComponent } from './pages/booleans/booleans.component';
       LetterCellEditorComponent,
       AlphanumericCellEditorComponent,
       ColumnConstraintTooltipComponent,
-      DateCellEditorComponent]),
+      DateCellEditorComponent,
+      BooleanCellRendererComponent]),
     SeUiDatagridModule
   ],
   providers: [
