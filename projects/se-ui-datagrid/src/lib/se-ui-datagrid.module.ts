@@ -27,6 +27,7 @@ import { DateCellEditorInlineComponent } from './components/date-cell-editor/dat
 import { DateCellRendererComponent } from './components/date-cell-renderer/date-cell-renderer.component';
 
 import { BooleanCellRendererComponent } from './components/boolean-cell-renderer/boolean-cell-renderer.component';
+import { DetectUserAgent } from './utils/detect-user-agent';
 
 // import { NgxMaskModule } from 'ngx-mask';
 
@@ -62,7 +63,8 @@ import { BooleanCellRendererComponent } from './components/boolean-cell-renderer
 
   ],
   providers: [
-    DatePipe
+    DatePipe,
+    DetectUserAgent
   ],
   exports: [
     NumericCellEditorComponent,

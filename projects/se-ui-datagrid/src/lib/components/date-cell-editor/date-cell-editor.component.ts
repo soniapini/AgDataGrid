@@ -5,6 +5,7 @@ import { ICellEditorParams } from 'ag-grid-community';
 import { FormControl } from '@angular/forms';
 import { DateInputEnum } from '../../models/date-input.enum';
 import { DateFormatEnum } from '../../models/date-format.enum';
+import { DetectUserAgent } from '../../utils/detect-user-agent';
 
 /**
  * Editor Custom AgGrid for Date DateTime Time Input.
@@ -33,7 +34,7 @@ export class DateCellEditorComponent implements ICellEditorAngularComp {
   formControl: FormControl;
   inlineEditor: boolean;
 
-  constructor() {
+  constructor(private detectUserAgent: DetectUserAgent) {
   }
 
   agInit(params: ICellEditorParams): void {
@@ -74,6 +75,11 @@ export class DateCellEditorComponent implements ICellEditorAngularComp {
   private configCellEditor() {
     const inputTypeParam = this.params['inputType'];
     this.inputType = inputTypeParam ? inputTypeParam : DateInputEnum.DATE;
+    const isIEOrFireFoxOrSafari = this.detectUserAgent.isIE() || this.detectUserAgent.isFF()
+      || this.detectUserAgent.isSafari();
+    if (this.inputType === DateInputEnum.DATE_TIME && isIEOrFireFoxOrSafari) {
+      this.inputType = DateInputEnum.DATE_TIME_OLD;
+    }
     console.log('Parametro inputType: ', this.inputType);
 
     const inputFormatParam = this.params['inputFormat'];
