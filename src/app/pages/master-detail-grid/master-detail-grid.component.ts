@@ -4,7 +4,13 @@ import { Subscription } from 'rxjs';
 import { GridCommonService } from '../../services/grid-common.service';
 import { AgGridEvent, GridOptions } from 'ag-grid-community';
 import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef';
-// import {} from 'se-ui-datagrid';
+import {
+  AlphanumericCellEditorComponent,
+  DateCellEditorComponent,
+  DateCellRendererComponent,
+  DateFormatEnum,
+  DateInputEnum
+} from 'se-ui-datagrid';
 import { DataRestClientService } from '../../services/data-rest-client.service';
 
 @Component({
@@ -56,6 +62,9 @@ export class MasterDetailGridComponent implements OnInit, OnDestroy {
       .subscribe(stopEditing => {
         if (stopEditing === true) {
           this.gridApi.stopEditing();
+          this.gridApi.forEachDetailGridInfo(function(detailGridApi) {
+            detailGridApi.api.stopEditing();
+          });
           this.gridCommonServices.setStopEditing(false);
         }
       });
@@ -71,7 +80,9 @@ export class MasterDetailGridComponent implements OnInit, OnDestroy {
     });
 
     this.frameworkComponents = {
-      // numericCellEditor: NumericCellEditorComponent
+      alphanumericCellEditor: AlphanumericCellEditorComponent,
+      dateTimeCellEditor: DateCellEditorComponent,
+      dateTimeCellRender: DateCellRendererComponent
     };
 
     this.gridOptions = {
@@ -84,8 +95,9 @@ export class MasterDetailGridComponent implements OnInit, OnDestroy {
 
     this.defaultColumnDef = {
       width: 90,
-      minWidth: 90,
+      minWidth: 50,
       resizable: true,
+      flex: 1,
       editable: (params) => this.isGridEditable,
       filter: 'agTextColumnFilter'
     };
@@ -94,38 +106,35 @@ export class MasterDetailGridComponent implements OnInit, OnDestroy {
       {
         headerName: 'User Name',
         field: 'user',
-        width: 120,
         pinned: 'left',
         editable: false,
         cellRenderer: 'agGroupCellRenderer',
+        width: 100,
       },
       {
         headerName: 'Email',
-        field: 'email',
-        width: 150,
-        // cellEditorFramework: this.frameworkComponents.letterCellEditor,
-        // cellEditorParams: () => {
-        //   return {
-        //     notAdmissibleChars: ['a', 'b', 'w'],
-        //     inlineEditor: !this.isPopupEditor
-        //   };
-        // },
-
+        field: 'email'
       },
       {
         headerName: 'Department',
         field: 'department',
-        width: 90
       },
       {
         headerName: 'Hiring Year',
         field: 'hiringYear',
-        width: 90,
+        width: 60,
       },
       {
         headerName: 'Note',
         field: 'note',
-        width: 120
+        width: 200,
+        cellEditorFramework: this.frameworkComponents.alphanumericCellEditor,
+        cellEditorParams: () => {
+          return {
+            notAdmissibleChars: ['a', 'b', 'w'],
+            inlineEditor: !this.isPopupEditor
+          };
+        }
       }
     ];
 
@@ -135,17 +144,49 @@ export class MasterDetailGridComponent implements OnInit, OnDestroy {
           {
             field: 'ipv4',
             minWidth: 150,
+            cellEditorFramework: this.frameworkComponents.alphanumericCellEditor,
+            cellEditorParams: () => {
+              return {
+                notAdmissibleChars: ['a', 'b', 'w'],
+                inlineEditor: !this.isPopupEditor
+              };
+            }
           },
           {
             field: 'ipv6',
             minWidth: 150,
+            cellEditorFramework: this.frameworkComponents.alphanumericCellEditor,
+            cellEditorParams: () => {
+              return {
+                notAdmissibleChars: ['a', 'b', 'w'],
+                inlineEditor: !this.isPopupEditor
+              };
+            }
           },
           {
             field: 'login',
-            type: 'dateColumn',
+            type: 'dateTimeColumn',
+            cellEditorFramework: this.frameworkComponents.dateTimeCellEditor,
+            cellEditorParams: () => {
+              return {
+                inputType: DateInputEnum.DATE_TIME,
+                inputFormat: DateFormatEnum.SHORT,
+                inlineEditor: !this.isPopupEditor
+              };
+            },
+            cellRendererFramework: this.frameworkComponents.dateTimeCellRender,
+            cellRendererParams: () => {
+              return {
+                inputType: DateInputEnum.DATE_TIME,
+                inputFormat: DateFormatEnum.SHORT,
+              };
+            }
           }
         ],
-        defaultColDef: { flex: 1 },
+        defaultColDef: {
+          flex: 1,
+          editable: (params) => this.isGridEditable,
+        },
       },
       getDetailRowData: function (params) {
         params.successCallback(params.data.accessDetailGrid);
@@ -174,6 +215,7 @@ export class MasterDetailGridComponent implements OnInit, OnDestroy {
 
   onFirstDataRendered(params) {
     setTimeout(function () {
+      // espande l'accordion della riga passata come paramentro
       params.api.getDisplayedRowAtIndex(1).setExpanded(true);
     }, 0);
   }
@@ -186,5 +228,12 @@ export class MasterDetailGridComponent implements OnInit, OnDestroy {
       .subscribe((data) => this.rowData = data);
     this.gridApi.sizeColumnsToFit();
   }
+
+  onGridSizeChanged(params) {
+    params.api.resetRowHeights();
+    params.api.sizeColumnsToFit();
+    params.api.resetRowHeights();
+  }
+
 }
 
