@@ -30,7 +30,7 @@ import { DemoAppMockConfigService } from './services/demo-app-config.service';
 import { RowResizeComponent } from './pages/row-resize/row-resize.component';
 import { DateTimeGridComponent } from './pages/date-time-grid/date-time-grid.component';
 import { CommonModule, DatePipe } from '@angular/common';
-import { BooleansComponent } from './pages/booleans/booleans.component';
+import { BooleanGridComponent } from './pages/boolean-grid/boolean-grid.component';
 import { ComboGridComponent } from './pages/combo-grid/combo-grid.component';
 import { MasterDetailGridComponent } from './pages/master-detail-grid/master-detail-grid.component';
 
@@ -44,7 +44,7 @@ import { MasterDetailGridComponent } from './pages/master-detail-grid/master-det
     HideColsComponent,
     RowResizeComponent,
     DateTimeGridComponent,
-    BooleansComponent,
+    BooleanGridComponent,
     ComboGridComponent,
     MasterDetailGridComponent
   ],

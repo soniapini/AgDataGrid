@@ -6,11 +6,11 @@ import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef'
 import { BooleanCellRendererComponent, MatColor, BoolEditor } from 'se-ui-datagrid';
 import { DataRestClientService } from '../../services/data-rest-client.service';
 @Component({
-  selector: 'app-booleans',
-  templateUrl: './booleans.component.html',
-  styleUrls: ['./booleans.component.scss']
+  selector: 'app-boolean-grid',
+  templateUrl: './boolean-grid.component.html',
+  styleUrls: ['./boolean-grid.component.scss']
 })
-export class BooleansComponent implements OnInit, OnDestroy {
+export class BooleanGridComponent implements OnInit, OnDestroy {
   public title = 'Booleans Grid';
   public editType: string;
   public isPopupEditor: boolean;
