@@ -14,6 +14,10 @@ Run `ng build se-ui-datagrid`.
 
 Run `ng build se-ui-datagrid` to build the library, then `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Watch
+
+Run `npm run build se-ui-datagrid` and `npm run start`
+
 ## Code scaffolding
 
 Run `ng generate component <component-path/component-name> --project=se-ui-datagrid` to generate a new library component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
