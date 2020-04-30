@@ -5,7 +5,7 @@ import { BaseGridComponent } from './pages/base-grid/base-grid.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ResponsiveGridComponent } from './pages/responsive-grid/responsive-grid.component';
 import { HideColsComponent } from './pages/hide-cols/hide-cols.component';
-import { RowResizeComponent } from './pages/row-resize/row-resize.component';
+import { RowResizeGridComponent } from './pages/row-resize-grid/row-resize-grid.component';
 import { DateTimeGridComponent } from './pages/date-time-grid/date-time-grid.component';
 import { BooleanGridComponent } from './pages/boolean-grid/boolean-grid.component';
 import { ComboGridComponent } from './pages/combo-grid/combo-grid.component';
@@ -35,7 +35,7 @@ const routes: Routes = [
   },
   {
     path: 'resize',
-    component: RowResizeComponent,
+    component: RowResizeGridComponent,
   },
   {
     path: 'date-time',

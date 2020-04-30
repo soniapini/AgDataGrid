@@ -12,11 +12,11 @@ import {
 import { DataRestClientService } from '../../services/data-rest-client.service';
 
 @Component({
-  selector: 'app-row-resize',
-  templateUrl: './row-resize.component.html',
-  styleUrls: ['./row-resize.component.scss']
+  selector: 'app-row-resize-grid',
+  templateUrl: './row-resize-grid.component.html',
+  styleUrls: ['./row-resize-grid.component.scss']
 })
-export class RowResizeComponent implements OnInit, OnDestroy {
+export class RowResizeGridComponent implements OnInit, OnDestroy {
   public title = 'Row Resize';
   public editType: string;
   public isPopupEditor: boolean;

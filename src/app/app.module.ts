@@ -27,7 +27,7 @@ import { HideColsComponent } from './pages/hide-cols/hide-cols.component';
 import { APP_CONFIG } from './app.module.config';
 import { DataRestClientService } from './services/data-rest-client.service';
 import { DemoAppMockConfigService } from './services/demo-app-config.service';
-import { RowResizeComponent } from './pages/row-resize/row-resize.component';
+import { RowResizeGridComponent } from './pages/row-resize-grid/row-resize-grid.component';
 import { DateTimeGridComponent } from './pages/date-time-grid/date-time-grid.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { BooleanGridComponent } from './pages/boolean-grid/boolean-grid.component';
@@ -42,7 +42,7 @@ import { MasterDetailGridComponent } from './pages/master-detail-grid/master-det
     ResponsiveGridComponent,
     PageNotFoundComponent,
     HideColsComponent,
-    RowResizeComponent,
+    RowResizeGridComponent,
     DateTimeGridComponent,
     BooleanGridComponent,
     ComboGridComponent,
