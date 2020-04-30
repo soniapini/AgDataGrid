@@ -23,7 +23,7 @@ import { BaseGridComponent } from './pages/base-grid/base-grid.component';
 import { GridCommonService } from './services/grid-common.service';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ResponsiveGridComponent } from './pages/responsive-grid/responsive-grid.component';
-import { HideColsComponent } from './pages/hide-cols/hide-cols.component';
+import { HideColsGridComponent } from './pages/hide-cols-grid/hide-cols-grid.component';
 import { APP_CONFIG } from './app.module.config';
 import { DataRestClientService } from './services/data-rest-client.service';
 import { DemoAppMockConfigService } from './services/demo-app-config.service';
@@ -41,7 +41,7 @@ import { MasterDetailGridComponent } from './pages/master-detail-grid/master-det
     BaseGridComponent,
     ResponsiveGridComponent,
     PageNotFoundComponent,
-    HideColsComponent,
+    HideColsGridComponent,
     RowResizeGridComponent,
     DateTimeGridComponent,
     BooleanGridComponent,

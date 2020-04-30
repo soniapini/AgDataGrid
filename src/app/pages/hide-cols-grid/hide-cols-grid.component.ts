@@ -12,11 +12,11 @@ import {
 import { DataRestClientService } from '../../services/data-rest-client.service';
 
 @Component({
-  selector: 'app-hide-cols',
-  templateUrl: './hide-cols.component.html',
-  styleUrls: ['./hide-cols.component.scss']
+  selector: 'app-hide-cols-grid',
+  templateUrl: './hide-cols-grid.component.html',
+  styleUrls: ['./hide-cols-grid.component.scss']
 })
-export class HideColsComponent implements OnInit, OnDestroy {
+export class HideColsGridComponent implements OnInit, OnDestroy {
   public title: string = 'Hide Cols Grid';
   public editType: string;
   public isPopupEditor: boolean;

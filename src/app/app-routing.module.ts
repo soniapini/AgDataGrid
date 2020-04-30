@@ -4,7 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { BaseGridComponent } from './pages/base-grid/base-grid.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ResponsiveGridComponent } from './pages/responsive-grid/responsive-grid.component';
-import { HideColsComponent } from './pages/hide-cols/hide-cols.component';
+import { HideColsGridComponent } from './pages/hide-cols-grid/hide-cols-grid.component';
 import { RowResizeGridComponent } from './pages/row-resize-grid/row-resize-grid.component';
 import { DateTimeGridComponent } from './pages/date-time-grid/date-time-grid.component';
 import { BooleanGridComponent } from './pages/boolean-grid/boolean-grid.component';
@@ -31,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'hide',
-    component: HideColsComponent,
+    component: HideColsGridComponent,
   },
   {
     path: 'resize',
