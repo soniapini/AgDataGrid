@@ -29,10 +29,12 @@
     "ag-grid-angular": "^23.0.2",
     "ag-grid-community": "^23.0.2",
     "ag-grid-enterprise": "^23.0.2",
+    "classlist.js": "^1.1.20150312",
     "material-design-icons": "^3.0.1",
     "material-design-icons-iconfont": "^5.0.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
+    "web-animations-js": "^2.3.2",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
