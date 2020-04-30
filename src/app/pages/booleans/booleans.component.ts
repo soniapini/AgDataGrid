@@ -91,7 +91,6 @@ export class BooleansComponent implements OnInit, OnDestroy {
       {
         headerName: 'patient',
         field: 'patient',
-        editable: false
       },
       {
         headerName: 'checkbox',
@@ -100,12 +99,11 @@ export class BooleansComponent implements OnInit, OnDestroy {
         cellRendererFramework: this.frameworkComponents.booleanCellRenderer,
         cellRendererParams: () => {
           return {
-              disabled: false,
+              disabled: !this.isGridEditable,
               color: MatColor.WARN,
               editor: BoolEditor.CHECKBOX
           };
         },
-        editable: false
       },
       {
         headerName: 'slider',
@@ -113,12 +111,11 @@ export class BooleansComponent implements OnInit, OnDestroy {
         cellRendererFramework: this.frameworkComponents.booleanCellRenderer,
         cellRendererParams: () => {
           return {
-              disabled: false,
+              disabled: !this.isGridEditable,
               color: MatColor.ACCENT,
               editor: BoolEditor.SLIDETOGGLE
           };
         },
-        editable: false
       }
     ];
   }
