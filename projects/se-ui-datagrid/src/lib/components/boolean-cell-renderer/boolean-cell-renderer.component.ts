@@ -2,6 +2,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { BoolEditor, MatColor } from '../../models/commons.enum';
+import { ICellRendererParams } from 'ag-grid-community';
 
 /**
  * Editor Custom AgGrid for Booleans Input.
@@ -18,28 +19,27 @@ import { BoolEditor, MatColor } from '../../models/commons.enum';
 
 })
 export class BooleanCellRendererComponent implements ICellRendererAngularComp {
-  private params: any;
-
   public checked: boolean;
   public disabled: boolean;
   public color: MatColor;
   public editor: BoolEditor;
 
-  agInit(params: any): void {
+  private params: ICellRendererParams;
+
+  agInit(params: ICellRendererParams): void {
     this.params = params;
     this.checked = this.params.value;
-    this.disabled = this.params.disabled || false;
-    this.color = this.params.color || MatColor.PRIMARY;
-    this.editor = this.params.editor || BoolEditor.CHECKBOX;
+    this.disabled = this.params['disabled'] || false;
+    this.color = this.params['color'] || MatColor.PRIMARY;
+    this.editor = this.params['editor'] || BoolEditor.CHECKBOX;
   }
 
   onChange(checked: boolean) {
     this.checked = checked;
-    this.params.node.setDataValue(this.params.colDef, this.checked ? true : false);
+    this.params.node.setDataValue(this.params.column, this.checked);
   }
 
   refresh(params: any): boolean {
     return false;
   }
 }
-
