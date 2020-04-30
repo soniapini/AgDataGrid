@@ -1,32 +1,32 @@
 [
   {
     "patient": "Nicola VonRueden",
-    "checkbox": "YES",
-    "slider": "NO",
+    "checkbox": true,
+    "slider": false,
     "id": 1
   },
   {
     "patient": "Pedro Koch",
-    "checkbox": "NO",
-    "slider": "YES",
+    "checkbox": false,
+    "slider": true,
     "id": 2
   },
   {
     "patient": "Alexa Yost",
-    "checkbox": "YES",
-    "slider": "YES",
+    "checkbox": true,
+    "slider": true,
     "id": 3
   },
   {
     "patient": "Derick Rempel",
-    "checkbox": "YES",
-    "slider": "NO",
+    "checkbox": true,
+    "slider": false,
     "id": 4
   },
   {
     "patient": "Dejah Bradtke",
-    "checkbox": "YES",
-    "slider": "NO",
+    "checkbox": true,
+    "slider": false,
     "id": 5
   }
 ]

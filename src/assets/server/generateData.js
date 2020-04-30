@@ -3,7 +3,9 @@ var faker = require('faker');
 var database = {
   baseGrid: [],
   dateTimeGrid: [],
-  userMaster: []
+  userMasterGrid: [],
+  accessDetailGrid: [],
+  booleanGrid: []
 };
 
 // POPOLA BASE_GRID
@@ -34,19 +36,33 @@ for (var i = 0; i < 15; i++) {
 
 // POPOLA USER_GRID
 for (let i=0; i<15; i++) {
-  database.baseGrid.push({
+  database.userMasterGrid.push({
     user: faker.name.firstName(1) + ' ' + faker.name.lastName(0),
     email: faker.internet.email(),
     department: faker.random.arrayElement(['Operating Rooms', 'Intensive Care Units', 'Neuro Surgery', 'Cardiology', 'Oncology', 'Geriatric Unit', 'Pediatric Unit', 'Obstetrics and Gynecology', 'Oncology', 'Neurology', 'Neonatal intensive care unit']),
     hiringYear: faker.random.number({min: 1974, max: 2020}),
     note: faker.lorem.paragraph(),
+    accessDetailGrid: generateAccess(),
     id: i + 1
   });
 }
 
+function generateAccess() {
+  let accessDetailGrid = [];
+  for (let i=0; i<5; i++) {
+    accessDetailGrid.push({
+      ipv4: faker.internet.ip(),
+      ipv6: faker.internet.ipv6(),
+      login: faker.date.recent(),
+      id: i + 1
+    });
+  }
+  return accessDetailGrid
+}
+
 // POPOLA ACCESS_GRID
 for (let i=0; i<5; i++) {
-  database.baseGrid.push({
+  database.accessDetailGrid.push({
     ipv4: faker.internet.ip(),
     ipv6: faker.internet.ipv6(),
     login: faker.date.recent(),

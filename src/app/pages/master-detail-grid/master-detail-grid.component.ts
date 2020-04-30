@@ -148,7 +148,7 @@ export class MasterDetailGridComponent implements OnInit, OnDestroy {
         defaultColDef: { flex: 1 },
       },
       getDetailRowData: function (params) {
-        params.successCallback(params.data.access);
+        params.successCallback(params.data.accessDetailGrid);
       },
     };
   }
@@ -187,3 +187,4 @@ export class MasterDetailGridComponent implements OnInit, OnDestroy {
     this.gridApi.sizeColumnsToFit();
   }
 }
+
