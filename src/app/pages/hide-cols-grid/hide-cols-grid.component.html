@@ -3,15 +3,13 @@
     <h1>{{title}}</h1>
   </div>
   <div *ngIf="true">
-    <span style="margin-right: 10px;">Campo Age setting valori min e max.</span>
-    <mat-form-field class="example-full-width">
-      <mat-label>Min</mat-label>
-      <input matInput type="number" placeholder="Età minima" [(ngModel)]="minAgeConstraint">
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <mat-label>Max</mat-label>
-      <input matInput type="number" placeholder="Età massima" [(ngModel)]="maxAgeConstraint">
-    </mat-form-field>
+    <section class="example-section">
+      <mat-checkbox class="hide-cols-grid__margin" *ngFor="let col of internalColumnsDef; let $index = index"
+                    [ngModel]="col.visible"
+                    [disabled]="col.agCol.field === 'athlete'"
+                    (ngModelChange)="updateColumnsVisibility($index, !col.visible)">{{col.agCol.headerName}}
+      </mat-checkbox>
+    </section>
   </div>
   <div class="grid-wrapper">
     <ag-grid-angular
@@ -23,7 +21,8 @@
       [rowData]="rowData"
       [editType]="editType"
       [animateRows]="true"
-      (gridSizeChanged)="onGridSizeChanged($event)">
+    >
     </ag-grid-angular>
+    <!--    (gridSizeChanged)="onGridSizeChanged($event)"-->
   </div>
 </div>

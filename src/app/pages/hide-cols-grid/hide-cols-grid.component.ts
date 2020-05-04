@@ -1,15 +1,12 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GridCommonService } from '../../services/grid-common.service';
 import { AgGridEvent, GridOptions } from 'ag-grid-community';
 import { ColDef, ColGroupDef } from 'ag-grid-community/dist/lib/entities/colDef';
 
-import {
-  AlphanumericCellEditorComponent,
-  LetterCellEditorComponent,
-  NumericCellEditorComponent
-} from 'se-ui-datagrid';
+import { AlphanumericCellEditorComponent, LetterCellEditorComponent, NumericCellEditorComponent } from 'se-ui-datagrid';
 import { DataRestClientService } from '../../services/data-rest-client.service';
+import { ColumnApi } from 'ag-grid-community/dist/lib/columnController/columnApi';
 
 @Component({
   selector: 'app-hide-cols-grid',
@@ -17,7 +14,7 @@ import { DataRestClientService } from '../../services/data-rest-client.service';
   styleUrls: ['./hide-cols-grid.component.scss']
 })
 export class HideColsGridComponent implements OnInit, OnDestroy {
-  public title: string = 'Hide Cols Grid';
+  public title = 'Hide Cols Grid';
   public editType: string;
   public isPopupEditor: boolean;
   public gridOptions: GridOptions;
@@ -27,6 +24,7 @@ export class HideColsGridComponent implements OnInit, OnDestroy {
   public frameworkComponents: any;
   public rowData: any = [];
   public isGridEditable = true;
+  public sideBar: string;
   private darkThemeEventSubscription: Subscription;
   private stopEditingEventSubscription: Subscription;
   private editTypeSubscription: Subscription;
@@ -34,15 +32,114 @@ export class HideColsGridComponent implements OnInit, OnDestroy {
   private gridEditableSubscription: Subscription;
   private popupEditorSubscription: Subscription;
   private gridApi;
-  private gridColumnApi;
+  private gridColumnApi: ColumnApi;
 
-  minAgeConstraint: number = 0;
-  maxAgeConstraint: number = 99;
+  public internalColumnsDef: Array<any>;
+
+  minAgeConstraint = 0;
+  maxAgeConstraint = 99;
 
   constructor(
     private restClient: DataRestClientService,
     public gridCommonServices: GridCommonService
   ) {
+    this.sideBar = 'columns';
+    this.frameworkComponents = {
+      numericCellEditor: NumericCellEditorComponent,
+      letterCellEditor: LetterCellEditorComponent,
+      alphanumericCellEditor: AlphanumericCellEditorComponent
+    };
+
+    this.internalColumnsDef = [
+      {
+        agCol: {
+          headerName: 'Athlete',
+          field: 'athlete',
+          width: 120,
+          pinned: 'left',
+          editable: false,
+        },
+        visible: true
+      },
+      {
+        agCol: {
+          headerName: 'Sport',
+          field: 'sport',
+          width: 150
+        },
+        visible: true
+      },
+      {
+        agCol: {
+          headerName: 'Age',
+          field: 'age',
+          type: 'numberColumn',
+          width: 90,
+          cellEditorFramework: this.frameworkComponents.numericCellEditor,
+          cellEditorParams: () => {
+            return {
+              inlineEditor: !this.isPopupEditor,
+              min: this.minAgeConstraint,
+              max: this.maxAgeConstraint,
+            };
+          },
+        },
+        visible: true
+      },
+      {
+        agCol: {
+          headerName: 'Year',
+          field: 'year',
+          type: 'numberColumn',
+          width: 90,
+          cellEditorFramework: this.frameworkComponents.numericCellEditor,
+          cellEditorParams: () => {
+            return {
+              inlineEditor: !this.isPopupEditor,
+              min: 1900,
+              max: 2020
+            };
+          }
+        },
+        visible: false
+      },
+      {
+        agCol: {
+          headerName: 'Score',
+          field: 'points',
+          type: 'numberColumn',
+          width: 90,
+          cellEditorFramework: this.frameworkComponents.numericCellEditor,
+          cellEditorParams: () => {
+            return {
+              inlineEditor: !this.isPopupEditor,
+              min: 0,
+              max: 100,
+              decimal: 2
+            };
+          }
+        },
+        visible: true
+      },
+      {
+        agCol: {
+          headerName: 'Note',
+          field: 'note',
+          width: 120,
+          cellEditorFramework: this.frameworkComponents.alphanumericCellEditor,
+          cellEditorParams: () => {
+            return {
+              inlineEditor: !this.isPopupEditor,
+              notAdmissibleChars: ['%', '&'],
+            };
+          }
+        },
+        visible: false
+      }
+    ];
+    this.columnDefs = [];
+
+
   }
 
   ngOnInit(): void {
@@ -75,19 +172,10 @@ export class HideColsGridComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.frameworkComponents = {
-      numericCellEditor: NumericCellEditorComponent,
-      letterCellEditor: LetterCellEditorComponent,
-      alphanumericCellEditor: AlphanumericCellEditorComponent
-    };
-
     this.gridOptions = {
-      // headerHeight: 20,
       pagination: true,
       paginationAutoPageSize: true,
-      // rowHeight: 40,
       onGridReady: this.onGridReady,
-      // onGridSizeChanged: this.onGridSizeChanged,
       frameworkComponents: this.frameworkComponents,
     };
 
@@ -99,82 +187,8 @@ export class HideColsGridComponent implements OnInit, OnDestroy {
       filter: 'agTextColumnFilter'
     };
 
-    this.columnDefs = [
-      {
-        headerName: 'Athlete',
-        field: 'athlete',
-        width: 120,
-        pinned: 'left',
-        editable: false,
-      },
-      {
-        headerName: 'Sport',
-        field: 'sport',
-        width: 150,
-        cellEditorFramework: this.frameworkComponents.letterCellEditor,
-        cellEditorParams: () => {
-          return {
-            notAdmissibleChars: ['a', 'b', 'w'],
-            inlineEditor: !this.isPopupEditor
-          };
-        }
-      },
-      {
-        headerName: 'Age',
-        field: 'age',
-        type: 'numberColumn',
-        width: 90,
-        cellEditorFramework: this.frameworkComponents.numericCellEditor,
-        cellEditorParams: () => {
-          return {
-            inlineEditor: !this.isPopupEditor,
-            min: this.minAgeConstraint,
-            max: this.maxAgeConstraint,
-          };
-        },
-      },
-      {
-        headerName: 'Year',
-        field: 'year',
-        type: 'numberColumn',
-        width: 90,
-        cellEditorFramework: this.frameworkComponents.numericCellEditor,
-        cellEditorParams: () => {
-          return {
-            inlineEditor: !this.isPopupEditor,
-            min: 1900,
-            max: 2020
-          };
-        }
-      },
-      {
-        headerName: 'Score',
-        field: 'points',
-        type: 'numberColumn',
-        width: 90,
-        cellEditorFramework: this.frameworkComponents.numericCellEditor,
-        cellEditorParams: () => {
-          return {
-            inlineEditor: !this.isPopupEditor,
-            min: 0,
-            max: 100,
-            decimal: 2
-          };
-        }
-      },
-      {
-        headerName: 'Note',
-        field: 'note',
-        width: 120,
-        cellEditorFramework: this.frameworkComponents.alphanumericCellEditor,
-        cellEditorParams: () => {
-          return {
-            inlineEditor: !this.isPopupEditor,
-            notAdmissibleChars: ['%', '&'],
-          };
-        }
-      }
-    ];
+    this.internalColumnsDef.forEach((colDef) => this.columnDefs.push(colDef.agCol));
+
   }
 
   ngOnDestroy() {
@@ -202,8 +216,26 @@ export class HideColsGridComponent implements OnInit, OnDestroy {
     this.gridColumnApi = params.columnApi;
     this.restClient.getBaseGridData()
       .subscribe((data) => this.rowData = data);
-    // this.gridApi.resetRowHeights();
+    this.setUpColumnsVisibility();
+
     this.gridApi.sizeColumnsToFit();
+  };
+
+  private setUpColumnsVisibility() {
+    for (let index = 0; index < this.internalColumnsDef.length; index++) {
+      this.gridColumnApi.setColumnVisible(this.internalColumnsDef[index].agCol.field, this.internalColumnsDef[index].visible);
+      console.log(`Visibilità colonna ${this.internalColumnsDef[index].agCol.field}: ${this.internalColumnsDef[index].visible}`);
+    }
+  }
+
+  updateColumnsVisibility(internalColIndex: number, isVisible: boolean) {
+    this.gridColumnApi.setColumnVisible(this.internalColumnsDef[internalColIndex].agCol.field,
+      isVisible);
+    this.internalColumnsDef[internalColIndex].visible = isVisible;
+    console.log(`Visibilità colonna ${this.internalColumnsDef[internalColIndex].agCol.field}: ${isVisible}`);
+    this.gridApi.sizeColumnsToFit();
+
+    console.log('---------- ', this.gridColumnApi.getColumn(this.internalColumnsDef[internalColIndex].agCol.field).isVisible());
   }
 
 
