@@ -17,6 +17,7 @@ export class AppComponent {
   sidenavOpened: boolean;
   isGridEditable: boolean;
   isCellEditorEnabled: boolean;
+  isSingleClickEditing: boolean;
   isDark: boolean;
 
 
@@ -61,6 +62,17 @@ export class AppComponent {
     } else {
       this.gridCommonServices.setEditType(null);
       this.isCellEditorEnabled = true;
+    }
+    this.gridCommonServices.setStopEditing(true);
+  }
+
+  onChangeClickType(event: MatSlideToggleChange) {
+    if (event.checked === true) {
+      this.gridCommonServices.setSingleClickEditing(true);
+      this.isSingleClickEditing = true;
+    } else {
+      this.gridCommonServices.setSingleClickEditing(false);
+      this.isSingleClickEditing = false;
     }
     this.gridCommonServices.setStopEditing(true);
   }

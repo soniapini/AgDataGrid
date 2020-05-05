@@ -63,6 +63,15 @@
             </div>
             <div mat-subheader>Righe intere editabili</div>
           </ng-template>
+
+
+          <mat-list-item role="listitem">
+            <mat-slide-toggle [checked]="false" [disabled]="false" color="primary"
+                              (change)="onChangeClickType($event)">{{isSingleClickEditing ? 'Single-Click Editing' : 'Double-Click Editing'}}
+            </mat-slide-toggle>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+
         </mat-list>
       </mat-sidenav>
       <mat-sidenav-content>

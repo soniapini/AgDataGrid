@@ -13,6 +13,9 @@ export class GridCommonService {
   private isGridEditableStream: ReplaySubject<boolean | undefined> = new ReplaySubject(1);
   private isGridEditable$: Observable<boolean> = this.isGridEditableStream.asObservable();
 
+  private isSingleClickEditingStream: ReplaySubject<boolean | undefined> = new ReplaySubject(1);
+  private isSingleClickEditing$: Observable<boolean> = this.isSingleClickEditingStream.asObservable();
+
   private popupEditorStream: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private popupEditor$: Observable<boolean> = this.popupEditorStream.asObservable();
 
@@ -75,6 +78,14 @@ export class GridCommonService {
 
   public getGridEditable(): Observable<boolean> {
     return this.isGridEditable$;
+  }
+
+  public setSingleClickEditing(isSingleClickEditing: boolean) {
+    this.isSingleClickEditingStream.next(isSingleClickEditing);
+  }
+
+  public getSingleClickEditing(): Observable<boolean> {
+    return this.isSingleClickEditing$;
   }
 
   stopCurrentEditing() {
