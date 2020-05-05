@@ -34,6 +34,13 @@ export class BaseGridComponent extends PageCommonClass implements OnInit, OnDest
   ngOnInit(): void {
     super.ngOnInit();
 
+    this.frameworkComponents = {
+      numericCellEditor: NumericCellEditorComponent,
+      letterCellEditor: LetterCellEditorComponent,
+      alphanumericCellEditor: AlphanumericCellEditorComponent,
+      notAdmissibleCharsTooltip: ColumnConstraintTooltipComponent
+    };
+
     this.columnDefs = [
       {
         headerName: 'Athlete',
@@ -128,6 +135,18 @@ export class BaseGridComponent extends PageCommonClass implements OnInit, OnDest
 
       }
     ];
+  }
+
+  onGridReady = (params: AgGridEvent) => {
+    console.log('ricevuto evento: ', params.type);
+
+    super.onGridReady;
+    this.gridApi = params.api;
+
+
+    this.restClient.getBaseGridData()
+      .subscribe((data) => this.rowData = data);
+    this.gridApi.sizeColumnsToFit();
   }
 
 }

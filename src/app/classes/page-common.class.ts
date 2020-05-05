@@ -19,18 +19,18 @@ export class PageCommonClass implements OnInit, OnDestroy{
   public columnDefs: Array<(ColDef | ColGroupDef)>;
   public defaultColumnDef: ColDef;
   public components: any;
-  public frameworkComponents: any;
+  public frameworkComponents: any = {};
   public rowData: any = [];
   public isGridEditable = true;
   public isSingleClickEditing = true;
 
-  private darkThemeEventSubscription: Subscription;
-  private stopEditingEventSubscription: Subscription;
-  private editTypeSubscription: Subscription;
-  private startEditingSubscription: Subscription;
-  private gridEditableSubscription: Subscription;
-  private popupEditorSubscription: Subscription;
-  private singleClickEditingSubscription: Subscription;
+  public darkThemeEventSubscription: Subscription;
+  public stopEditingEventSubscription: Subscription;
+  public editTypeSubscription: Subscription;
+  public startEditingSubscription: Subscription;
+  public gridEditableSubscription: Subscription;
+  public popupEditorSubscription: Subscription;
+  public singleClickEditingSubscription: Subscription;
   public gridApi;
   public gridColumnApi;
 
@@ -81,20 +81,10 @@ export class PageCommonClass implements OnInit, OnDestroy{
       }
     });
 
-    this.frameworkComponents = {
-      numericCellEditor: NumericCellEditorComponent,
-      letterCellEditor: LetterCellEditorComponent,
-      alphanumericCellEditor: AlphanumericCellEditorComponent,
-      notAdmissibleCharsTooltip: ColumnConstraintTooltipComponent
-    };
-
     this.gridOptions = {
-      // headerHeight: 20,
       pagination: true,
       paginationAutoPageSize: true,
-      // rowHeight: 40,
       onGridReady: this.onGridReady,
-      // onGridSizeChanged: this.onGridSizeChanged,
       frameworkComponents: this.frameworkComponents,
     };
 
@@ -140,9 +130,9 @@ export class PageCommonClass implements OnInit, OnDestroy{
     console.log('ricevuto evento: ', params.type);
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    this.restClient.getBaseGridData()
-      .subscribe((data) => this.rowData = data);
-    // this.gridApi.resetRowHeights();
+    // this.restClient.getBaseGridData()
+    //   .subscribe((data) => this.rowData = data);
+    // // this.gridApi.resetRowHeights();
     this.gridApi.sizeColumnsToFit();
   }
 }
